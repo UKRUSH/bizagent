@@ -1,0 +1,66 @@
+/* Doubled class outranks the global `.plan-price strong` rule without !important. */
+.onRequest.onRequest {
+  color: var(--text);
+  font-size: clamp(1.25rem, 2vw, 1.5rem);
+}
+
+.draftBadge {
+  display: inline-block;
+  margin: 0 0 0.5rem;
+  padding: 0.25rem 0.625rem;
+  border: 1px dashed var(--control-border);
+  border-radius: 999px;
+  color: var(--text);
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.allowance {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-weight: 600;
+}
+
+.features {
+  display: grid;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.features li {
+  display: flex;
+  gap: 0.5rem;
+  align-items: flex-start;
+}
+
+.features svg {
+  flex: none;
+  margin-top: 0.2rem;
+  color: var(--link);
+}
+
+.trialBanner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem 2rem;
+  margin-bottom: 1.5rem;
+  padding: 1.25rem 1.5rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--brand-soft);
+}
+
+.trialBanner h3 {
+  margin-bottom: 0.25rem;
+}
+
+.trialBanner p {
+  margin: 0;
+  color: var(--text);
+  max-width: 60ch;
+}
