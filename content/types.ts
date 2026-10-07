@@ -82,19 +82,31 @@ export interface ProductModule {
 
 /* -------------------------------------------------------------------- Roles */
 
-export type RoleSlug = "call-center" | "sales-agent" | "personal-assistant";
+export const roleSlugs = ["call-center", "sales-agent", "personal-assistant"] as const;
+
+export type RoleSlug = (typeof roleSlugs)[number];
 
 export interface OperatingRole {
   slug: RoleSlug;
   title: string;
   /** Short card copy (spec 6.3). */
   summary: string;
+  /** Role page h1. */
+  headline: string;
   description: string;
   /** What the assistant does in this role (source section 2). */
   responsibilities: string[];
   /** Work that stays with people. */
   teamResponsibilities: string[];
   modules: ModuleSlug[];
+  workflow: string[];
+  /** Exactly three. */
+  useCases: UseCase[];
+  faqs: Question[];
+  /** Industry slugs where this role is common. */
+  relatedIndustries: string[];
+  /** Matching value of the demo form's "Main role" field (spec 12.1). */
+  formRole: "call-center" | "sales" | "personal-assistant";
   href: string;
   ctaLabel: string;
 }

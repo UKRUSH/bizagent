@@ -28,6 +28,11 @@ const checks = [
   ["/features", 200, "Thirteen modules for every call and message."],
   ...moduleSlugs.map((slug) => [`/features/${slug}`, 200, "Illustrative demo"]),
   ["/features/not-a-module", 404, "We couldn’t find that page."],
+  ["/solutions/call-center", 200, "Answer routine calls and keep every queue moving."],
+  ["/solutions/sales-agent", 200, "Respond to every enquiry and keep follow-ups moving."],
+  ["/solutions/personal-assistant", 200, "Protect your time without missing what matters."],
+  ["/solutions/not-a-role", 404, "We couldn’t find that page."],
+  ["/enterprise", 200, "Built around your organisation"],
   ["/does-not-exist", 404, "We couldn’t find that page."],
 ];
 

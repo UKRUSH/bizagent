@@ -1,5 +1,5 @@
 import { NextResponse, type NextRequest } from "next/server";
-import { moduleSlugs } from "@/content/types";
+import { moduleSlugs, roleSlugs } from "@/content/types";
 
 /**
  * Unknown slugs must return a real 404 (spec 14.1, 23.2). With Cache Components the
@@ -9,6 +9,7 @@ import { moduleSlugs } from "@/content/types";
  */
 const knownSlugs: Record<string, ReadonlySet<string>> = {
   features: new Set<string>(moduleSlugs),
+  solutions: new Set<string>(roleSlugs),
 };
 
 /** Unmatched path; rewriting here renders app/not-found.tsx with a 404 status. */
@@ -32,5 +33,5 @@ function safeDecode(value: string): string {
 }
 
 export const config = {
-  matcher: ["/features/:slug"],
+  matcher: ["/features/:slug", "/solutions/:slug"],
 };

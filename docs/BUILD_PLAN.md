@@ -158,7 +158,15 @@ Spec: §13, §4.3, §16–19, §23.
 | 2 | Done | Typed content layer + 60 automated checks (`npm test`). Typecheck, lint and build pass. |
 | 3 | Done | Homepage, all 12 sections. 64 tests, typecheck, lint and build pass; page is fully static. Reviewed in screenshots at 1440 px and a true 390 px viewport. |
 | 4 | Done | `/platform`, `/features`, 13 `/features/[slug]` pages. 65 tests, typecheck, lint, build and 18/18 route smoke checks pass. |
-| 5–10 | Not started | |
+| 5 | Done | `/solutions/[slug]` (3 roles) and `/enterprise`. 68 tests, typecheck, lint, build and 23/23 smoke checks pass. |
+| 6–10 | Not started | |
+
+### Part 5 implementation notes
+
+- Role pages share one template: hero with a static labelled conversation (`RoleConversation`, reusing `content/previews.ts`), "what the assistant handles / what stays with your team", 5-step workflow, the role's modules with highlights and availability, 3 use cases, related industries, FAQs, CTA. The CTA links to `/book-demo?role=<formRole>` so Part 9 can preselect the role.
+- `content/roles.ts` gained headline, workflow, use cases, FAQs, related industries and `formRole`; `roleSlugs` is exported from `content/types.ts` and registered in `proxy.ts` (unknown `/solutions/*` → 404).
+- Enterprise page (`content/enterprise.ts`): five quoted packages (no prices; CTA `/book-demo?plan=<tier>`), white-label points, deployment options with status, requirements assessed case by case (VPC, private links, own cloud and on-prem are only named as requirements to assess, per spec 10), website/app embedding, approval controls, interim security statement, contract-based service levels (no SLA figures), 5-step engagement process.
+- **Bug fixed across parts:** global classes inside CSS Modules (e.g. `.tierGrid .card`) are hashed and never match. All such selectors now use `:global(.card)`; this also fixed card padding on the Platform and module pages from Part 4.
 
 ### Part 4 implementation notes
 

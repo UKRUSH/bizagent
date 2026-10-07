@@ -219,7 +219,7 @@
   font-size: 1.125rem;
 }
 
-.groupGrid .card {
+.groupGrid :global(.card) {
   padding: var(--space-6);
 }
 
@@ -392,7 +392,7 @@
   gap: var(--space-6);
 }
 
-.layerGrid .card {
+.layerGrid :global(.card) {
   padding: var(--space-6);
 }
 

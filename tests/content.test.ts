@@ -2,7 +2,8 @@ import assert from "node:assert/strict";
 import { describe, it } from "node:test";
 import { deploymentOptions, enterpriseArchitectures, channelEmbedding } from "@/content/deployment";
 import { homepageFaqs } from "@/content/faqs";
-import { parseDemoPreselection } from "@/content/form-options";
+import { engagementSteps, enterpriseRequirements, serviceLevelStatement, whiteLabelPoints } from "@/content/enterprise";
+import { parseDemoPreselection, roleOptions } from "@/content/form-options";
 import { approvalControls, escalationTriggers, handoffContext, handoffTypes, operatingPrinciples } from "@/content/handoff";
 import { getHomepageIndustries, industries } from "@/content/industries";
 import { integrationCategories } from "@/content/integrations";
@@ -199,6 +200,20 @@ describe("roles, FAQs, trust and forms", () => {
     for (const role of roles) for (const slug of role.modules) assert.ok(knownModules.has(slug), slug);
   });
 
+  for (const role of roles) {
+    it(`${role.slug} role page content is complete and cross-references are valid`, () => {
+      assert.equal(role.useCases.length, 3);
+      assert.ok(role.workflow.length >= 3);
+      assert.ok(role.faqs.length > 0);
+      assert.ok(role.teamResponsibilities.length > 0, "the team's responsibilities must be stated");
+      for (const slug of role.relatedIndustries) {
+        assert.ok(industries.some((industry) => industry.slug === slug), slug);
+      }
+      assert.ok(roleOptions.some((option) => option.value === role.formRole), role.formRole);
+      assert.equal(role.href, `/solutions/${role.slug}`);
+    });
+  }
+
   it("has the eight homepage questions from spec 6.11", () => {
     assert.equal(homepageFaqs.length, 8);
   });
@@ -259,6 +274,10 @@ describe("publication guardrails (spec 1.2)", () => {
     sharedLayer,
     platformInterfaces,
     architectureDescription,
+    whiteLabelPoints,
+    enterpriseRequirements,
+    engagementSteps,
+    serviceLevelStatement,
   };
 
   function collectStrings(value: unknown, path: string, out: { path: string; text: string }[]) {
