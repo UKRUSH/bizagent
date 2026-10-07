@@ -15,6 +15,8 @@ import {
   planFamilies,
   plans,
 } from "@/content/plans";
+import { moduleIllustrations } from "@/content/module-illustrations";
+import { architectureDescription, platformChannels, platformInterfaces, sharedLayer } from "@/content/platform";
 import { rolePreviews } from "@/content/previews";
 import { roles } from "@/content/roles";
 import { proofPackDocuments, securityControls, securityInterimStatement } from "@/content/security";
@@ -144,6 +146,18 @@ describe("industries (spec 9)", () => {
   }
 });
 
+describe("module illustrations (spec 7.1)", () => {
+  it("has a fictional illustration for every module", () => {
+    assert.deepEqual(Object.keys(moduleIllustrations).sort(), [...moduleSlugs].sort());
+    for (const [slug, illustration] of Object.entries(moduleIllustrations)) {
+      assert.ok(illustration.events.length >= 3, slug);
+      for (const event of illustration.events) {
+        assert.doesNotMatch(event.detail, /\+?\d[\d\s-]{7,}\d/, `${slug}: no phone-number-like strings`);
+      }
+    }
+  });
+});
+
 describe("homepage previews (spec 4.2, 6.3)", () => {
   it("has one fictional preview per role", () => {
     assert.deepEqual(
@@ -240,6 +254,11 @@ describe("publication guardrails (spec 1.2)", () => {
     onboardingStages,
     whatsappComplianceRules,
     rolePreviews,
+    moduleIllustrations,
+    platformChannels,
+    sharedLayer,
+    platformInterfaces,
+    architectureDescription,
   };
 
   function collectStrings(value: unknown, path: string, out: { path: string; text: string }[]) {

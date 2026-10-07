@@ -469,24 +469,6 @@
   align-items: start;
 }
 
-/* ------------------------------------------------------------- Final CTA */
-
-.ctaInner {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-8);
-}
-
-.ctaInner h2 {
-  margin-bottom: 0.75rem;
-}
-
-.ctaInner p {
-  margin: 0;
-}
-
 @media (max-width: 1199px) {
   .integrationGrid {
     grid-template-columns: repeat(3, minmax(0, 1fr));

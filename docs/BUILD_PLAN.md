@@ -157,7 +157,18 @@ Spec: §13, §4.3, §16–19, §23.
 | 1 | Done | Foundation, brand assets, shell. Lint + build pass; all routes static. Nav links to pages from later parts return the real 404 until those parts land. |
 | 2 | Done | Typed content layer + 60 automated checks (`npm test`). Typecheck, lint and build pass. |
 | 3 | Done | Homepage, all 12 sections. 64 tests, typecheck, lint and build pass; page is fully static. Reviewed in screenshots at 1440 px and a true 390 px viewport. |
-| 4–10 | Not started | |
+| 4 | Done | `/platform`, `/features`, 13 `/features/[slug]` pages. 65 tests, typecheck, lint, build and 18/18 route smoke checks pass. |
+| 5–10 | Not started | |
+
+### Part 4 implementation notes
+
+- Module page (`app/(marketing)/features/[slug]/page.tsx`) follows the spec 7.1 template: intro, labelled illustration (`content/module-illustrations.ts`), every feature group, workflow, three use cases, benefits, human controls, integrations + dependencies, FAQ, related modules, demo CTA preselecting the module.
+- **404 for unknown slugs:** Cache Components removes `dynamicParams`, and the shell for an unknown param starts streaming before `notFound()` runs, which fixed the status at 200. `proxy.ts` now checks `/features/:slug` against the slug list and rewrites unknown ones to an unmatched path, giving a real 404 (the approach the Next docs recommend). **Part 7 must add industry slugs to `proxy.ts`.**
+- Platform page: channels, the spec 7.2 architecture as responsive HTML with a written description, shared layer, three interfaces, handoff triggers/types/context, deployment options with status badges.
+- `/features` catalogue: category filter (`aria-pressed` buttons, status announcement); all cards are in the server HTML. Featured Agent BIZ MASTER card.
+- Shared components added: `PageHero`, `Breadcrumbs`, `CtaBand`, `StatusBadge`.
+- Module pages link to `/integrations#<category-id>` — Part 7 must give each integration category that element id.
+- New scripts: `npm run smoke` (HTTP route checks against a running server; `BASE_URL` to override). `npm run typecheck` now runs `next typegen` first so `PageProps<"/features/[slug]">` resolves.
 
 ### Part 3 implementation notes
 
