@@ -1,0 +1,36 @@
+# Netlify configuration for the BizMaster AI Agent website.
+#
+# Netlify detects Next.js and builds it with its own Next.js runtime (OpenNext-based,
+# @netlify/plugin-nextjs), installed automatically. Server features — the form API routes,
+# proxy.ts and request-time rendering — run as Netlify Functions.
+#
+# Secrets and per-site values are not set here. Add them under
+# Site configuration → Environment variables, scoped to Builds and Functions:
+#
+#   SITE_URL           Production origin, e.g. https://your-domain. Needed at build time:
+#                      canonicals, sitemap, robots and social images use it, and it falls
+#                      back to http://localhost:3000 when missing.
+#   SITE_INDEXING      "true" only after content approval; anything else blocks indexing.
+#   LEAD_STORE_URL     HTTPS endpoint that receives demo requests and enquiries.
+#   LEAD_STORE_SECRET  Shared secret sent with each request to that endpoint.
+#
+# LEAD_STORE_DIR (file storage), NOTIFICATION_WEBHOOK_* and OUTBOX_PROCESS_SECRET need a Node
+# server with a persistent disk, so they do not apply on Netlify. Without LEAD_STORE_URL the
+# forms show an honest "couldn't receive" error instead of reporting a request as sent.
+#
+# Security headers (HSTS, X-Frame-Options, etc.) are set in next.config.ts.
+
+[build]
+  command = "npm run build"
+  publish = ".next"
+
+[build.environment]
+  NODE_VERSION = "24"
+  NEXT_TELEMETRY_DISABLED = "1"
+
+# Hero video and poster in public/media are not content-hashed, so cache them for a day
+# and refresh in the background rather than marking them immutable.
+[[headers]]
+  for = "/media/*"
+  [headers.values]
+    Cache-Control = "public, max-age=86400, stale-while-revalidate=604800"
