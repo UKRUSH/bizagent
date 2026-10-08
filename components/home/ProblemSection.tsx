@@ -32,7 +32,7 @@ export function ProblemSection() {
     <section className="section" aria-labelledby="problem-title">
       <div className="container">
         <SectionHeading id="problem-title" title="When calls and follow-ups slip through, opportunities do too." />
-        <div className={styles.grid4}>
+        <div className={`${styles.grid4} ${styles.problemGrid}`}>
           {problems.map((problem) => (
             <article key={problem.title} className="card">
               <div className="card-icon">{problem.icon}</div>

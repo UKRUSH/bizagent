@@ -1,0 +1,406 @@
+/* ---------------------------------------------------------------------------
+   UI polish layer, loaded after globals.css. It adds depth, feedback and
+   decoration on top of the base design without changing content or tokens
+   that the contrast tests check.
+
+   Rules for this file:
+   - Decoration goes in ::before/::after layers so text keeps a solid,
+     measurable background (the audit checks contrast against it).
+   - Motion respects prefers-reduced-motion; forced-colors keeps borders.
+   --------------------------------------------------------------------------- */
+
+/* Typography -------------------------------------------------------------- */
+
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+h1, h2, h3 { text-wrap: balance; }
+p, li, dd { text-wrap: pretty; }
+html { scrollbar-color: color-mix(in srgb, var(--brand) 55%, var(--border)) transparent; }
+
+/* Small accent line before section eyebrows. */
+.section-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+}
+.section-eyebrow::before {
+  content: "";
+  width: 1.5rem;
+  height: 2px;
+  border-radius: 2px;
+  background: currentColor;
+}
+
+/* Header ------------------------------------------------------------------ */
+
+.site-header {
+  border-bottom: 1px solid rgb(255 255 255 / 0.1);
+  box-shadow: 0 1px 0 rgb(0 0 0 / 0.06), 0 8px 28px rgb(38 4 58 / 0.22);
+}
+.desktop-nav { gap: 0.25rem; }
+.desktop-nav__list > li > a,
+.nav-trigger {
+  padding: 0.5rem 0.75rem;
+  border-radius: 999px;
+  transition: background-color 160ms ease;
+}
+.desktop-nav__list > li > a:hover,
+.nav-trigger:hover,
+.nav-trigger[aria-expanded="true"] {
+  background: rgb(255 255 255 / 0.12);
+  text-decoration: none;
+}
+/* Current page: a pill plus an underline, so it isn't shown by colour alone. */
+.desktop-nav__list > li > a[aria-current="page"] {
+  background: rgb(255 255 255 / 0.16);
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.45em;
+}
+.header-demo { box-shadow: 0 6px 18px -6px rgb(0 0 0 / 0.45); }
+
+/* Dropdown and mobile menu open with a short fade. */
+.nav-panel {
+  padding: 0.5rem;
+  border-color: var(--border);
+  box-shadow: 0 24px 60px -12px rgb(16 24 40 / 0.28), 0 0 0 1px rgb(0 0 0 / 0.02);
+  animation: panel-in 160ms ease-out;
+  transform-origin: top center;
+}
+.mobile-nav { animation: panel-in 180ms ease-out; }
+@keyframes panel-in {
+  from { opacity: 0; transform: translateY(-6px) scale(0.98); }
+  to { opacity: 1; transform: none; }
+}
+
+/* Buttons ----------------------------------------------------------------- */
+
+.button {
+  background-image: var(--gradient-brand);
+  box-shadow: var(--shadow-brand);
+  transition: background-color 180ms ease, transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+}
+.button:hover {
+  background-image: linear-gradient(135deg, var(--brand-deep), var(--brand));
+  box-shadow: 0 14px 28px -10px rgb(93 14 139 / 0.6);
+}
+.button:active { transform: translateY(0); }
+.button svg { transition: transform 180ms ease; }
+.button:hover svg { transform: translateX(3px); }
+
+/* Variants keep their flat colours. */
+.button:is(.button--secondary, .button--white, .button--whatsapp),
+.button:is(.button--secondary, .button--white, .button--whatsapp):hover { background-image: none; }
+.button--secondary { box-shadow: var(--shadow-sm); }
+.button--secondary:hover { border-color: var(--link); box-shadow: var(--shadow-sm); }
+.button--white { box-shadow: 0 8px 20px -8px rgb(0 0 0 / 0.35); }
+.button--white:hover { box-shadow: 0 12px 26px -10px rgb(0 0 0 / 0.45); }
+.button--whatsapp { box-shadow: 0 10px 24px -10px rgb(7 94 84 / 0.6); }
+.hero .button--secondary { box-shadow: none; }
+.hero .button--secondary:hover { border-color: #ffffff; }
+.button:disabled { box-shadow: none; }
+
+/* Text links with an arrow nudge the arrow on hover. */
+a:not(.button) > svg { transition: transform 180ms ease; }
+a:not(.button):hover > svg:last-child { transform: translateX(3px); }
+
+/* Home hero --------------------------------------------------------------- */
+
+.hero {
+  overflow: hidden;
+  isolation: isolate;
+}
+/* Dot grid fading out from the preview side, plus a second glow. */
+.hero::before,
+.hero::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  pointer-events: none;
+}
+.hero::before {
+  inset: 0;
+  background-image: radial-gradient(rgb(230 198 255 / 0.14) 1px, transparent 1.5px);
+  background-size: 28px 28px;
+  mask-image: radial-gradient(ellipse 60% 70% at 78% 40%, #000 0%, transparent 75%);
+}
+.hero::after {
+  width: 36rem;
+  height: 36rem;
+  left: -12rem;
+  bottom: -20rem;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgb(122 31 176 / 0.28), transparent 65%);
+}
+.capability-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-color: rgb(255 255 255 / 0.28);
+  background: rgb(255 255 255 / 0.06);
+}
+.capability-chip::before {
+  content: "";
+  flex: none;
+  width: 0.375rem;
+  height: 0.375rem;
+  border-radius: 50%;
+  background: var(--brand-on-dark);
+}
+.conversation-preview {
+  border-color: rgb(230 198 255 / 0.22);
+  box-shadow: 0 0 0 1px rgb(0 0 0 / 0.4), 0 40px 90px -24px rgb(93 14 139 / 0.55), 0 18px 40px -20px rgb(0 0 0 / 0.8);
+}
+.message { box-shadow: 0 1px 0 rgb(255 255 255 / 0.04) inset; }
+.message--ai { background: linear-gradient(135deg, #4a0b70, #5d0e8b); }
+
+/* Interior page hero ------------------------------------------------------ */
+
+.page-hero {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.page-hero::before,
+.page-hero::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  pointer-events: none;
+}
+/* Glow and dot grid sit on the right, where the copy column leaves space. */
+.page-hero::before {
+  width: 44rem;
+  height: 44rem;
+  top: -18rem;
+  right: -14rem;
+  border-radius: 50%;
+  background: radial-gradient(circle, color-mix(in srgb, var(--brand) 18%, transparent), transparent 62%);
+}
+.page-hero::after {
+  inset: 0 0 0 45%;
+  background-image: var(--dot-grid);
+  background-size: 24px 24px;
+  mask-image: radial-gradient(ellipse 70% 80% at 75% 45%, #000 0%, transparent 72%);
+}
+.page-hero h1 { letter-spacing: -0.04em; }
+.breadcrumbs a { text-decoration-color: color-mix(in srgb, currentColor 40%, transparent); }
+.breadcrumbs a:hover { text-decoration-color: currentColor; }
+
+/* Cards ------------------------------------------------------------------- */
+
+.card {
+  box-shadow: var(--shadow-sm);
+  transition: transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease;
+}
+/* Cards that lead somewhere respond to hover. */
+.card--interactive:hover,
+.card:has(a:not(.button)):hover {
+  border-color: var(--border-accent);
+  box-shadow: var(--shadow-hover);
+}
+.card--interactive:hover { transform: translateY(-4px); }
+.card-icon {
+  background: linear-gradient(135deg, var(--brand-soft), color-mix(in srgb, var(--brand-soft) 55%, var(--surface-raised)));
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--link) 16%, transparent);
+  transition: transform 200ms ease;
+}
+.card:hover .card-icon { transform: scale(1.06) rotate(-3deg); }
+
+/* Pricing ----------------------------------------------------------------- */
+
+.plan-card {
+  position: relative;
+  overflow: hidden;
+}
+.plan-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 4px;
+  background: var(--gradient-brand);
+  opacity: 0.85;
+}
+.plan-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--border-accent);
+  box-shadow: var(--shadow-hover);
+}
+.plan-card--featured::before { height: 6px; opacity: 1; }
+.table-scroll { box-shadow: var(--shadow-sm); background: var(--surface-raised); }
+tbody tr { transition: background-color 150ms ease; }
+tbody tr:hover { background: color-mix(in srgb, var(--brand-soft) 45%, transparent); }
+
+/* Tabs, filters, module picker ------------------------------------------- */
+
+.tabs {
+  border-color: var(--border);
+  background: var(--surface);
+  box-shadow: inset 0 1px 2px rgb(0 0 0 / 0.04);
+}
+.tab { font-weight: 600; transition: background-color 160ms ease, color 160ms ease; }
+.tab:not([aria-selected="true"], [aria-pressed="true"]):hover { background: var(--surface-raised); }
+.tab[aria-selected="true"], .tab[aria-pressed="true"] { background-image: var(--gradient-brand); box-shadow: var(--shadow-brand); }
+.module-button { transition: border-color 160ms ease, background-color 160ms ease, transform 160ms ease; }
+.module-button:not([aria-selected="true"], [aria-pressed="true"]):hover {
+  border-color: var(--link);
+  background: var(--brand-soft);
+}
+.module-button[aria-selected="true"], .module-button[aria-pressed="true"] {
+  background-image: var(--gradient-brand);
+  box-shadow: var(--shadow-brand);
+}
+
+/* FAQ --------------------------------------------------------------------- */
+
+.faq-trigger { transition: color 160ms ease; }
+.faq-trigger:hover, .faq-item[open] .faq-trigger { color: var(--link); }
+.faq-chevron {
+  box-sizing: content-box;
+  padding: 0.375rem;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--brand-soft) 70%, transparent);
+  color: var(--link);
+  transition: transform 180ms ease, background-color 160ms ease;
+}
+.faq-trigger:hover .faq-chevron, .faq-item[open] .faq-chevron { background: var(--brand-soft); box-shadow: inset 0 0 0 1px var(--border-accent); }
+.faq-item[open] .faq-panel { animation: faq-open 200ms ease-out; }
+@keyframes faq-open {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* Forms ------------------------------------------------------------------- */
+
+/* Text-like controls only; checkboxes and radios keep their native look. */
+.field :is(input:not([type="checkbox"], [type="radio"]), select, textarea) {
+  box-shadow: var(--shadow-sm);
+  transition: border-color 160ms ease, box-shadow 160ms ease;
+}
+.field :is(input:not([type="checkbox"], [type="radio"]), select, textarea):hover { border-color: var(--text); }
+.field :is(input:not([type="checkbox"], [type="radio"]), select, textarea):focus-visible {
+  border-color: var(--focus);
+  outline: 2px solid var(--focus);
+  outline-offset: 1px;
+  box-shadow: var(--ring);
+}
+.field [aria-invalid="true"] { box-shadow: 0 0 0 3px color-mix(in srgb, var(--error) 14%, transparent); }
+
+/* CTA band ---------------------------------------------------------------- */
+
+.cta-band {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.cta-band::before,
+.cta-band::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  pointer-events: none;
+}
+.cta-band::before {
+  inset: 0;
+  background:
+    radial-gradient(ellipse 50% 90% at 100% 0%, rgb(122 31 176 / 0.9), transparent 70%),
+    radial-gradient(ellipse 40% 80% at 0% 100%, rgb(38 4 58 / 0.55), transparent 70%);
+}
+.cta-band::after {
+  inset: 0;
+  background-image: radial-gradient(rgb(255 255 255 / 0.12) 1px, transparent 1.5px);
+  background-size: 22px 22px;
+  mask-image: linear-gradient(90deg, transparent 30%, #000 100%);
+}
+
+/* Footer ------------------------------------------------------------------ */
+
+.site-footer {
+  position: relative;
+  isolation: isolate;
+}
+.site-footer::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 1px;
+  z-index: -1;
+  background: linear-gradient(90deg, transparent, rgb(230 198 255 / 0.5), transparent);
+}
+.footer-links a {
+  text-decoration-color: rgb(255 255 255 / 0.35);
+  transition: text-decoration-color 160ms ease;
+}
+.footer-links a:hover { text-decoration-color: #ffffff; }
+.theme-selector button { transition: background-color 160ms ease, color 160ms ease; }
+.theme-selector button:not([aria-pressed="true"]):hover { background: rgb(255 255 255 / 0.12); }
+
+/* Badges, callouts -------------------------------------------------------- */
+
+.status-badge { box-shadow: var(--shadow-sm); }
+.check-list svg, .feature-list li::marker { color: var(--link); }
+
+/* Scroll-in reveal --------------------------------------------------------
+   Cards and section headings rise into place as they enter the viewport.
+   Scroll-driven animations only; browsers without support show content as is. */
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    main .section .card,
+    main .section .section-heading {
+      animation: reveal linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 35%;
+    }
+  }
+}
+@keyframes reveal {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* Loading placeholder (components/ui/PageSkeleton.tsx) ---------------------- */
+
+.skeleton-line {
+  display: block;
+  width: 100%;
+  height: 0.875rem;
+  margin-bottom: 0.875rem;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--border) 25%, color-mix(in srgb, var(--border) 45%, var(--surface-raised)) 50%, var(--border) 75%);
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.4s ease-in-out infinite;
+}
+.skeleton-line--eyebrow { height: 0.625rem; margin-block: 2rem 1.25rem; }
+.skeleton-line--title { height: clamp(1.75rem, 4vw, 2.75rem); margin-bottom: 1rem; border-radius: var(--radius-sm); }
+.skeleton-card { min-height: 11rem; }
+.page-skeleton .page-hero { min-height: 26rem; }
+@keyframes skeleton-shimmer {
+  from { background-position: 200% 0; }
+  to { background-position: -200% 0; }
+}
+
+/* Responsive and preference adjustments ---------------------------------- */
+
+@media (max-width: 1199px) {
+  .desktop-nav { gap: 0.125rem; }
+  .desktop-nav__list > li > a, .nav-trigger { padding-inline: 0.5rem; }
+}
+@media (max-width: 767px) {
+  .page-hero::after { inset: 0 0 0 20%; opacity: 0.6; }
+  .page-hero::before { width: 28rem; height: 28rem; top: -14rem; right: -12rem; }
+  .hero::before { mask-image: radial-gradient(ellipse 90% 50% at 50% 75%, #000 0%, transparent 75%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .card--interactive:hover, .plan-card:hover, .card:hover .card-icon { transform: none; }
+  .button:hover svg, a:not(.button):hover > svg:last-child { transform: none; }
+  .skeleton-line { animation: none; }
+}
+@media (forced-colors: active) {
+  .hero::before, .hero::after, .page-hero::before, .page-hero::after,
+  .cta-band::before, .cta-band::after, .plan-card::before { display: none; }
+  .tab[aria-selected="true"], .module-button[aria-pressed="true"], .module-button[aria-selected="true"] { forced-color-adjust: auto; }
+}

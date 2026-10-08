@@ -1,21 +1,26 @@
 import Link from "next/link";
 import { ArrowRightIcon } from "@/components/ui/icons";
-import { ConversationPreview } from "./ConversationPreview";
+import { HeroVideo } from "./HeroVideo";
 import styles from "./home.module.css";
 
 /**
- * Homepage hero (spec 6.1). The language chip reflects the intended product languages;
- * it must match the tested configuration before launch (BUILD_PLAN open confirmation 6).
+ * Homepage hero (spec 6.1): copy on the left over a decorative background video
+ * (HeroVideo) whose subject shows on the right. The language chip reflects the intended
+ * product languages; it must match the tested configuration before launch (BUILD_PLAN
+ * open confirmation 6).
  */
 const capabilities = ["Calls and WhatsApp", "Sinhala, Tamil and English workflows", "Human handoff"];
 
 export function Hero() {
   return (
-    <section className="hero" aria-labelledby="hero-title">
-      <div className="container hero-grid">
+    <section className={`hero ${styles.heroWithVideo}`} aria-labelledby="hero-title">
+      <HeroVideo />
+      <div className={`container hero-grid ${styles.heroGrid}`}>
         <div className={styles.heroCopy}>
-          <span className="eyebrow">BizMaster Solutions · Tech Hub Division</span>
-          <h1 id="hero-title">Keep every customer conversation moving.</h1>
+          <span className={`eyebrow ${styles.heroEyebrow}`}>BizMaster Solutions · Tech Hub Division</span>
+          <h1 id="hero-title">
+            Keep every customer conversation <span className={styles.accent}>moving.</span>
+          </h1>
           <p>
             Bring calls, WhatsApp messages, bookings, and follow-ups into one AI-assisted workflow.
             Give customers timely help and give your team the context they need to take over.
@@ -48,7 +53,6 @@ export function Hero() {
             ))}
           </ul>
         </div>
-        <ConversationPreview />
       </div>
     </section>
   );

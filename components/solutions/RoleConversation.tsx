@@ -1,4 +1,5 @@
 import { previewDisclosure, stageLabels, type RolePreview } from "@/content/previews";
+import { HeadsetIcon, UserCheckIcon } from "@/components/ui/icons";
 import styles from "./solutions.module.css";
 
 /** Static, labelled fictional conversation for a role page (spec 4.2, 6.3). */
@@ -6,7 +7,12 @@ export function RoleConversation({ preview }: { preview: RolePreview }) {
   return (
     <figure className={`conversation-preview ${styles.preview}`} aria-labelledby="role-preview-caption">
       <div className="preview-toolbar">
-        <span className={styles.context}>{preview.context}</span>
+        <span className={styles.context}>
+          <span className={styles.contextIcon} aria-hidden="true">
+            <HeadsetIcon width="16" height="16" />
+          </span>
+          {preview.context}
+        </span>
         <span className={styles.demoBadge}>Illustrative demo</span>
       </div>
       <div className="preview-body">
@@ -25,9 +31,14 @@ export function RoleConversation({ preview }: { preview: RolePreview }) {
             </li>
           ))}
         </ol>
-        <div className="handoff-summary">
-          <strong>Handoff to {preview.handoff.to}</strong>
-          <p className={styles.handoffReason}>{preview.handoff.reason}</p>
+        <div className={`handoff-summary ${styles.handoff}`}>
+          <span className={styles.handoffIcon} aria-hidden="true">
+            <UserCheckIcon width="18" height="18" />
+          </span>
+          <div>
+            <strong>Handoff to {preview.handoff.to}</strong>
+            <p className={styles.handoffReason}>{preview.handoff.reason}</p>
+          </div>
         </div>
       </div>
       <figcaption id="role-preview-caption" className={`preview-disclosure ${styles.caption}`}>

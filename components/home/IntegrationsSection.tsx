@@ -27,13 +27,15 @@ export function IntegrationsSection() {
                     {/* A lone category repeats the card title, so it is announced but not shown. */}
                     <dt className={groupCategories.length === 1 ? "sr-only" : undefined}>{category.name}</dt>
                     <dd>
-                      {category.systems
-                        .map((system) =>
-                          system.status === "needs-assessment"
-                            ? system.name
-                            : `${system.name} (${integrationStatusLabels[system.status]})`,
-                        )
-                        .join(", ")}
+                      <ul className={styles.systemChips}>
+                        {category.systems.map((system) => (
+                          <li key={system.name}>
+                            {system.status === "needs-assessment"
+                              ? system.name
+                              : `${system.name} (${integrationStatusLabels[system.status]})`}
+                          </li>
+                        ))}
+                      </ul>
                     </dd>
                   </div>
                 ))}

@@ -1,4 +1,5 @@
 import { siteConfig } from "@/config/site";
+import { legalLabels, publishedLegalSlugs } from "./legal";
 
 /** Global navigation (specification section 5.2). */
 
@@ -119,14 +120,11 @@ export const footerNavigation: FooterGroup[] = [
   },
 ];
 
-/** Legal links appear only after approved text exists (spec 5, 16). */
-export const legalNavigation: NavLink[] = siteConfig.flags.legalPagesApproved
-  ? [
-      { label: "Privacy", href: "/privacy" },
-      { label: "Terms", href: "/terms" },
-      { label: "Cookies", href: "/cookies" },
-    ]
-  : [];
+/** Legal links appear only for documents with approved text (spec 5, 16). */
+export const legalNavigation: NavLink[] = publishedLegalSlugs().map((slug) => ({
+  label: legalLabels[slug],
+  href: `/${slug}`,
+}));
 
 /** True when `pathname` is `href` or a child route of it. */
 export function isActivePath(pathname: string, href: string): boolean {

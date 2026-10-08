@@ -3,8 +3,8 @@
  *
  * The site launches in the light reading theme. A stored preference of "dark", or "system"
  * while the OS prefers dark, switches page surfaces to the dark tokens. The purple header
- * and footer are unaffected. The selector UI arrives in Part 10; this initializer already
- * applies any stored preference before first paint to avoid a theme flash.
+ * and footer are unaffected. The header toggle and footer selector (lib/theme-client.ts)
+ * store the choice; this initializer applies it before first paint to avoid a theme flash.
  */
 
 export const THEME_STORAGE_KEY = "bizmaster-theme";

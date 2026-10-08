@@ -1,0 +1,1143 @@
+.split {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-12);
+  align-items: start;
+}
+
+.split h2 {
+  font-size: clamp(1.5rem, 2.5vw, 2rem);
+}
+
+.split h3 {
+  margin-top: var(--space-8);
+  font-size: 1.125rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+  gap: var(--space-6);
+}
+
+.grid :global(.card) {
+  padding: var(--space-6);
+}
+
+.grid h3 {
+  font-size: 1.125rem;
+}
+
+.routeCard {
+  display: flex;
+  flex-direction: column;
+}
+
+.routeCard :global(.button) {
+  align-self: flex-start;
+  margin-top: auto;
+}
+
+.notice {
+  padding: var(--space-6) var(--space-8);
+  border: 2px dashed var(--link);
+  border-radius: var(--radius);
+  background: var(--surface-raised);
+}
+
+.notice p:last-child {
+  margin-bottom: 0;
+}
+
+.note {
+  max-width: 65ch;
+  margin-top: var(--space-6);
+  color: var(--muted);
+  font-size: 0.9375rem;
+}
+
+/* ---------------------------------------------------------------- Contact */
+
+/* Hero panel: the privacy reminder from the intro as three "please don't send" items. */
+.dontSend {
+  justify-self: end;
+  width: 100%;
+  max-width: 26rem;
+  padding: var(--space-6);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface-raised);
+  box-shadow: var(--shadow-hover);
+}
+
+.dontSendTitle.dontSendTitle {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  margin: 0 0 1rem;
+  font-weight: 700;
+}
+
+.dontSendTitle span {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background: var(--gradient-brand);
+  color: #ffffff;
+}
+
+.dontSend ul {
+  display: grid;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.dontSend li {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  font-weight: 600;
+}
+
+.dontSend li svg {
+  flex: none;
+  padding: 0.25rem;
+  box-sizing: content-box;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--error) 14%, transparent);
+  color: var(--error);
+}
+
+.dontSendNote.dontSendNote {
+  margin: 1rem 0 0;
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+
+/* Route cards: icon, text and a whole-card link. */
+.routeGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-6);
+}
+
+.routeTile {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.routeTile :global(.card-icon) {
+  width: 2.75rem;
+  height: 2.75rem;
+  margin-bottom: 1.125rem;
+}
+
+.routeTile h3 {
+  font-size: 1.125rem;
+}
+
+.routeAction {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  margin-top: auto;
+  padding-top: 0.5rem;
+  font-weight: 600;
+}
+
+.routeAction::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius);
+}
+
+.routeTile:hover {
+  transform: translateY(-4px);
+}
+
+/* Enquiry: intro kept in view beside the form, which sits in its own card. */
+.enquiryIntro {
+  position: sticky;
+  top: calc(var(--header-height) + 1.5rem);
+}
+
+.demoNudge {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  margin-top: var(--space-6);
+}
+
+.demoNudge p {
+  margin: 0 0 0.5rem;
+}
+
+.demoNudgeTitle.demoNudgeTitle {
+  color: var(--text);
+  font-weight: 700;
+}
+
+/* The demo link sits in the flow, not stretched over the card. */
+.demoNudge .routeAction::after {
+  content: none;
+}
+
+.formCard {
+  padding: var(--space-8);
+}
+
+/* Company and next-step panels. */
+.infoPanels {
+  gap: var(--space-6);
+  align-items: stretch;
+}
+
+.infoHeader {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  margin-bottom: 1.25rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.infoHeader h2 {
+  margin: 0;
+}
+
+.infoIcon {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  background: var(--gradient-brand);
+  color: #ffffff;
+  box-shadow: var(--shadow-brand);
+}
+
+.linkRows {
+  display: grid;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.linkRows a {
+  display: flex;
+  gap: 0.875rem;
+  align-items: center;
+  padding: 0.875rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  color: var(--text);
+  font-weight: 600;
+  text-decoration: none;
+  transition: border-color 160ms ease, background-color 160ms ease;
+}
+
+.linkRows a:hover {
+  border-color: var(--border-accent);
+  background: var(--brand-soft);
+}
+
+.linkRows a > svg:first-child {
+  flex: none;
+  color: var(--link);
+}
+
+.linkRows a > svg:last-child {
+  margin-left: auto;
+  color: var(--link);
+}
+
+@media (max-width: 1023px) {
+  .dontSend {
+    justify-self: start;
+  }
+
+  .routeGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .enquiryIntro {
+    position: static;
+  }
+}
+
+@media (max-width: 767px) {
+  .routeGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .formCard {
+    padding: var(--space-4);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .routeTile:hover {
+    transform: none;
+  }
+}
+
+/* ------------------------------------------------------------- Book a demo */
+
+/* Hero panel: an outline of the form's sections. */
+.outline {
+  justify-self: end;
+  width: 100%;
+  max-width: 28rem;
+  padding: 1.25rem var(--space-6);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface-raised);
+  box-shadow: var(--shadow-hover);
+}
+
+.outlineTitle.outlineTitle {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  margin: 0 0 0.75rem;
+  font-weight: 700;
+}
+
+.outlineTitle span {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background: var(--gradient-brand);
+  color: #ffffff;
+}
+
+.outline ol {
+  display: grid;
+  gap: 0.125rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: outline;
+}
+
+.outline li {
+  display: grid;
+  grid-template-columns: 2rem 1fr;
+  column-gap: 0.75rem;
+  align-items: center;
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--radius-sm);
+  counter-increment: outline;
+}
+
+.outline li:nth-child(odd) {
+  background: var(--surface);
+}
+
+.outline li::before {
+  content: counter(outline) / "";
+  display: grid;
+  grid-row: span 2;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid var(--border-accent);
+  border-radius: 50%;
+  color: var(--link);
+  font-size: 0.875rem;
+  font-weight: 700;
+}
+
+.outline li span {
+  color: var(--muted);
+  font-size: 0.8125rem;
+  line-height: 1.45;
+}
+
+.outlineNote.outlineNote {
+  margin: 0.75rem 0 0;
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+
+/* Form gets the wider column; the aside stays in view beside it. */
+.demoLayout.demoLayout {
+  grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
+  gap: var(--space-8);
+}
+
+/* Numbers the form's top-level sections (not the nested choice groups). */
+.demoForm form {
+  counter-reset: demo-section;
+}
+
+.demoForm form > fieldset > legend {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  counter-increment: demo-section;
+}
+
+.demoForm form > fieldset > legend::before {
+  content: counter(demo-section) / "";
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: var(--gradient-brand);
+  color: #ffffff;
+  font-size: 0.9375rem;
+}
+
+/* The section being filled in is highlighted. */
+.demoForm form > fieldset {
+  transition: border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.demoForm form > fieldset:focus-within {
+  border-color: var(--border-accent);
+  box-shadow: var(--shadow-hover);
+}
+
+/* Checkbox and radio options as selectable tiles; the label fills the tile so it stays clickable. */
+.demoForm [data-columns] {
+  gap: 0.625rem;
+}
+
+.demoForm [data-columns] > :global(.checkbox-row) {
+  gap: 0.75rem;
+  min-height: 3rem;
+  padding-left: 0.875rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  transition: border-color 160ms ease, background-color 160ms ease;
+}
+
+.demoForm [data-columns] > :global(.checkbox-row) input {
+  margin-top: 0;
+}
+
+.demoForm [data-columns] > :global(.checkbox-row) label {
+  flex: 1;
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 0.875rem 0.5rem 0;
+  line-height: 1.35;
+  cursor: pointer;
+}
+
+.demoForm [data-columns] > :global(.checkbox-row):hover {
+  border-color: var(--border-accent);
+}
+
+.demoForm [data-columns] > :global(.checkbox-row):has(input:checked) {
+  border-color: var(--link);
+  background: var(--brand-soft);
+}
+
+.demoForm [data-columns] > :global(.checkbox-row):has(input:checked) label {
+  font-weight: 600;
+}
+
+/* The status region stays rendered for screen readers but leaves the grid (and its extra gap)
+   while empty; it returns to the flow as soon as it has a message. */
+.demoForm form > [role="status"]:empty {
+  position: absolute;
+  padding-block: 0;
+}
+
+.demoForm form > button[type="submit"] {
+  min-width: 14rem;
+  padding: 1rem 2rem;
+  font-size: 1.0625rem;
+}
+
+@media (max-width: 767px) {
+  .demoForm form > button[type="submit"] {
+    justify-self: stretch;
+  }
+}
+
+.demoAside {
+  display: grid;
+  gap: var(--space-6);
+}
+
+/* Sticky only where the whole aside fits below the header. */
+@media (min-width: 1024px) and (min-height: 62rem) {
+  .demoAside {
+    position: sticky;
+    top: calc(var(--header-height) + 1.5rem);
+  }
+}
+
+.demoAside .demoNudge {
+  margin-top: 0;
+  align-items: center;
+}
+
+.demoAside .demoNudge p {
+  margin-bottom: 0.25rem;
+}
+
+.asideHeading.asideHeading {
+  margin-bottom: 1.25rem;
+  font-size: 1.375rem;
+}
+
+.timeline {
+  position: relative;
+  display: grid;
+  gap: 1.25rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Connector running behind the step icons. */
+.timeline::before {
+  content: "";
+  position: absolute;
+  top: 1.25rem;
+  bottom: 1.25rem;
+  left: calc(1.25rem - 1px);
+  width: 2px;
+  background: linear-gradient(var(--link), var(--border));
+}
+
+.timeline li {
+  position: relative;
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.timeline li > div {
+  padding-top: 0.5rem;
+}
+
+.timelineIcon {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 2px solid var(--link);
+  border-radius: 50%;
+  background: var(--surface-raised);
+  color: var(--link);
+}
+
+@media (max-width: 1023px) {
+  .outline {
+    justify-self: start;
+  }
+
+  .demoLayout.demoLayout {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* --------------------------------------------------------------- Security */
+
+/* Hero panel: the three safeguards from the intro sentence. */
+.safeguards {
+  display: grid;
+  gap: 0.75rem;
+  justify-self: end;
+  width: 100%;
+  max-width: 26rem;
+  margin: 0;
+  padding: var(--space-6);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface-raised);
+  box-shadow: var(--shadow-hover);
+  list-style: none;
+}
+
+.safeguards li {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  padding: 0.875rem 1rem;
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.safeguards li > span {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background: var(--gradient-brand);
+  color: #ffffff;
+}
+
+.safeguards svg {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.secPanels {
+  gap: var(--space-6);
+  align-items: stretch;
+}
+
+.secPanelHeader {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  margin-bottom: 1.25rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.secPanelHeader h2 {
+  margin: 0;
+  font-size: clamp(1.375rem, 2.2vw, 1.75rem);
+}
+
+.secPanelIcon {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  background: var(--gradient-brand);
+  color: #ffffff;
+  box-shadow: var(--shadow-brand);
+}
+
+/* Review topics: eight icon cards, four per row. */
+.topicGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-6);
+}
+
+.topicCard :global(.card-icon) {
+  width: 2.75rem;
+  height: 2.75rem;
+  margin-bottom: 1.125rem;
+}
+
+.topicCard h3 {
+  font-size: 1.125rem;
+}
+
+.topicCard p {
+  margin: 0;
+}
+
+/* Documentation: each document as a tile with a file icon. */
+.docTiles {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.docTiles li {
+  display: flex;
+  gap: 0.625rem;
+  align-items: flex-start;
+  padding: 0.625rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  font-size: 0.9375rem;
+  line-height: 1.4;
+}
+
+.docTiles svg {
+  flex: none;
+  margin-top: 0.05rem;
+  color: var(--link);
+}
+
+/* Request form: the intro stays in view beside the long form. */
+.requestIntro {
+  position: sticky;
+  top: calc(var(--header-height) + 1.5rem);
+}
+
+.requestIntro :global(.card) {
+  margin-top: var(--space-6);
+}
+
+.requestIntro ul {
+  display: grid;
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.requestIntro li {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+}
+
+.requestIntro li svg {
+  flex: none;
+  margin-top: 0.15rem;
+  color: var(--link);
+}
+
+@media (max-width: 1023px) {
+  .safeguards {
+    justify-self: start;
+  }
+
+  .topicGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .requestIntro {
+    position: static;
+  }
+}
+
+@media (max-width: 767px) {
+  .topicGrid,
+  .docTiles {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ------------------------------------------------------------------ About */
+
+/* Hero panel: what the assistant handles vs what people handle. */
+.division {
+  display: grid;
+  gap: 0.75rem;
+  justify-self: end;
+  width: 100%;
+  max-width: 26rem;
+  padding: var(--space-6);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface-raised);
+  box-shadow: var(--shadow-hover);
+}
+
+.divisionTitle.divisionTitle {
+  margin: 0 0 0.25rem;
+  color: var(--link);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.divisionSide {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  padding: 1rem;
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+}
+
+.divisionTeam {
+  border: 1px dashed var(--link);
+  background: var(--brand-soft);
+}
+
+.divisionSide strong {
+  display: block;
+  margin-bottom: 0.375rem;
+}
+
+.divisionSide ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.375rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.divisionSide li {
+  padding: 0.2rem 0.625rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface-raised);
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+
+.divisionIcon {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  background: var(--gradient-brand);
+  color: #ffffff;
+  box-shadow: var(--shadow-brand);
+}
+
+.divisionTeam .divisionIcon {
+  border: 2px dashed var(--link);
+  background: var(--surface-raised);
+  color: var(--link);
+  box-shadow: none;
+}
+
+/* At-a-glance strip under the hero: facts and counts taken from the content. */
+.facts {
+  border-bottom: 1px solid var(--border);
+  background: var(--surface-raised);
+}
+
+.factList {
+  display: grid;
+  grid-template-columns: 1.4fr 2fr repeat(3, minmax(0, 1fr));
+  margin: 0;
+}
+
+.factList > div {
+  padding: var(--space-6) var(--space-4);
+  border-left: 1px solid var(--border);
+}
+
+.factList > div:first-child {
+  padding-left: 0;
+  border-left: 0;
+}
+
+.factList dt {
+  margin-bottom: 0.25rem;
+  color: var(--muted);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.factList dd {
+  margin: 0;
+  font-size: 1.0625rem;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+/* The three counts read as large figures. */
+.factList > div:nth-child(n + 3) dd {
+  color: var(--link);
+  font-size: clamp(1.75rem, 3vw, 2.25rem);
+  line-height: 1.1;
+}
+
+/* Principle as a full-width brand band: pull quote beside the explanation. */
+.principleBand {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding-block: clamp(3.5rem, 7vw, 6rem);
+  background: var(--brand-deep);
+  color: #ffffff;
+}
+
+.principleBand::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(ellipse 45% 90% at 100% 0%, rgb(122 31 176 / 0.85), transparent 70%),
+    radial-gradient(rgb(255 255 255 / 0.1) 1px, transparent 1.5px) 0 0 / 22px 22px;
+  pointer-events: none;
+}
+
+.principleBand :focus-visible {
+  outline-color: #ffffff;
+}
+
+.principleSplit {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  gap: var(--space-12);
+  align-items: center;
+}
+
+.principleEyebrow.principleEyebrow {
+  margin-bottom: var(--space-4);
+  color: var(--brand-on-dark);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.principleQuote {
+  position: relative;
+  margin: 0;
+  padding: var(--space-8) var(--space-8) var(--space-8) var(--space-12);
+  border-left: 4px solid var(--brand-on-dark);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  background: rgb(255 255 255 / 0.07);
+}
+
+.principleQuote::before {
+  content: "\201C";
+  content: "\201C" / "";
+  position: absolute;
+  top: 0.25rem;
+  left: 1rem;
+  color: var(--brand-on-dark);
+  font-size: 4.5rem;
+  font-weight: 800;
+  line-height: 1;
+  opacity: 0.5;
+}
+
+.principleQuote p {
+  margin: 0;
+  color: #ffffff;
+  font-size: clamp(1.375rem, 2.6vw, 2rem);
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+.principleText p {
+  color: #ffffff;
+  font-size: 1.0625rem;
+}
+
+/* Three roles as linked cards. */
+.roleGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-6);
+}
+
+.roleCard {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.roleCard h3 {
+  margin-bottom: 0.5rem;
+  font-size: 1.25rem;
+}
+
+.roleIcon {
+  display: grid;
+  place-items: center;
+  width: 3.25rem;
+  height: 3.25rem;
+  margin-bottom: 1.25rem;
+  border-radius: 50%;
+  background: var(--gradient-brand);
+  color: #ffffff;
+  box-shadow: var(--shadow-brand);
+}
+
+.roleLink {
+  display: inline-block;
+  margin-top: auto;
+  padding-top: 0.75rem;
+  font-weight: 600;
+}
+
+.roleLink svg {
+  margin-left: 0.375rem;
+  vertical-align: -0.2em;
+}
+
+/* The card's single link covers the whole card. */
+.roleLink::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius);
+}
+
+.roleCard:hover {
+  transform: translateY(-4px);
+}
+
+/* How we work: six principles, three per row. */
+.approachGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-6);
+}
+
+.approachCard {
+  position: relative;
+  overflow: hidden;
+}
+
+.approachCard::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 4px;
+  background: var(--gradient-brand);
+}
+
+.approachCard :global(.card-icon) {
+  width: 2.75rem;
+  height: 2.75rem;
+  margin-bottom: 1.125rem;
+}
+
+.approachCard h3 {
+  font-size: 1.1875rem;
+}
+
+.approachCard p {
+  margin: 0;
+}
+
+/* Numbered principles: a faint outlined number, hidden from screen readers. */
+.approachNumbered {
+  counter-reset: approach;
+}
+
+.approachNumbered .approachCard {
+  counter-increment: approach;
+}
+
+.approachNumbered .approachCard::after {
+  content: "0" counter(approach);
+  content: "0" counter(approach) / "";
+  position: absolute;
+  top: 1.25rem;
+  right: 1.5rem;
+  color: transparent;
+  font-size: 2.75rem;
+  font-weight: 800;
+  line-height: 1;
+  -webkit-text-stroke: 1.5px var(--border-accent);
+  pointer-events: none;
+}
+
+@media (max-width: 1023px) {
+  .division {
+    justify-self: start;
+  }
+
+  .principleSplit {
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+  }
+
+  .approachGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .roleGrid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Facts: product and owner on the first row, the three counts below. */
+  .factList {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .factList > div:nth-child(1),
+  .factList > div:nth-child(2) {
+    grid-column: span 3;
+    padding-left: 0;
+    border-left: 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .factList > div:nth-child(3) {
+    padding-left: 0;
+    border-left: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .roleCard:hover {
+    transform: none;
+  }
+}
+
+@media (max-width: 767px) {
+  .approachGrid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Leave room for the decorative quote mark at the top left. */
+  .principleQuote {
+    padding: var(--space-6) var(--space-6) var(--space-6) 3.25rem;
+  }
+
+  .principleQuote::before {
+    left: 0.75rem;
+    font-size: 3.5rem;
+  }
+}
+
+.channels {
+  display: grid;
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* ------------------------------------------------------------------ Legal */
+
+.legal {
+  max-width: 48rem;
+}
+
+.legal h2 {
+  margin-top: var(--space-12);
+  font-size: clamp(1.375rem, 2.2vw, 1.75rem);
+}
+
+.legal p {
+  max-width: 65ch;
+}
+
+.updated {
+  color: var(--muted);
+}
+
+@media (max-width: 1023px) {
+  .split {
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+  }
+}

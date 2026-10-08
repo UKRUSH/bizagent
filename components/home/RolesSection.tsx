@@ -1,17 +1,10 @@
 import Link from "next/link";
-import type { ReactNode } from "react";
 import { getModules } from "@/content/modules";
 import { roles } from "@/content/roles";
-import type { RoleSlug } from "@/content/types";
+import { roleIcons } from "@/components/solutions/roleIcons";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { ArrowRightIcon, HeadsetIcon, TrendingUpIcon, UserCheckIcon } from "@/components/ui/icons";
+import { ArrowRightIcon } from "@/components/ui/icons";
 import styles from "./home.module.css";
-
-const roleIcons: Record<RoleSlug, ReactNode> = {
-  "call-center": <HeadsetIcon />,
-  "sales-agent": <TrendingUpIcon />,
-  "personal-assistant": <UserCheckIcon />,
-};
 
 /** Three operating roles (spec 6.3). Each card links to its role page. */
 export function RolesSection() {
@@ -26,24 +19,29 @@ export function RolesSection() {
           </p>
         </SectionHeading>
         <div className="grid-3">
-          {roles.map((role) => (
-            <article key={role.slug} className={`card ${styles.cardWithLink}`} aria-labelledby={`role-${role.slug}`}>
-              <div className="card-icon">{roleIcons[role.slug]}</div>
-              <h3 id={`role-${role.slug}`} className={styles.cardTitle}>
-                {role.title}
-              </h3>
-              <p>{role.summary}</p>
-              <ul className={styles.moduleTags} aria-label={`Main modules for ${role.title}`}>
-                {getModules(role.modules).map((entry) => (
-                  <li key={entry.slug}>{entry.shortTitle}</li>
-                ))}
-              </ul>
-              <Link href={role.href} className={styles.cardLink}>
-                Explore the {role.title} role
-                <ArrowRightIcon width="18" height="18" />
-              </Link>
-            </article>
-          ))}
+          {roles.map((role) => {
+            const Icon = roleIcons[role.slug];
+            return (
+              <article key={role.slug} className={`card ${styles.cardWithLink}`} aria-labelledby={`role-${role.slug}`}>
+                <div className="card-icon">
+                  <Icon />
+                </div>
+                <h3 id={`role-${role.slug}`} className={styles.cardTitle}>
+                  {role.title}
+                </h3>
+                <p>{role.summary}</p>
+                <ul className={styles.moduleTags} aria-label={`Main modules for ${role.title}`}>
+                  {getModules(role.modules).map((entry) => (
+                    <li key={entry.slug}>{entry.shortTitle}</li>
+                  ))}
+                </ul>
+                <Link href={role.href} className={styles.cardLink}>
+                  Explore the {role.title} role
+                  <ArrowRightIcon width="18" height="18" />
+                </Link>
+              </article>
+            );
+          })}
         </div>
       </div>
     </section>

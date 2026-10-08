@@ -89,27 +89,68 @@
 
 /* --------------------------------------------------------------- Catalogue */
 
-.filters {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
+/* Filters stay in reach while browsing the catalogue. */
+.filterBar {
+  position: sticky;
+  top: calc(var(--header-height) + 0.75rem);
+  z-index: 5;
   margin-bottom: 1rem;
 }
 
-.filters button {
-  min-height: 2.75rem;
-  padding: 0.5rem 1rem;
-  border: 1px solid var(--control-border);
+.filters {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0.375rem;
+  padding: 0.375rem;
+  border: 1px solid var(--border);
   border-radius: 999px;
-  background: var(--surface-raised);
+  background: color-mix(in srgb, var(--surface-raised) 88%, transparent);
+  box-shadow: var(--shadow-hover);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+}
+
+.filters button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 2.75rem;
+  padding: 0.5rem 0.625rem 0.5rem 1rem;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  background: transparent;
   color: var(--text);
   font-weight: 600;
+  transition: background-color 160ms ease, color 160ms ease;
+}
+
+.filters button:hover:not([aria-pressed="true"]) {
+  background: var(--brand-soft);
 }
 
 .filters button[aria-pressed="true"] {
-  border-color: var(--brand);
   background: var(--brand);
+  background-image: var(--gradient-brand);
   color: #ffffff;
+  box-shadow: var(--shadow-brand);
+}
+
+.count {
+  display: inline-grid;
+  place-items: center;
+  min-width: 1.5rem;
+  height: 1.5rem;
+  padding: 0 0.375rem;
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--text);
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.filters button[aria-pressed="true"] .count {
+  background: #ffffff;
+  color: var(--brand-deep);
 }
 
 .filterStatus {
@@ -131,6 +172,7 @@
 }
 
 .catalogueCard {
+  position: relative;
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -138,6 +180,28 @@
 
 .catalogueCard h3 {
   margin-bottom: 0.75rem;
+}
+
+.cardTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.cardTop :global(.card-icon) {
+  margin: 0;
+}
+
+.moduleNumber {
+  padding: 0.25rem 0.625rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  color: var(--muted);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
 }
 
 .cardMeta.cardMeta {
@@ -150,19 +214,45 @@
 }
 
 .cardBenefits {
+  display: grid;
+  gap: 0.5rem;
   margin: 0 0 1.25rem;
-  padding-left: 1.125rem;
+  padding: 0;
+  list-style: none;
   font-size: 0.9375rem;
 }
 
 .cardBenefits li {
-  margin-block: 0.25rem;
+  display: flex;
+  gap: 0.5rem;
+  align-items: flex-start;
+}
+
+.cardBenefits svg {
+  flex: none;
+  margin-top: 0.25rem;
+  color: var(--link);
+}
+
+.cardFooter {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 1rem;
+  margin-top: auto;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
 }
 
 .cardAvailability.cardAvailability {
-  margin: auto 0 0.5rem;
+  margin: 0;
   color: var(--muted);
   font-size: 0.8125rem;
+}
+
+.cardFooter .cardAvailability.cardAvailability {
+  margin: 0;
 }
 
 .cardLink {
@@ -176,7 +266,135 @@
   vertical-align: -0.2em;
 }
 
+/* A catalogue card's single link covers the whole card. */
+.catalogueCard .cardLink::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius);
+}
+
+/* Closing tile after the last module in the "All modules" view (spans the empty slots). */
+.closingTile {
+  grid-column: span 2;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 1.25rem;
+  align-items: center;
+  align-content: center;
+  padding: var(--space-8) var(--space-12);
+  border: 1px dashed var(--border-accent);
+  border-radius: var(--radius);
+  background: var(--brand-soft);
+}
+
+.catalogue > li.closingTile {
+  display: grid;
+}
+
+.closingTile h3 {
+  margin-bottom: 0.5rem;
+}
+
+.closingTile p {
+  max-width: 52ch;
+  color: var(--text);
+}
+
+.closingIcon {
+  display: grid;
+  place-items: center;
+  width: 3.25rem;
+  height: 3.25rem;
+  border-radius: 50%;
+  background: var(--gradient-brand);
+  color: #ffffff;
+  box-shadow: var(--shadow-brand);
+}
+
+/* ------------------------------------------------------- Hero group overview */
+
+.overview {
+  justify-self: end;
+  width: 100%;
+  max-width: 28rem;
+  padding: var(--space-6);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface-raised);
+  box-shadow: var(--shadow-hover);
+}
+
+.overviewTitle.overviewTitle {
+  margin: 0 0 1rem;
+  color: var(--link);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.overviewList {
+  display: grid;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.overviewList li {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 0.875rem;
+  align-items: center;
+  padding: 0.75rem;
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+}
+
+.overviewList strong {
+  display: block;
+  line-height: 1.3;
+}
+
+.overviewIcon {
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 0.75rem;
+  background: var(--gradient-brand);
+  color: #ffffff;
+}
+
+.overviewIcon svg {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.overviewText {
+  display: block;
+  color: var(--muted);
+  font-size: 0.8125rem;
+  line-height: 1.45;
+}
+
+.overviewCount {
+  display: grid;
+  place-items: center;
+  min-width: 2rem;
+  height: 2rem;
+  border-radius: 999px;
+  background: var(--brand-soft);
+  color: var(--link);
+  font-size: 0.875rem;
+  font-weight: 700;
+}
+
 .featuredCard {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
   gap: var(--space-6);
@@ -186,6 +404,19 @@
   border-radius: var(--radius);
   background: var(--brand);
   color: #ffffff;
+  box-shadow: 0 24px 50px -24px rgb(93 14 139 / 0.7);
+}
+
+/* Glow and dot grid behind the text; the solid purple stays the measured background. */
+.featuredCard::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(rgb(255 255 255 / 0.12) 1px, transparent 1.5px) 0 0 / 20px 20px,
+    radial-gradient(ellipse 45% 120% at 100% 50%, rgb(122 31 176 / 0.95), transparent 70%);
+  mask-image: linear-gradient(90deg, transparent 25%, #000 85%);
 }
 
 .featuredCard h2 {
@@ -241,6 +472,8 @@
   position: relative;
   padding: var(--space-6) var(--space-4) var(--space-4);
   border-top: 3px solid var(--brand);
+  border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+  background: linear-gradient(180deg, var(--brand-soft), transparent 70%);
   counter-increment: step;
 }
 
@@ -358,6 +591,7 @@
 .nodeCore {
   border: 2px solid var(--brand);
   background: var(--brand-soft);
+  box-shadow: 0 0 0 6px color-mix(in srgb, var(--brand-soft) 60%, transparent), var(--shadow-brand);
 }
 
 .nodeHuman {
@@ -370,14 +604,22 @@
   background: var(--surface-raised);
 }
 
-/* Downward connector above each following row: decorative only (the flow is also written out). */
+/* Downward arrow above each following row: decorative only (the flow is also written out).
+   The clip-path cuts a 2px shaft and an arrowhead out of one small box. */
 .diagramRow + .diagramRow::before {
   content: "";
   grid-column: 1 / -1;
   justify-self: center;
-  width: 2px;
-  height: 1.5rem;
-  background: var(--control-border);
+  width: 12px;
+  height: 1.75rem;
+  background: linear-gradient(180deg, var(--control-border), var(--link));
+  clip-path: polygon(5px 0, 7px 0, 7px calc(100% - 6px), 12px calc(100% - 6px), 6px 100%, 0 calc(100% - 6px), 5px calc(100% - 6px));
+}
+
+@media (forced-colors: active) {
+  .diagramRow + .diagramRow::before {
+    background: CanvasText;
+  }
 }
 
 .diagramNote {
@@ -404,22 +646,6 @@
   margin-top: var(--space-16);
 }
 
-.handoffTypes {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.75rem 1.5rem;
-  margin: 0;
-}
-
-.handoffTypes dt {
-  font-weight: 600;
-}
-
-.handoffTypes dd {
-  margin: 0 0 0.5rem;
-  color: var(--muted);
-}
-
 @media (max-width: 1199px) {
   .workflow {
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -444,7 +670,6 @@
   .groupGrid,
   .layerGrid,
   .workflow,
-  .handoffTypes,
   .diagramRow2,
   .diagramRow3 {
     grid-template-columns: 1fr;
@@ -456,5 +681,33 @@
 
   .diagram {
     padding: var(--space-4);
+  }
+}
+
+@media (max-width: 767px) {
+  .filterBar {
+    position: static;
+  }
+
+  .filters {
+    border-radius: var(--radius);
+  }
+
+  .closingTile {
+    grid-column: 1 / -1;
+    grid-template-columns: 1fr;
+    padding: var(--space-6);
+  }
+
+  .overview {
+    justify-self: stretch;
+    max-width: none;
+    padding: var(--space-4);
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .overview {
+    justify-self: start;
   }
 }

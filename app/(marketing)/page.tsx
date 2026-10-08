@@ -11,6 +11,9 @@ import { RolesSection } from "@/components/home/RolesSection";
 import { TrustSection } from "@/components/home/TrustSection";
 import { WhatsAppSpotlight } from "@/components/home/WhatsAppSpotlight";
 import { WorkflowSection } from "@/components/home/WorkflowSection";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { homepageFaqs } from "@/content/faqs";
+import { homepageStructuredData } from "@/lib/structured-data";
 
 export const metadata: Metadata = {
   title: { absolute: "BizMaster AI Agent | Calls, WhatsApp and Follow-Ups" },
@@ -35,6 +38,7 @@ export default function HomePage() {
       <PricingPreview />
       <TrustSection />
       <FinalCta />
+      <JsonLd data={homepageStructuredData(homepageFaqs)} />
     </>
   );
 }

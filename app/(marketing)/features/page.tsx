@@ -3,6 +3,7 @@ import Link from "next/link";
 import { siteConfig } from "@/config/site";
 import { moduleAvailabilityLabels, moduleCategories, modules } from "@/content/modules";
 import { FeatureCatalogue, type CatalogueModule } from "@/components/features/FeatureCatalogue";
+import { FeatureOverview } from "@/components/features/FeatureOverview";
 import { CtaBand } from "@/components/ui/CtaBand";
 import { PageHero } from "@/components/ui/PageHero";
 import styles from "@/components/features/features.module.css";
@@ -34,10 +35,16 @@ export default function FeaturesPage() {
         eyebrow="Features"
         title="Thirteen modules for every call and message."
         actions={
-          <Link href="/book-demo" className="button">
-            Book a Demo
-          </Link>
+          <>
+            <Link href="/book-demo" className="button">
+              Book a Demo
+            </Link>
+            <Link href="/platform" className="button button--secondary">
+              How the platform works
+            </Link>
+          </>
         }
+        aside={<FeatureOverview />}
       >
         <p>
           Answer, follow through, understand, grow and manage. Each module works on its own and

@@ -2,7 +2,9 @@
 
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
+import { useState } from "react";
 import type { ModuleCategory } from "@/content/types";
+import { track } from "@/lib/analytics";
 import { ArrowRightIcon } from "@/components/ui/icons";
 import styles from "./ModuleExplorer.module.css";
 
@@ -38,15 +40,24 @@ export function ModuleExplorer(props: ExplorerProps) {
  * Module list and detail panel (spec 6.4). Buttons use aria-pressed rather than a partial
  * tab pattern. The selection is mirrored to `?module=` with history.replaceState, which
  * Next.js syncs with useSearchParams, so the selected module can be deep-linked.
+ *
+ * A click also updates local state right away. The static-shell copy of this view (the
+ * Suspense fallback) has a fixed `selectedSlug`, so without it a click made before the
+ * live explorer streams in would change the URL but not the panel. The local pick only
+ * applies while `selectedSlug` is unchanged; once the URL sync arrives, the URL wins.
  */
 export function ModuleExplorerView({
   modules,
   categories,
   selectedSlug,
 }: ExplorerProps & { selectedSlug: string }) {
-  const selected = modules.find((entry) => entry.slug === selectedSlug) ?? modules[0];
+  const [pick, setPick] = useState<{ slug: string; base: string } | null>(null);
+  const currentSlug = pick && pick.base === selectedSlug ? pick.slug : selectedSlug;
+  const selected = modules.find((entry) => entry.slug === currentSlug) ?? modules[0];
 
   function select(slug: string) {
+    setPick({ slug, base: selectedSlug });
+    track({ name: "module_open", module: slug });
     const params = new URLSearchParams(window.location.search);
     params.set("module", slug);
     window.history.replaceState(null, "", `?${params.toString()}${window.location.hash}`);
@@ -98,32 +109,35 @@ export function ModuleExplorerView({
       </div>
 
       <section id="module-detail" className={`card ${styles.detail}`} aria-labelledby="module-detail-title">
-        <p className={styles.availability}>{selected.availabilityLabel}</p>
-        <h3 id="module-detail-title">{selected.title}</h3>
-        <p>{selected.summary}</p>
-        <div className={styles.highlights}>
-          {selected.highlights.map((group) => (
-            <div key={group.heading}>
-              <h4>{group.heading}</h4>
-              <ul className="feature-list">
-                {group.items.map((item) => (
-                  <li key={item}>{item}</li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
-        <p className={styles.humanControl}>
-          <strong>Your team stays in control:</strong> {selected.humanControl}
-        </p>
-        <div className="button-row">
-          <Link href={`/features/${selected.slug}`} className="button">
-            View full module
-            <ArrowRightIcon width="18" height="18" />
-          </Link>
-          <Link href={`/book-demo?module=${selected.slug}`} className="button button--secondary">
-            Request this demo
-          </Link>
+        {/* Keyed so the panel content fades in again when the selection changes. */}
+        <div key={selected.slug} className={styles.detailBody}>
+          <p className={styles.availability}>{selected.availabilityLabel}</p>
+          <h3 id="module-detail-title">{selected.title}</h3>
+          <p>{selected.summary}</p>
+          <div className={styles.highlights}>
+            {selected.highlights.map((group) => (
+              <div key={group.heading}>
+                <h4>{group.heading}</h4>
+                <ul className="feature-list">
+                  {group.items.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+          <p className={styles.humanControl}>
+            <strong>Your team stays in control:</strong> {selected.humanControl}
+          </p>
+          <div className="button-row">
+            <Link href={`/features/${selected.slug}`} className="button">
+              View full module
+              <ArrowRightIcon width="18" height="18" />
+            </Link>
+            <Link href={`/book-demo?module=${selected.slug}`} className="button button--secondary">
+              Request this demo
+            </Link>
+          </div>
         </div>
       </section>
     </div>

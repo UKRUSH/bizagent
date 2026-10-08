@@ -113,6 +113,29 @@ export interface OperatingRole {
 
 /* --------------------------------------------------------------- Industries */
 
+/** Lightweight slug list for proxy.ts; a test keeps it in sync with content/industries.ts. */
+export const industrySlugs = [
+  "clinics-hospitals",
+  "hotels",
+  "restaurants",
+  "service-companies",
+  "support-teams",
+  "bpos-call-centres",
+  "institutions",
+  "real-estate",
+  "education",
+  "insurance",
+  "retail-ecommerce",
+  "d2c-brands",
+  "executives-professionals",
+  "agencies",
+  "sales-teams-smes",
+  "automotive",
+  "finance-professional-services",
+] as const;
+
+export type IndustrySlug = (typeof industrySlugs)[number];
+
 export type ConversationChannel = "phone" | "whatsapp" | "whatsapp-voice";
 
 export interface ScenarioMessage {

@@ -41,6 +41,32 @@ export const whatsappCapabilities = [
   },
 ];
 
+/** Fictional WhatsApp chat for the page hero (spec 4.2). Initials only; AI identifies itself. */
+export const whatsappPreview = {
+  businessName: "Fictional homeware shop",
+  messages: [
+    { speaker: "customer", kind: "text", text: "Hi, do you deliver to Kandy?" },
+    {
+      speaker: "assistant",
+      kind: "text",
+      text: "Hi! I'm the shop's AI assistant. Yes, we deliver to Kandy. Which item are you interested in?",
+    },
+    {
+      speaker: "customer",
+      kind: "voice-note",
+      text: "Can I pay on delivery for the blue kettle?",
+      duration: "0:09",
+    },
+    {
+      speaker: "assistant",
+      kind: "text",
+      text: "Yes, payment on delivery is available for the blue kettle. Shall I prepare the order for our team to confirm?",
+    },
+    { speaker: "customer", kind: "text", text: "Yes, please." },
+  ],
+  outcome: "Order draft created and passed to the sales team to confirm.",
+} as const;
+
 /** Voice notes and live calls are different features (spec 8.1). */
 export const voiceNotesVersusCalls = {
   voiceNotes: "Recorded audio messages sent in a chat. They are transcribed and answered as messages.",

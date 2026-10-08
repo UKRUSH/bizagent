@@ -1,0 +1,541 @@
+/* --------------------------------------------------------- Chat preview */
+
+/* Phone-style frame around the fictional chat. Every text element sits on a solid
+   colour so its contrast can be measured; the wallpaper dots are behind the bubbles. */
+.preview {
+  justify-self: center;
+  width: 100%;
+  max-width: 24rem;
+  min-width: 0;
+  margin: 0;
+  padding: 0.625rem;
+  border-radius: 2.75rem;
+  background: linear-gradient(160deg, #2c2a33, #0c0b0f);
+  color: #ffffff;
+  box-shadow:
+    inset 0 0 0 1px rgb(255 255 255 / 0.1),
+    0 40px 80px -30px rgb(93 14 139 / 0.6),
+    var(--shadow-strong);
+}
+
+.screen {
+  position: relative;
+  overflow: hidden;
+  margin: 0;
+  border-radius: 2.2rem;
+  background: #100e14;
+}
+
+/* Camera notch. */
+.screen::before {
+  content: "";
+  position: absolute;
+  top: 0.5rem;
+  left: 50%;
+  z-index: 1;
+  width: 5.5rem;
+  height: 1.375rem;
+  border-radius: 999px;
+  background: #000000;
+  translate: -50% 0;
+}
+
+.header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 2.375rem 1rem 0.875rem;
+  border-bottom: 1px solid #2e2b36;
+  background: #1c1922;
+  font-size: 0.8125rem;
+}
+
+.channel {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  font-weight: 600;
+}
+
+/* Small green channel indicator (spec 3.1), shown as the chat's avatar status. */
+.avatar {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 50%;
+  background: var(--brand-deep);
+}
+
+.avatar svg {
+  width: 1.125rem;
+  height: 1.125rem;
+}
+
+.dot {
+  position: absolute;
+  right: -1px;
+  bottom: -1px;
+  width: 0.75rem;
+  height: 0.75rem;
+  border: 2px solid #1c1922;
+  border-radius: 50%;
+  background: #25d366;
+}
+
+.demoBadge {
+  padding: 0.25rem 0.625rem;
+  border: 1px dashed #999999;
+  border-radius: 999px;
+  font-size: 0.6875rem;
+  font-weight: 700;
+}
+
+.chat {
+  display: grid;
+  gap: 0.625rem;
+  margin: 0;
+  padding: 1rem 0.875rem;
+  list-style: none;
+  background:
+    radial-gradient(rgb(255 255 255 / 0.05) 1px, transparent 1.5px) 0 0 / 16px 16px,
+    #100e14;
+}
+
+.customer,
+.assistant {
+  display: grid;
+  gap: 0.2rem;
+  max-width: 86%;
+  padding: 0.625rem 0.875rem;
+  border-radius: 1rem;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  box-shadow: 0 1px 1px rgb(0 0 0 / 0.3);
+}
+
+.customer {
+  background: #2a2732;
+  border-top-left-radius: 0.25rem;
+}
+
+.assistant {
+  justify-self: end;
+  background: var(--brand-deep);
+  border-top-right-radius: 0.25rem;
+}
+
+.sender {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.voiceNote {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  justify-self: start;
+  padding: 0.3rem 0.625rem;
+  border-radius: 999px;
+  background: #100e14;
+  font-size: 0.8125rem;
+}
+
+.transcript {
+  color: #cccccc;
+  font-size: 0.8125rem;
+  font-style: italic;
+}
+
+.outcome {
+  margin: 0;
+  padding: 0.75rem 1rem;
+  border-top: 1px solid #2e2b36;
+  background: #1c1922;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.caption {
+  padding: 0.625rem 1rem 1rem;
+  background: #1c1922;
+  color: #cccccc;
+  font-size: 0.6875rem;
+  line-height: 1.5;
+}
+
+/* ------------------------------------------------------------- Hero chips */
+
+.heroChips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0 0 var(--space-8);
+  padding: 0;
+  list-style: none;
+}
+
+.heroChips li {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.375rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface-raised);
+  box-shadow: var(--shadow-sm);
+  color: var(--text);
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.heroChips svg {
+  flex: none;
+  color: var(--link);
+}
+
+/* ------------------------------------------------------------ Page layout */
+
+.fourGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-6);
+}
+
+.fourGrid :global(.card) {
+  padding: var(--space-6);
+}
+
+.fourGrid h3 {
+  font-size: 1.0625rem;
+}
+
+.iconCard :global(.card-icon) {
+  width: 2.75rem;
+  height: 2.75rem;
+  margin-bottom: 1.125rem;
+}
+
+.iconCard p {
+  margin: 0;
+}
+
+/* Voice notes vs live calls: two cards with a "vs" marker between them. */
+.compare {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  gap: var(--space-6);
+  align-items: center;
+}
+
+.compare :global(.card) {
+  height: 100%;
+}
+
+.compare h3 {
+  font-size: 1.25rem;
+}
+
+.compare p {
+  margin: 0;
+}
+
+.vs {
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  background: var(--gradient-brand);
+  color: #ffffff;
+  font-size: 0.875rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  box-shadow: 0 0 0 6px var(--brand-soft), var(--shadow-brand);
+}
+
+.discIcon {
+  display: grid;
+  place-items: center;
+  width: 3.25rem;
+  height: 3.25rem;
+  margin-bottom: 1.25rem;
+  border-radius: 50%;
+  background: var(--gradient-brand);
+  color: #ffffff;
+  box-shadow: var(--shadow-brand);
+}
+
+/* Business tools: compact tiles with the icon beside the text. */
+.toolGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-4);
+}
+
+/* The second row takes the spare height, so a short description stays under its title. */
+.tool {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  grid-template-rows: auto 1fr;
+  gap: 0.125rem 1rem;
+  align-items: start;
+  padding: 1.25rem 1.5rem;
+}
+
+.tool :global(.card-icon) {
+  grid-row: span 2;
+  width: 2.75rem;
+  height: 2.75rem;
+  margin: 0;
+}
+
+.tool h3 {
+  margin: 0.125rem 0 0;
+  font-size: 1.0625rem;
+}
+
+.tool p {
+  margin: 0;
+}
+
+/* PBX workflows: accent bar and gradient icon disc. */
+.featureCard {
+  position: relative;
+  overflow: hidden;
+}
+
+.featureCard::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 4px;
+  background: var(--gradient-brand);
+}
+
+.featureCard p {
+  margin: 0;
+}
+
+/* Onboarding: numbered circles joined by a line. */
+.steps {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: var(--space-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: step;
+}
+
+.steps li {
+  position: relative;
+  padding-right: var(--space-3);
+  counter-increment: step;
+}
+
+.steps li::before {
+  content: counter(step);
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  margin-bottom: 1rem;
+  border-radius: 50%;
+  background: var(--gradient-brand);
+  color: #ffffff;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  box-shadow: 0 0 0 5px var(--brand-soft), var(--shadow-brand);
+}
+
+.steps strong {
+  display: block;
+}
+
+.steps p {
+  margin: 0.25rem 0 0;
+  color: var(--muted);
+  font-size: 0.9375rem;
+}
+
+@media (min-width: 1200px) {
+  .steps li:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    top: 1.25rem;
+    left: 3.25rem;
+    right: calc(-1 * var(--space-4) + 0.5rem);
+    height: 2px;
+    border-radius: 2px;
+    background: linear-gradient(90deg, var(--border-accent), var(--border));
+  }
+}
+
+.note {
+  max-width: 65ch;
+  margin-top: var(--space-6);
+  color: var(--muted);
+  font-size: 0.9375rem;
+}
+
+/* Lock icon line under the onboarding steps. */
+.assurance {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+  max-width: 48rem;
+  margin-top: var(--space-8);
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--link);
+  border-radius: var(--radius-sm);
+  background: var(--surface-raised);
+}
+
+.assurance p {
+  margin: 0;
+}
+
+.assurance svg {
+  flex: none;
+  margin-top: 0.125rem;
+  color: var(--link);
+}
+
+.split {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-12);
+  align-items: start;
+}
+
+.split h2 {
+  font-size: clamp(1.5rem, 2.5vw, 2rem);
+}
+
+/* Rules and "who it's for" as two panels. */
+.panels {
+  gap: var(--space-6);
+  align-items: stretch;
+}
+
+.panel h2 {
+  margin-bottom: 1.25rem;
+}
+
+.panel h3 {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: var(--space-6) 0 0.875rem;
+  font-size: 1.0625rem;
+}
+
+.panel h2 + h3 {
+  margin-top: 0;
+}
+
+.panel h3 svg {
+  color: var(--link);
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.chips a {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--control-border);
+  border-radius: 999px;
+  color: var(--text);
+  font-weight: 600;
+  text-decoration: none;
+  transition: border-color 160ms ease, background-color 160ms ease, color 160ms ease;
+}
+
+.chips a:hover {
+  border-color: var(--link);
+  background: var(--brand-soft);
+  color: var(--link);
+}
+
+.attribution {
+  margin-top: var(--space-8);
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+
+.anchor {
+  display: block;
+  position: relative;
+  top: calc(-1 * var(--header-height));
+}
+
+@media (max-width: 1199px) {
+  .steps {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    row-gap: var(--space-8);
+  }
+}
+
+@media (max-width: 1023px) {
+  .fourGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .split {
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+  }
+
+  .panels {
+    gap: var(--space-6);
+  }
+}
+
+@media (max-width: 767px) {
+  .fourGrid,
+  .toolGrid,
+  .compare,
+  .steps {
+    grid-template-columns: 1fr;
+  }
+
+  .vs {
+    justify-self: center;
+  }
+
+  /* Single column: capability cards switch to the compact icon-beside-text layout. */
+  .iconCard {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    grid-template-rows: auto 1fr;
+    gap: 0.25rem 1rem;
+  }
+
+  .iconCard :global(.card-icon) {
+    grid-row: span 2;
+    margin: 0;
+  }
+
+  .iconCard h3 {
+    margin: 0.125rem 0 0;
+  }
+
+  .tool {
+    padding: 1.125rem 1.25rem;
+  }
+}

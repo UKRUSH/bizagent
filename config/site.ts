@@ -30,11 +30,14 @@ export interface SiteConfig {
     schedulingUrl: string | null;
   };
   socialProfiles: { label: string; url: string }[];
+  /**
+   * Approved public wording for the underlying WhatsApp platform provider (spec 1.2).
+   * Rendered only when `flags.providerAttributionApproved` is true. Never a partner badge.
+   */
+  providerAttribution: string | null;
   flags: {
     /** When false, plan amounts are replaced by "Request current pricing" (spec 6.10). */
     pricingPublished: boolean;
-    /** Privacy, terms and cookie pages stay out of navigation until approved text exists. */
-    legalPagesApproved: boolean;
     /** Approved wording for the Agent Dilu / Dilexus provider attribution (spec 1.2). */
     providerAttributionApproved: boolean;
   };
@@ -58,9 +61,9 @@ export const siteConfig: SiteConfig = {
     schedulingUrl: null,
   },
   socialProfiles: [],
+  providerAttribution: null,
   flags: {
     pricingPublished: false,
-    legalPagesApproved: false,
     providerAttributionApproved: false,
   },
 };
@@ -68,6 +71,11 @@ export const siteConfig: SiteConfig = {
 /** Returns a channel only when it exists and has been verified for public use. */
 export function verifiedChannel(channel: ContactChannel | null): ContactChannel | null {
   return channel?.verified ? channel : null;
+}
+
+/** Approved provider attribution text, or null while unapproved. */
+export function approvedProviderAttribution(): string | null {
+  return siteConfig.flags.providerAttributionApproved ? siteConfig.providerAttribution : null;
 }
 
 export function whatsappHref(channel: ContactChannel): string {

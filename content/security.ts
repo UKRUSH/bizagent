@@ -89,6 +89,22 @@ export const securityControls: SecurityControl[] = [
   },
 ];
 
+/**
+ * Topics covered in a security review (spec 11.2). Phrased as questions we answer for your
+ * deployment, not as implemented controls; confirmed controls are listed separately once
+ * approved.
+ */
+export const securityReviewTopics = [
+  { title: "Access and roles", description: "Who on your team and ours can see conversations, recordings and settings." },
+  { title: "Retention and deletion", description: "How long conversations and recordings are kept, and how they are deleted." },
+  { title: "Where data is stored", description: "Hosting regions for your data and for the services involved." },
+  { title: "Support access", description: "When our support team may access your account, and how that is authorised and recorded." },
+  { title: "Encryption", description: "How data is protected in transit and at rest for your deployment." },
+  { title: "AI data use", description: "How your business data is used by the AI services, and what it is not used for." },
+  { title: "Audit records", description: "What is logged, who can review it and for how long." },
+  { title: "Backup and recovery", description: "Backup approach and recovery arrangements for your setup." },
+];
+
 /** Interim public wording until controls are approved (spec 11.2). */
 export const securityInterimStatement =
   "Discuss your access, retention, deployment, and data-handling requirements with our team.";

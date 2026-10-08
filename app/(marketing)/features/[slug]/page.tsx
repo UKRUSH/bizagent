@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { Suspense } from "react";
 import { getIntegrationCategory } from "@/content/integrations";
 import { moduleIllustrations } from "@/content/module-illustrations";
 import { getModule, getModules, moduleAvailabilityLabels, moduleCategories, modules } from "@/content/modules";
@@ -8,6 +9,7 @@ import { ModuleIllustration } from "@/components/features/ModuleIllustration";
 import { CtaBand } from "@/components/ui/CtaBand";
 import { FaqList } from "@/components/ui/FaqList";
 import { PageHero } from "@/components/ui/PageHero";
+import { PageSkeleton } from "@/components/ui/PageSkeleton";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { StatusBadge } from "@/components/ui/StatusBadge";
 import { ArrowRightIcon, CheckIcon } from "@/components/ui/icons";
@@ -32,7 +34,16 @@ export async function generateMetadata({ params }: PageProps<"/features/[slug]">
   };
 }
 
-export default async function ModulePage({ params }: PageProps<"/features/[slug]">) {
+/** Reading params needs a Suspense boundary for instant client navigation (see PageSkeleton). */
+export default function ModulePage({ params }: PageProps<"/features/[slug]">) {
+  return (
+    <Suspense fallback={<PageSkeleton />}>
+      <ModuleContent params={params} />
+    </Suspense>
+  );
+}
+
+async function ModuleContent({ params }: { params: PageProps<"/features/[slug]">["params"] }) {
   const entry = getModule((await params).slug);
   if (!entry) notFound();
 

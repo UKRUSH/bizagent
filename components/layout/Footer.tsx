@@ -3,6 +3,7 @@ import { footerNavigation, legalNavigation } from "@/content/navigation";
 import { SmartLink } from "@/components/ui/SmartLink";
 import { BrandLogo } from "./BrandLogo";
 import { CopyrightYear } from "./CopyrightYear";
+import { ThemeSelector } from "./ThemeSelector";
 
 /**
  * Footer (spec 5.2): original white logo, product description, grouped links, verified
@@ -68,6 +69,7 @@ export function Footer() {
             © <CopyrightYear /> {siteConfig.companyName}. {siteConfig.productName} is a product of
             the {siteConfig.companyName} {siteConfig.divisionName}.
           </p>
+          <ThemeSelector />
           {legalNavigation.length > 0 && (
             <ul className="footer-links" aria-label="Legal">
               {legalNavigation.map((link) => (

@@ -1,16 +1,36 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import type { ReactNode } from "react";
 import { deploymentOptions } from "@/content/deployment";
 import { escalationTriggers, handoffContext, handoffTypes } from "@/content/handoff";
 import { integrationStatusLabels } from "@/content/integrations";
 import { platformChannels, platformInterfaces, sharedLayer } from "@/content/platform";
 import { ArchitectureDiagram } from "@/components/features/ArchitectureDiagram";
+import { deploymentIcons } from "@/components/platform/deploymentIcons";
+import { PlatformHub } from "@/components/platform/PlatformHub";
 import { CtaBand } from "@/components/ui/CtaBand";
 import { PageHero } from "@/components/ui/PageHero";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { StatusBadge } from "@/components/ui/StatusBadge";
-import { CheckIcon } from "@/components/ui/icons";
+import {
+  CheckIcon,
+  HeadsetIcon,
+  MailIcon,
+  MessageIcon,
+  MicIcon,
+  MonitorIcon,
+  PhoneIcon,
+  PhoneOutgoingIcon,
+  PlugIcon,
+  ShieldIcon,
+  SlidersIcon,
+  SparkIcon,
+  UserCheckIcon,
+  UsersIcon,
+  WorkflowIcon,
+} from "@/components/ui/icons";
 import styles from "@/components/features/features.module.css";
+import p from "@/components/platform/platform.module.css";
 
 export const metadata: Metadata = {
   title: "Platform",
@@ -18,6 +38,32 @@ export const metadata: Metadata = {
     "How BizMaster AI Agent connects phone and WhatsApp channels, business knowledge, workflows, your CRM and human handoff on one shared platform.",
   alternates: { canonical: "/platform" },
 };
+
+/** Decorative icons keyed by the content titles; a missing key simply shows no icon. */
+const icons: Record<string, ReactNode> = {
+  "Inbound phone calls": <PhoneIcon />,
+  "Outbound phone calls": <PhoneOutgoingIcon />,
+  "WhatsApp messaging": <MessageIcon />,
+  "WhatsApp voice": <MicIcon />,
+  "Desk phones (PBX)": <HeadsetIcon />,
+  "SMS and email": <MailIcon />,
+  "Voice engine": <MicIcon />,
+  "AI orchestration": <SparkIcon />,
+  "Workflow automation": <WorkflowIcon />,
+  "Customer records": <UsersIcon />,
+  Integrations: <PlugIcon />,
+  "Admin console": <SlidersIcon />,
+  "Handoff and approvals": <UserCheckIcon />,
+  "Security controls": <ShieldIcon />,
+  "Voice interface": <PhoneIcon width={26} height={26} />,
+  "Messaging interface": <MessageIcon width={26} height={26} />,
+  "Admin interface": <MonitorIcon width={26} height={26} />,
+  ...Object.fromEntries(Object.entries(deploymentIcons).map(([slug, Icon]) => [slug, <Icon key={slug} />])),
+};
+
+function CardIcon({ name }: { name: string }) {
+  return icons[name] ? <div className="card-icon">{icons[name]}</div> : null;
+}
 
 /** How the platform works (spec 5: channels, shared knowledge, workflows, CRM, handoff). */
 export default function PlatformPage() {
@@ -37,6 +83,7 @@ export default function PlatformPage() {
             </Link>
           </>
         }
+        aside={<PlatformHub />}
       >
         <p>
           Calls, WhatsApp messages and follow-ups run on the same knowledge, the same customer
@@ -52,7 +99,8 @@ export default function PlatformPage() {
           </SectionHeading>
           <div className="grid-3">
             {platformChannels.map((channel) => (
-              <article key={channel.title} className="card" aria-label={channel.title}>
+              <article key={channel.title} className={`card ${p.channelCard}`} aria-label={channel.title}>
+                <CardIcon name={channel.title} />
                 <h3>{channel.title}</h3>
                 <p>{channel.description}</p>
               </article>
@@ -75,7 +123,8 @@ export default function PlatformPage() {
           <SectionHeading id="layer-title" title="The shared layer every module uses." />
           <div className={styles.layerGrid}>
             {sharedLayer.map((component) => (
-              <article key={component.title} className="card" aria-label={component.title}>
+              <article key={component.title} className={`card ${p.layerCard}`} aria-label={component.title}>
+                <CardIcon name={component.title} />
                 <h3>{component.title}</h3>
                 <p>{component.description}</p>
               </article>
@@ -86,7 +135,8 @@ export default function PlatformPage() {
           </div>
           <div className="grid-3">
             {platformInterfaces.map((item) => (
-              <article key={item.title} className="card" aria-label={item.title}>
+              <article key={item.title} className={`card ${p.interfaceCard}`} aria-label={item.title}>
+                {icons[item.title] && <div className={p.interfaceIcon}>{icons[item.title]}</div>}
                 <h3>{item.title}</h3>
                 <p>{item.description}</p>
               </article>
@@ -97,7 +147,7 @@ export default function PlatformPage() {
 
       <section className="section section--muted" aria-labelledby="handoff-title">
         <div className={`container ${styles.twoColumn}`}>
-          <div>
+          <div className={`card ${p.panel}`}>
             <h2 id="handoff-title">When a person takes over</h2>
             <ul className="check-list" aria-label="Escalation triggers">
               {escalationTriggers.map((trigger) => (
@@ -108,17 +158,19 @@ export default function PlatformPage() {
               ))}
             </ul>
             <h3>What your team receives</h3>
-            <ul className="feature-list">
+            <ul className={p.chips}>
               {handoffContext.map((item) => (
                 <li key={item}>{item}</li>
               ))}
             </ul>
           </div>
           <div>
-            <h2 id="handoff-types-title">How the handover happens</h2>
-            <dl className={styles.handoffTypes} aria-labelledby="handoff-types-title">
+            <h2 id="handoff-types-title" className={p.typesHeading}>
+              How the handover happens
+            </h2>
+            <dl className={p.types} aria-labelledby="handoff-types-title">
               {handoffTypes.map((type) => (
-                <div key={type.name}>
+                <div key={type.name} className={p.type}>
                   <dt>{type.name}</dt>
                   <dd>{type.description}</dd>
                 </div>
@@ -138,13 +190,16 @@ export default function PlatformPage() {
           </SectionHeading>
           <div className={styles.layerGrid}>
             {deploymentOptions.map((option) => (
-              <article key={option.slug} className="card" aria-labelledby={`deploy-${option.slug}`}>
+              <article key={option.slug} className={`card ${p.deployCard}`} aria-labelledby={`deploy-${option.slug}`}>
+                <CardIcon name={option.slug} />
                 <h3 id={`deploy-${option.slug}`}>{option.title}</h3>
                 <p>{option.description}</p>
-                <p>
+                <p className={p.bestFor}>
                   <strong>Best for:</strong> {option.bestFor}
                 </p>
-                <StatusBadge label={integrationStatusLabels[option.availability]} />
+                <div className={p.deployFooter}>
+                  <StatusBadge label={integrationStatusLabels[option.availability]} />
+                </div>
               </article>
             ))}
           </div>

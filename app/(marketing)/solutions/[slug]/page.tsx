@@ -1,17 +1,20 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { Suspense } from "react";
 import { getIndustry } from "@/content/industries";
 import { getModules, moduleAvailabilityLabels } from "@/content/modules";
 import { rolePreviews } from "@/content/previews";
 import { getRole, roles } from "@/content/roles";
+import { moduleIcons } from "@/components/features/moduleIcons";
 import { RoleConversation } from "@/components/solutions/RoleConversation";
 import { CtaBand } from "@/components/ui/CtaBand";
 import { FaqList } from "@/components/ui/FaqList";
 import { PageHero } from "@/components/ui/PageHero";
+import { PageSkeleton } from "@/components/ui/PageSkeleton";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { StatusBadge } from "@/components/ui/StatusBadge";
-import { ArrowRightIcon, CheckIcon } from "@/components/ui/icons";
+import { ArrowRightIcon, CheckIcon, LayersIcon, SparkIcon, UsersIcon } from "@/components/ui/icons";
 import styles from "@/components/solutions/solutions.module.css";
 
 /**
@@ -32,7 +35,16 @@ export async function generateMetadata({ params }: PageProps<"/solutions/[slug]"
   };
 }
 
-export default async function RolePage({ params }: PageProps<"/solutions/[slug]">) {
+/** Reading params needs a Suspense boundary for instant client navigation (see PageSkeleton). */
+export default function RolePage({ params }: PageProps<"/solutions/[slug]">) {
+  return (
+    <Suspense fallback={<PageSkeleton />}>
+      <RoleContent params={params} />
+    </Suspense>
+  );
+}
+
+async function RoleContent({ params }: { params: PageProps<"/solutions/[slug]">["params"] }) {
   const role = getRole((await params).slug);
   if (!role) notFound();
 
@@ -62,9 +74,14 @@ export default async function RolePage({ params }: PageProps<"/solutions/[slug]"
       </PageHero>
 
       <section className="section" aria-label="Who does what">
-        <div className={`container ${styles.split}`}>
-          <article className="card" aria-labelledby="assistant-title">
-            <h2 id="assistant-title">What the assistant handles</h2>
+        <div className={`container ${styles.whoSplit}`}>
+          <article className={`card ${styles.sideCard}`} aria-labelledby="assistant-title">
+            <div className={styles.sideHeader}>
+              <span className={styles.sideIcon} aria-hidden="true">
+                <SparkIcon />
+              </span>
+              <h2 id="assistant-title">What the assistant handles</h2>
+            </div>
             <ul className="check-list">
               {role.responsibilities.map((item) => (
                 <li key={item}>
@@ -74,8 +91,17 @@ export default async function RolePage({ params }: PageProps<"/solutions/[slug]"
               ))}
             </ul>
           </article>
-          <article className={`card ${styles.teamCard}`} aria-labelledby="team-title">
-            <h2 id="team-title">What stays with your team</h2>
+          <span className={styles.handoffMarker} aria-hidden="true">
+            <ArrowRightIcon />
+            <span>Handoff</span>
+          </span>
+          <article className={`card ${styles.sideCard} ${styles.teamCard}`} aria-labelledby="team-title">
+            <div className={styles.sideHeader}>
+              <span className={`${styles.sideIcon} ${styles.sideIconTeam}`} aria-hidden="true">
+                <UsersIcon />
+              </span>
+              <h2 id="team-title">What stays with your team</h2>
+            </div>
             <ul className="check-list">
               {role.teamResponsibilities.map((item) => (
                 <li key={item}>
@@ -109,29 +135,42 @@ export default async function RolePage({ params }: PageProps<"/solutions/[slug]"
             <p>Each module has its own page with every capability, use cases and availability.</p>
           </SectionHeading>
           <div className={styles.moduleGrid}>
-            {getModules(role.modules).map((entry) => (
-              <article key={entry.slug} className={`card ${styles.moduleCard}`} aria-labelledby={`module-${entry.slug}`}>
-                <h3 id={`module-${entry.slug}`}>{entry.title}</h3>
-                <p>{entry.summary}</p>
-                {entry.featureGroups.slice(0, 2).map((group) => (
-                  <div key={group.heading}>
-                    <h4>{group.heading}</h4>
-                    <ul className="feature-list">
-                      {group.items.slice(0, 3).map((item) => (
-                        <li key={item}>{item}</li>
-                      ))}
-                    </ul>
+            {getModules(role.modules).map((entry) => {
+              const Icon = moduleIcons[entry.slug];
+              return (
+                <article key={entry.slug} className={`card ${styles.moduleCard}`} aria-labelledby={`module-${entry.slug}`}>
+                  <div className={styles.moduleHeader}>
+                    <span className="card-icon" aria-hidden="true">
+                      <Icon />
+                    </span>
+                    <div>
+                      <span className={styles.moduleNumber}>Module {entry.number}</span>
+                      <h3 id={`module-${entry.slug}`}>{entry.title}</h3>
+                    </div>
                   </div>
-                ))}
-                <p>
-                  <StatusBadge label={moduleAvailabilityLabels[entry.availability]} />
-                </p>
-                <Link href={`/features/${entry.slug}`} className={styles.cardLink}>
-                  View module<span className="sr-only">: {entry.title}</span>
-                  <ArrowRightIcon width="18" height="18" />
-                </Link>
-              </article>
-            ))}
+                  <p>{entry.summary}</p>
+                  <div className={styles.groups}>
+                    {entry.featureGroups.slice(0, 2).map((group) => (
+                      <div key={group.heading}>
+                        <h4>{group.heading}</h4>
+                        <ul className="feature-list">
+                          {group.items.slice(0, 3).map((item) => (
+                            <li key={item}>{item}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    ))}
+                  </div>
+                  <div className={styles.moduleFooter}>
+                    <StatusBadge label={moduleAvailabilityLabels[entry.availability]} />
+                    <Link href={`/features/${entry.slug}`} className={styles.cardLink}>
+                      View module<span className="sr-only">: {entry.title}</span>
+                      <ArrowRightIcon width="18" height="18" />
+                    </Link>
+                  </div>
+                </article>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -139,9 +178,9 @@ export default async function RolePage({ params }: PageProps<"/solutions/[slug]"
       <section className="section section--muted" aria-labelledby="use-cases-title">
         <div className="container">
           <SectionHeading id="use-cases-title" title="Where it helps" />
-          <div className="grid-3">
+          <div className={`grid-3 ${styles.useCases}`}>
             {role.useCases.map((useCase) => (
-              <article key={useCase.title} className="card" aria-label={useCase.title}>
+              <article key={useCase.title} className={`card ${styles.useCase}`} aria-label={useCase.title}>
                 <h3>{useCase.title}</h3>
                 <p>{useCase.description}</p>
               </article>
@@ -153,7 +192,10 @@ export default async function RolePage({ params }: PageProps<"/solutions/[slug]"
               <ul className={styles.industryLinks} aria-labelledby="industries-title">
                 {relatedIndustries.map((industry) => (
                   <li key={industry.slug}>
-                    <Link href={`/industries/${industry.slug}`}>{industry.name}</Link>
+                    <Link href={`/industries/${industry.slug}`}>
+                      {industry.name}
+                      <ArrowRightIcon width="16" height="16" />
+                    </Link>
                   </li>
                 ))}
               </ul>
@@ -167,9 +209,12 @@ export default async function RolePage({ params }: PageProps<"/solutions/[slug]"
           <SectionHeading id="faq-title" title={`Questions about the ${role.title} role`} />
           <FaqList questions={role.faqs} />
           {role.slug === "call-center" && (
-            <p className={styles.note}>
-              Running a BPO or several brands? <Link href="/enterprise">See white-label and enterprise options</Link>.
-            </p>
+            <div className={styles.callout}>
+              <LayersIcon width="20" height="20" />
+              <p>
+                Running a BPO or several brands? <Link href="/enterprise">See white-label and enterprise options</Link>.
+              </p>
+            </div>
           )}
         </div>
       </section>

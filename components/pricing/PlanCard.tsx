@@ -1,8 +1,10 @@
 import Link from "next/link";
-import { formatAllowance, getPriceDisplay, planEnquiryHref, type PriceDisplay } from "@/content/plans";
+import { formatAllowance, getPriceDisplay, planEnquiryHref, planFamilies, type PriceDisplay } from "@/content/plans";
 import type { Plan } from "@/content/types";
-import { CheckIcon } from "@/components/ui/icons";
+import { CheckIcon, MessageIcon, PhoneIcon, SparkIcon } from "@/components/ui/icons";
 import styles from "./pricing.module.css";
+
+const numberFormatter = new Intl.NumberFormat("en-US");
 
 function PriceBlock({ display }: { display: PriceDisplay }) {
   if (display.kind === "on-request") {
@@ -23,18 +25,48 @@ function PriceBlock({ display }: { display: PriceDisplay }) {
   );
 }
 
+/**
+ * Allowances as metric tiles ("Up to 2,000 AI-managed chats per month"), read in that order
+ * by screen readers. Uses the same numbers as formatAllowance in content/plans.ts.
+ */
+function Allowances({ plan }: { plan: Plan }) {
+  const period = plan.isTrial ? "for 2 weeks" : "per month";
+  return (
+    <ul className={styles.metrics}>
+      <li>
+        <span className={styles.metricUpTo}>Up to</span>
+        <strong>{numberFormatter.format(plan.chatAllowance)}</strong>
+        <span className={styles.metricLabel}>AI-managed chats {period}</span>
+      </li>
+      {plan.voiceMinutes ? (
+        <li>
+          <span className={styles.metricUpTo}>Includes</span>
+          <strong>{numberFormatter.format(plan.voiceMinutes)}</strong>
+          <span className={styles.metricLabel}>call minutes {period}</span>
+        </li>
+      ) : null}
+    </ul>
+  );
+}
+
 /** A paid plan card (spec 8.4). The CTA preselects the plan on the demo form. */
 export function PlanCard({ plan, previewDrafts }: { plan: Plan; previewDrafts: boolean }) {
   const headingId = `plan-${plan.slug}`;
+  const family = planFamilies.find((item) => item.id === plan.family);
+  const FamilyIcon = plan.family === "voice" ? PhoneIcon : MessageIcon;
   return (
-    <article className="card plan-card" aria-labelledby={headingId}>
-      <h3 id={headingId}>{plan.name}</h3>
+    <article className={`card plan-card ${styles.planCard}`} aria-labelledby={headingId}>
+      <div className={styles.planHeader}>
+        <h3 id={headingId}>{plan.name}</h3>
+        {family && (
+          <span className={styles.familyBadge}>
+            <FamilyIcon width="14" height="14" aria-hidden="true" />
+            {family.label}
+          </span>
+        )}
+      </div>
       <PriceBlock display={getPriceDisplay(plan, { previewDrafts })} />
-      <ul className={styles.allowance}>
-        {formatAllowance(plan).map((line) => (
-          <li key={line}>{line}</li>
-        ))}
-      </ul>
+      <Allowances plan={plan} />
       <ul className={styles.features}>
         {plan.features.map((feature) => (
           <li key={feature}>
@@ -55,7 +87,10 @@ export function TrialBanner({ plan, previewDrafts }: { plan: Plan; previewDrafts
   const display = getPriceDisplay(plan, { previewDrafts });
   return (
     <aside className={styles.trialBanner} aria-labelledby={`plan-${plan.slug}`}>
-      <div>
+      <span className={styles.trialIcon} aria-hidden="true">
+        <SparkIcon width={22} height={22} />
+      </span>
+      <div className={styles.trialText}>
         <h3 id={`plan-${plan.slug}`}>{plan.name}</h3>
         <p>
           {formatAllowance(plan).join(" · ")} · {plan.features.join(", ")}.

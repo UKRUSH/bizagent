@@ -1,7 +1,81 @@
-/* Doubled class outranks the global `.plan-price strong` rule without !important. */
+/* Doubled class outranks the global `.plan-price strong` rule without !important.
+   Kept readable but secondary to the allowance tiles. */
 .onRequest.onRequest {
   color: var(--text);
-  font-size: clamp(1.25rem, 2vw, 1.5rem);
+  font-size: 1.125rem;
+}
+
+/* ------------------------------------------------------------- Plan cards */
+
+.planCard {
+  gap: 1.125rem;
+}
+
+.planHeader {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.planHeader h3 {
+  margin: 0;
+  font-size: clamp(1.375rem, 2vw, 1.625rem);
+}
+
+.familyBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.25rem 0.625rem;
+  border-radius: 999px;
+  background: var(--brand-soft);
+  color: var(--link);
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.planCard :global(.plan-price) {
+  margin: 0;
+}
+
+/* Allowance tiles: "Up to" / number / what it counts. */
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
+  gap: 0.625rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.metrics li {
+  display: grid;
+  gap: 0.125rem;
+  padding: 0.875rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+}
+
+.metrics strong {
+  font-size: clamp(1.625rem, 2.6vw, 2rem);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.metricUpTo,
+.metricLabel {
+  color: var(--muted);
+  font-size: 0.8125rem;
+}
+
+.metricUpTo {
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.6875rem;
 }
 
 .draftBadge {
@@ -49,10 +123,25 @@
   justify-content: space-between;
   gap: 1rem 2rem;
   margin-bottom: 1.5rem;
-  padding: 1.25rem 1.5rem;
-  border: 1px solid var(--border);
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: 1.5rem 1.75rem;
+  border: 1px solid var(--border-accent);
   border-radius: var(--radius);
   background: var(--brand-soft);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Decorative dot grid on the action side; the solid soft purple stays behind the text. */
+.trialBanner::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image: var(--dot-grid);
+  background-size: 18px 18px;
+  mask-image: linear-gradient(90deg, transparent 45%, #000 100%);
 }
 
 .trialBanner h3 {
@@ -63,4 +152,265 @@
   margin: 0;
   color: var(--text);
   max-width: 60ch;
+}
+
+.trialIcon {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  background: var(--gradient-brand);
+  color: #ffffff;
+  box-shadow: var(--shadow-brand);
+}
+
+.trialText {
+  flex: 1 1 22rem;
+  min-width: 0;
+}
+
+/* ------------------------------------------------------- Comparison table */
+
+/* Wide enough that rows stay compact; narrow screens scroll the table sideways with the
+   plan name pinned (doubled class outranks the global `.table-scroll table` minimum). */
+.compare.compare {
+  min-width: 64rem;
+}
+
+.compare thead th {
+  background: var(--brand-soft);
+  color: var(--text);
+  font-size: 0.8125rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* The plan name stays in view while the table scrolls sideways on small screens. */
+.compare tbody th {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  background: var(--surface-raised);
+}
+
+.compare tbody tr[data-family="voice"] th {
+  box-shadow: inset 3px 0 0 var(--link);
+}
+
+.familyPill {
+  display: inline-block;
+  padding: 0.125rem 0.625rem;
+  border-radius: 999px;
+  background: var(--surface);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.enquire {
+  display: inline-block;
+  padding: 0.375rem 0.875rem;
+  border: 1px solid var(--control-border);
+  border-radius: 999px;
+  color: var(--text);
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: border-color 160ms ease, background-color 160ms ease, color 160ms ease;
+}
+
+.enquire:hover {
+  border-color: var(--link);
+  background: var(--brand-soft);
+  color: var(--link);
+}
+
+/* ------------------------------------------------------- Hero plan types */
+
+.families {
+  display: grid;
+  gap: 0.75rem;
+  justify-self: end;
+  width: 100%;
+  max-width: 26rem;
+}
+
+.families a {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 1rem;
+  align-items: center;
+  padding: 1.125rem 1.25rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface-raised);
+  box-shadow: var(--shadow-hover);
+  color: var(--text);
+  text-decoration: none;
+  transition: border-color 180ms ease, transform 180ms ease;
+}
+
+.families a:hover {
+  border-color: var(--border-accent);
+  transform: translateY(-2px);
+}
+
+.families a > svg {
+  color: var(--link);
+}
+
+.families strong {
+  display: block;
+  font-size: 1.125rem;
+}
+
+.familyIcon {
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  background: var(--gradient-brand);
+  color: #ffffff;
+}
+
+.familyText {
+  display: block;
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+
+.familiesNote.familiesNote {
+  margin: 0.25rem 0.25rem 0;
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+
+/* --------------------------------------------------------- Page sections */
+
+.callout {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+  max-width: 54rem;
+  margin-top: var(--space-8);
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--link);
+  border-radius: var(--radius-sm);
+  background: var(--surface-raised);
+}
+
+.callout p {
+  margin: 0;
+}
+
+.callout svg {
+  flex: none;
+  margin-top: 0.125rem;
+  color: var(--link);
+}
+
+.panels {
+  gap: var(--space-6);
+  align-items: stretch;
+}
+
+.panelHeader {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  margin-bottom: 1.25rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.panelHeader h2 {
+  margin: 0;
+  font-size: clamp(1.375rem, 2.2vw, 1.75rem);
+}
+
+.panelIcon {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  background: var(--gradient-brand);
+  color: #ffffff;
+  box-shadow: var(--shadow-brand);
+}
+
+.termList {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 1.25rem;
+}
+
+.tierRows {
+  display: grid;
+  gap: 0.5rem;
+  margin: 0 0 var(--space-6);
+  padding: 0;
+  list-style: none;
+}
+
+.tierRows li {
+  display: flex;
+  gap: 0.875rem;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+}
+
+.tierRows strong {
+  display: block;
+}
+
+.tierIcon {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 0.625rem;
+  background: var(--brand-soft);
+  color: var(--link);
+}
+
+.tierIcon svg {
+  width: 1.125rem;
+  height: 1.125rem;
+}
+
+.tierAudience {
+  display: block;
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+
+@media (max-width: 1023px) {
+  .families {
+    justify-self: start;
+  }
+}
+
+@media (max-width: 767px) {
+  .termList {
+    grid-template-columns: 1fr;
+  }
+
+  .trialIcon {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .families a:hover {
+    transform: none;
+  }
 }

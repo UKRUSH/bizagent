@@ -1,3 +1,4 @@
+import { getModules } from "./modules";
 import type { Industry } from "./types";
 
 /**
@@ -680,3 +681,14 @@ export function getHomepageIndustries(): Industry[] {
     return industry;
   });
 }
+
+/** Lower-case text the /industries search matches against: names, summary, workflows, modules. */
+export function industrySearchText(industry: Industry): string {
+  return [industry.name, industry.homepageTitle, industry.summary, ...industry.workflows, ...getModules(industry.modules).map((entry) => entry.shortTitle)]
+    .filter(Boolean)
+    .join(" ")
+    .toLowerCase();
+}
+
+/** One-tap searches on /industries. A test checks each one matches at least one industry. */
+export const industrySearchSuggestions = ["bookings", "reminders", "renewal", "orders", "admissions"];

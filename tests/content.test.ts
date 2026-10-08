@@ -1,12 +1,14 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
 import { deploymentOptions, enterpriseArchitectures, channelEmbedding } from "@/content/deployment";
-import { homepageFaqs } from "@/content/faqs";
+import { approvedProviderAttribution } from "@/config/site";
+import { demoScenarios } from "@/content/demo-scenarios";
+import { homepageFaqs, pricingFaqs, whatsappFaqs } from "@/content/faqs";
 import { engagementSteps, enterpriseRequirements, serviceLevelStatement, whiteLabelPoints } from "@/content/enterprise";
 import { parseDemoPreselection, roleOptions } from "@/content/form-options";
 import { approvalControls, escalationTriggers, handoffContext, handoffTypes, operatingPrinciples } from "@/content/handoff";
 import { getHomepageIndustries, industries } from "@/content/industries";
-import { integrationCategories } from "@/content/integrations";
+import { connectionApproaches, integrationCategories, statusMeanings } from "@/content/integrations";
 import { moduleCategories, modules } from "@/content/modules";
 import {
   billingTermsToConfirm,
@@ -20,8 +22,17 @@ import { moduleIllustrations } from "@/content/module-illustrations";
 import { architectureDescription, platformChannels, platformInterfaces, sharedLayer } from "@/content/platform";
 import { rolePreviews } from "@/content/previews";
 import { roles } from "@/content/roles";
-import { proofPackDocuments, securityControls, securityInterimStatement } from "@/content/security";
-import { integrationCategoryIds, moduleSlugs } from "@/content/types";
+import { companyPurpose, contactRoutes, operatingApproach, positioning } from "@/content/company";
+import { publishedLegalSlugs } from "@/content/legal";
+import { legalNavigation } from "@/content/navigation";
+import {
+  complianceResponsibilities,
+  proofPackDocuments,
+  securityControls,
+  securityInterimStatement,
+  securityReviewTopics,
+} from "@/content/security";
+import { industrySlugs, integrationCategoryIds, moduleSlugs } from "@/content/types";
 import {
   internalWhatsappTargets,
   onboardingStages,
@@ -30,6 +41,7 @@ import {
   whatsappBusinessTools,
   whatsappCapabilities,
   whatsappComplianceRules,
+  whatsappPreview,
 } from "@/content/whatsapp";
 
 const knownModules = new Set<string>(moduleSlugs);
@@ -126,6 +138,13 @@ describe("industries (spec 9)", () => {
     assert.equal(new Set(industries.map((industry) => industry.slug)).size, 17);
   });
 
+  it("keeps the proxy's lightweight slug list in sync with the industry data", () => {
+    assert.deepEqual(
+      industries.map((industry) => industry.slug),
+      [...industrySlugs],
+    );
+  });
+
   it("has the six homepage launch cards from spec 6.7", () => {
     assert.deepEqual(
       getHomepageIndustries().map((industry) => industry.homepageTitle),
@@ -156,6 +175,22 @@ describe("module illustrations (spec 7.1)", () => {
         assert.doesNotMatch(event.detail, /\+?\d[\d\s-]{7,}\d/, `${slug}: no phone-number-like strings`);
       }
     }
+  });
+});
+
+describe("WhatsApp page and pricing content (spec 8)", () => {
+  it("the WhatsApp preview identifies the AI as an AI assistant", () => {
+    const firstAssistant = whatsappPreview.messages.find((message) => message.speaker === "assistant");
+    assert.ok(firstAssistant?.text.includes("AI assistant"));
+  });
+
+  it("has FAQs for the WhatsApp and pricing pages", () => {
+    assert.ok(whatsappFaqs.length >= 3);
+    assert.ok(pricingFaqs.length >= 3);
+  });
+
+  it("keeps the provider attribution hidden until approved", () => {
+    assert.equal(approvedProviderAttribution(), null);
   });
 });
 
@@ -218,6 +253,11 @@ describe("roles, FAQs, trust and forms", () => {
     assert.equal(homepageFaqs.length, 8);
   });
 
+  it("publishes no legal page or legal link without approved text", () => {
+    assert.deepEqual(publishedLegalSlugs(), []);
+    assert.deepEqual(legalNavigation, []);
+  });
+
   it("publishes no security control as verified", () => {
     assert.ok(securityControls.every((control) => control.status !== "approved"));
   });
@@ -278,6 +318,18 @@ describe("publication guardrails (spec 1.2)", () => {
     enterpriseRequirements,
     engagementSteps,
     serviceLevelStatement,
+    whatsappFaqs,
+    pricingFaqs,
+    whatsappPreview,
+    connectionApproaches,
+    statusMeanings,
+    companyPurpose,
+    positioning,
+    operatingApproach,
+    contactRoutes,
+    securityReviewTopics,
+    complianceResponsibilities,
+    demoScenarios,
   };
 
   function collectStrings(value: unknown, path: string, out: { path: string; text: string }[]) {
@@ -293,7 +345,7 @@ describe("publication guardrails (spec 1.2)", () => {
     [/sri lanka'?s first/i, "first-in-market claim"],
     [/\b100\s?%/i, "absolute percentage claim"],
     [/meta (tech )?(provider|partner)/i, "unverified partner status"],
-    [/no hidden (charges|fees|costs)/i, "undefined-cost claim"],
+    [/no hidden (charges|fees|costs)|no surprises/i, "undefined-cost claim"],
     [/zero (wait|setup|missed|downtime)/i, "absolute availability claim"],
     [/\bunder \d+\s?(ms|milliseconds|seconds|minutes)\b/i, "unmeasured speed claim"],
     [/\b\d+\s?ms\b/i, "latency figure"],

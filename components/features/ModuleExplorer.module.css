@@ -35,9 +35,88 @@
   color: var(--text);
 }
 
+/* Softer module list: filled rows instead of outlined boxes, with a marker on the
+   selected one (aria-pressed carries the state; the marker and fill are visual). */
+.list :global(.module-button) {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  width: 100%;
+  border-color: transparent;
+  background: var(--surface);
+  font-weight: 600;
+}
+
+.list :global(.module-button[aria-pressed="true"]) {
+  background-color: var(--brand);
+  background-image: var(--gradient-brand);
+  color: #ffffff;
+}
+
+.list :global(.module-button[aria-pressed="true"])::after {
+  content: "";
+  flex: none;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-top: 2px solid currentColor;
+  border-right: 2px solid currentColor;
+  rotate: 45deg;
+}
+
+.groupLabel {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.groupLabel::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
 .detail {
   position: sticky;
   top: calc(var(--header-height) + 1.5rem);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+.detail::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 4px;
+  background: var(--gradient-brand);
+}
+
+.detailBody {
+  animation: detailIn 240ms ease-out;
+}
+
+@keyframes detailIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .detailBody {
+    animation: none;
+  }
+}
+
+@media (forced-colors: active) {
+  .list :global(.module-button) {
+    border-color: ButtonText;
+  }
 }
 
 .detail h3 {
@@ -89,8 +168,10 @@
     display: none;
   }
 
+  /* Relative, not static: the accent bar is positioned against the panel. */
   .detail {
-    position: static;
+    position: relative;
+    top: auto;
   }
 
   .highlights {

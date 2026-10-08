@@ -182,6 +182,29 @@ export const integrationGroups: { id: IntegrationGroup; label: string }[] = [
   { id: "back-office", label: "Back office" },
 ];
 
+export const connectionApproaches = [
+  {
+    title: "Connectors",
+    description: "Ready-made connections for common systems, used where a connector is available and verified for your setup.",
+  },
+  {
+    title: "APIs and webhooks",
+    description: "Custom integrations with your CRM, ERP or internal tools, scoped with your team.",
+  },
+  {
+    title: "Telephony and PBX",
+    description: "SIP trunks, numbers, desk phones and softphones connected to the same assistant.",
+  },
+];
+
+/** Plain-language meaning of each directory status (spec 10). */
+export const statusMeanings: { status: Availability; meaning: string }[] = [
+  { status: "available", meaning: "A working connection, verified and ready to configure." },
+  { status: "custom", meaning: "Connected through APIs built and scoped for your setup." },
+  { status: "planned", meaning: "On the roadmap but not available yet." },
+  { status: "needs-assessment", meaning: "Compatibility is checked for your setup before anything is promised." },
+];
+
 /** Directory status labels (spec 10). Status is never conveyed by colour alone. */
 export const integrationStatusLabels: Record<Availability, string> = {
   available: "Available",

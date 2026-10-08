@@ -1,0 +1,795 @@
+/* --------------------------------------------------------------- Controls */
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  margin-bottom: var(--space-3);
+}
+
+.field {
+  display: grid;
+  gap: 0.375rem;
+  flex: 1 1 16rem;
+  max-width: 28rem;
+}
+
+.field label {
+  font-weight: 600;
+}
+
+.field input,
+.field select {
+  width: 100%;
+  min-height: 3rem;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--control-border);
+  border-radius: 0.75rem;
+  background: var(--surface-raised);
+  color: var(--text);
+}
+
+.field input::placeholder {
+  color: var(--muted);
+  opacity: 1;
+}
+
+.status {
+  margin-bottom: var(--space-8);
+  color: var(--muted);
+}
+
+/* ------------------------------------------------------ Industry search */
+
+.searchPanel {
+  display: grid;
+  gap: 1rem;
+  margin-bottom: var(--space-3);
+  padding: var(--space-6);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface-raised);
+  box-shadow: var(--shadow-hover);
+}
+
+.searchPanel .field {
+  max-width: none;
+}
+
+.searchBox {
+  position: relative;
+}
+
+.searchIcon {
+  position: absolute;
+  top: 50%;
+  left: 1rem;
+  color: var(--link);
+  translate: 0 -50%;
+  pointer-events: none;
+}
+
+.searchBox input {
+  min-height: 3.5rem;
+  padding-left: 3rem;
+  padding-right: 3.25rem;
+  border-radius: 999px;
+  font-size: 1.0625rem;
+}
+
+/* The native clear control is replaced by the labelled button. */
+.searchBox input::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.clear {
+  position: absolute;
+  top: 50%;
+  right: 0.5rem;
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: var(--surface);
+  color: var(--text);
+  translate: 0 -50%;
+}
+
+.clear:hover {
+  background: var(--brand-soft);
+  color: var(--link);
+}
+
+.suggestions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.suggestions > span {
+  margin-right: 0.25rem;
+  color: var(--muted);
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.suggestions button {
+  min-height: 2.25rem;
+  padding: 0.25rem 0.875rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--text);
+  font-size: 0.875rem;
+  font-weight: 600;
+  transition: background-color 160ms ease, border-color 160ms ease, color 160ms ease;
+}
+
+.suggestions button:hover {
+  border-color: var(--link);
+  background: var(--brand-soft);
+}
+
+.suggestions button[aria-pressed="true"] {
+  border-color: var(--brand);
+  background: var(--brand);
+  color: #ffffff;
+}
+
+/* ------------------------------------------------------ Hero mosaic */
+
+.mosaic {
+  justify-self: end;
+  width: 100%;
+  max-width: 28rem;
+}
+
+.mosaic ul {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.625rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.mosaic a {
+  display: grid;
+  justify-items: center;
+  align-content: center;
+  gap: 0.5rem;
+  height: 100%;
+  min-height: 7.5rem;
+  padding: 0.875rem 0.5rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface-raised);
+  box-shadow: var(--shadow-sm);
+  color: var(--text);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  line-height: 1.3;
+  text-align: center;
+  text-decoration: none;
+  transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.mosaic a:hover {
+  border-color: var(--border-accent);
+  box-shadow: var(--shadow-hover);
+  transform: translateY(-3px);
+}
+
+.mosaic a > span {
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 0.75rem;
+  background: var(--gradient-brand);
+  color: #ffffff;
+}
+
+.mosaic a > span svg {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.mosaic a.mosaicMore {
+  border-style: dashed;
+  border-color: var(--border-accent);
+  background: var(--brand-soft);
+  color: var(--link);
+  font-size: 1rem;
+  font-weight: 800;
+}
+
+.empty {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding: var(--space-6);
+  border: 1px dashed var(--control-border);
+  border-radius: var(--radius);
+}
+
+.empty p {
+  margin: 0;
+}
+
+/* ------------------------------------------------------------------ Cards */
+
+.cardGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-6);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cardGrid > li {
+  display: flex;
+}
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.cardHeader {
+  display: flex;
+  gap: 0.875rem;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.cardHeader :global(.card-icon) {
+  flex: none;
+  margin: 0;
+}
+
+.cardHeader .cardTitle {
+  margin: 0;
+}
+
+.cardTitle {
+  margin-bottom: 0.75rem;
+  font-size: 1.25rem;
+}
+
+/* An industry card's single link covers the whole card. */
+.card .cardLink::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius);
+}
+
+/* Closing tile after the last industry when no search is active. */
+.closingTile {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 0.25rem;
+  padding: var(--space-8);
+  border: 1px dashed var(--border-accent);
+  border-radius: var(--radius);
+  background: var(--brand-soft);
+}
+
+.cardGrid > li.closingTile {
+  display: flex;
+}
+
+.closingTile p {
+  color: var(--text);
+}
+
+.closingIcon {
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  margin-bottom: 0.75rem;
+  border-radius: 50%;
+  background: var(--gradient-brand);
+  color: #ffffff;
+  box-shadow: var(--shadow-brand);
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.375rem;
+  margin: 0 0 1rem;
+  padding: 0;
+  list-style: none;
+}
+
+.tags li {
+  padding: 0.25rem 0.625rem;
+  border-radius: 999px;
+  background: var(--brand-soft);
+  color: var(--text);
+  font-size: 0.8125rem;
+}
+
+.cardLink {
+  display: inline-block;
+  margin-top: auto;
+  padding-block: 0.625rem;
+  font-weight: 600;
+}
+
+.cardLink svg {
+  margin-left: 0.375rem;
+  vertical-align: -0.2em;
+}
+
+/* ----------------------------------------------------------- Integrations */
+
+/* Search and status filter side by side in the search panel. */
+.integrationSearch {
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+  align-items: end;
+}
+
+.integrationSearch select {
+  min-height: 3.5rem;
+  border-radius: 999px;
+  padding-inline: 1.25rem;
+}
+
+/* Category jump bar: chips linking to each visible category card. */
+.jumpBar {
+  margin-bottom: var(--space-8);
+}
+
+.jumpBar ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.jumpBar a {
+  display: inline-block;
+  padding: 0.375rem 0.875rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface-raised);
+  color: var(--text);
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: border-color 160ms ease, background-color 160ms ease, color 160ms ease;
+}
+
+.jumpBar a:hover {
+  border-color: var(--link);
+  background: var(--brand-soft);
+  color: var(--link);
+}
+
+.categoryHeader {
+  display: flex;
+  gap: 0.875rem;
+  align-items: center;
+  margin-bottom: 0.875rem;
+}
+
+.categoryHeader :global(.card-icon) {
+  flex: none;
+  width: 2.75rem;
+  height: 2.75rem;
+  margin: 0;
+}
+
+.categoryHeader .cardTitle {
+  margin: 0;
+}
+
+.systemCount {
+  margin-left: auto;
+  padding: 0.25rem 0.625rem;
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--muted);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* Hero summary: systems per status, counted from the directory content. */
+.statusSummary {
+  justify-self: end;
+  width: 100%;
+  max-width: 26rem;
+  padding: var(--space-6);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface-raised);
+  box-shadow: var(--shadow-hover);
+}
+
+.summaryTotal {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  margin: 0 0 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.summaryTotal strong {
+  color: var(--link);
+  font-size: 2.5rem;
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+
+.summaryTotal span {
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.summaryRows {
+  display: grid;
+  gap: 0.5rem;
+  margin: 0;
+}
+
+.summaryRows > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.625rem 0.75rem;
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+}
+
+.summaryRows dd {
+  margin: 0;
+  font-size: 1.125rem;
+  font-weight: 800;
+}
+
+.summaryLink {
+  display: inline-block;
+  margin-top: 1rem;
+  font-weight: 600;
+}
+
+/* Connection approaches: icon cards. */
+.approachCard :global(.card-icon) {
+  width: 2.75rem;
+  height: 2.75rem;
+  margin-bottom: 1.125rem;
+}
+
+.approachCard p {
+  margin: 0;
+}
+
+/* Status legend as tiles. */
+.legendGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-4);
+  margin: 0;
+}
+
+.legendGrid > div {
+  display: grid;
+  align-content: start;
+  gap: 0.75rem;
+  padding: var(--space-6);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface-raised);
+  box-shadow: var(--shadow-sm);
+}
+
+.legendGrid dt :global(.status-badge) {
+  justify-self: start;
+}
+
+.legendGrid dd {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.9375rem;
+}
+
+/* Website and mobile embedding as panels (doubled class outranks the later `.split` rule). */
+.embedPanels.embedPanels {
+  gap: var(--space-6);
+  align-items: stretch;
+}
+
+.embedHeader {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  margin-bottom: 1.25rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.embedHeader h2 {
+  margin: 0;
+}
+
+.embedIcon {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  background: var(--gradient-brand);
+  color: #ffffff;
+  box-shadow: var(--shadow-brand);
+}
+
+@media (max-width: 1023px) {
+  .statusSummary {
+    justify-self: start;
+  }
+
+  .legendGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 767px) {
+  .integrationSearch,
+  .legendGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.categoryGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-6);
+}
+
+.category {
+  padding: var(--space-6);
+}
+
+.systems {
+  display: grid;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.systems li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 1rem;
+  padding-block: 0.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.systems li:last-child {
+  border-bottom: 0;
+}
+
+.legendTitle {
+  margin: var(--space-12) 0 var(--space-4);
+  font-size: 1.25rem;
+}
+
+.legendRow {
+  display: grid;
+  grid-template-columns: 13rem minmax(0, 1fr);
+  gap: 0.5rem 1.5rem;
+  align-items: center;
+  padding-block: 0.75rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.legendRow dd {
+  margin: 0;
+  color: var(--muted);
+}
+
+@media (max-width: 767px) {
+  .legendRow {
+    grid-template-columns: 1fr;
+  }
+}
+
+.categoryNote.categoryNote {
+  margin: 1rem 0 0;
+  font-size: 0.875rem;
+}
+
+/* -------------------------------------------------------- Industry scenario */
+
+.scenario {
+  margin: 0;
+  color: #ffffff;
+}
+
+.scenarioTitle {
+  color: #cccccc;
+  font-size: 0.8125rem;
+}
+
+.demoBadge {
+  padding: 0.25rem 0.625rem;
+  border: 1px dashed #999999;
+  border-radius: 999px;
+  color: #ffffff;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.transcript {
+  display: grid;
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* A team member's message is distinguished by its label and a dashed outline, not colour alone. */
+.teamMessage {
+  border: 1px dashed var(--brand-on-dark);
+  background: #1a1a1a;
+}
+
+.outcome {
+  margin: 0.25rem 0 0;
+  color: #cccccc;
+  font-size: 0.875rem;
+}
+
+.caption {
+  padding: 0.75rem 1.25rem 1rem;
+  border-top: 1px solid #333333;
+}
+
+/* ----------------------------------------------------------- Industry page */
+
+.split {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-12);
+  align-items: start;
+}
+
+.split h2 {
+  font-size: clamp(1.5rem, 2.5vw, 2rem);
+}
+
+/* Industries recommend two to four modules, so the grid fills the row instead of leaving gaps. */
+.moduleGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+  gap: var(--space-6);
+}
+
+.moduleGrid :global(.card) {
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-6);
+}
+
+.moduleGrid h3 {
+  font-size: 1.125rem;
+}
+
+.boundaries {
+  padding: var(--space-8);
+  border: 2px dashed var(--link);
+  border-radius: var(--radius);
+  background: var(--surface-raised);
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.chips a {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--control-border);
+  border-radius: 999px;
+  color: var(--text);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.chips a:hover {
+  border-color: var(--link);
+  color: var(--link);
+}
+
+.note {
+  max-width: 65ch;
+  margin-top: var(--space-6);
+  color: var(--muted);
+  font-size: 0.9375rem;
+}
+
+.threeGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-6);
+}
+
+.threeGrid :global(.card) {
+  padding: var(--space-6);
+}
+
+.threeGrid h3 {
+  font-size: 1.125rem;
+}
+
+@media (max-width: 1023px) {
+  .cardGrid,
+  .threeGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .mosaic {
+    justify-self: start;
+  }
+
+  .split {
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+  }
+}
+
+@media (max-width: 767px) {
+  .cardGrid,
+  .threeGrid,
+  .categoryGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .searchPanel {
+    padding: var(--space-4);
+  }
+
+  .mosaic {
+    max-width: none;
+  }
+
+  .mosaic a {
+    min-height: 6.5rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mosaic a:hover {
+    transform: none;
+  }
+}

@@ -1,0 +1,143 @@
+.form {
+  display: grid;
+  gap: var(--space-8);
+  min-width: 0;
+}
+
+/* Inert copy shown for a moment while the preselected form streams in. */
+.placeholder {
+  opacity: 0.6;
+}
+
+.intro {
+  margin: 0;
+  color: var(--muted);
+}
+
+.context {
+  padding: 1rem 1.25rem;
+  border-left: 4px solid var(--link);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  background: var(--brand-soft);
+  color: var(--text);
+}
+
+/* Each part of the form is a panel. The legend floats so it sits inside the border
+   instead of cutting through it, and stays the fieldset's accessible name. */
+.section {
+  min-width: 0;
+  margin: 0;
+  padding: var(--space-6);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface-raised);
+  box-shadow: var(--shadow-sm);
+}
+
+.section > legend {
+  float: left;
+  width: 100%;
+  margin-bottom: var(--space-4);
+  padding: 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.section > legend + * {
+  clear: both;
+}
+
+.required,
+.optional {
+  color: var(--muted);
+  font-size: 0.8125rem;
+  font-weight: 400;
+}
+
+/* Paired controls take the full row so the country names in the select stay readable. */
+.phone,
+.volume {
+  display: grid;
+  grid-column: 1 / -1;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: var(--space-6);
+  align-items: start;
+}
+
+.group {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.group > legend {
+  margin-bottom: 0.5rem;
+  padding: 0;
+  font-size: 0.9375rem;
+  font-weight: 600;
+}
+
+.choices {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.25rem 1.5rem;
+}
+
+.choices[data-columns="1"] {
+  grid-template-columns: 1fr;
+}
+
+.choices[data-columns="3"] {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.choices :global(.checkbox-row) {
+  min-height: 2.75rem;
+  align-items: center;
+}
+
+.choices :global(.checkbox-row) input,
+.form :global(.checkbox-row) input {
+  width: 1.25rem;
+  height: 1.25rem;
+  flex: none;
+}
+
+.choices :global(.checkbox-row) label {
+  font-weight: 400;
+}
+
+.counter {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.8125rem;
+}
+
+.honeypot {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.form :global(.button) {
+  justify-self: start;
+}
+
+@media (max-width: 767px) {
+  .choices,
+  .choices[data-columns="3"] {
+    grid-template-columns: 1fr;
+  }
+
+  .phone,
+  .volume {
+    grid-template-columns: 1fr;
+  }
+
+  .section {
+    padding: var(--space-4);
+  }
+}
