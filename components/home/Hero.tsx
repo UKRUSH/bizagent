@@ -35,7 +35,7 @@ export function Hero() {
           </div>
           <ul className={styles.supportLinks}>
             <li>
-              <Link href="/pricing">
+              <Link href="/whatsapp-ai#plans">
                 See WhatsApp Plans <ArrowRightIcon width="16" height="16" />
               </Link>
             </li>

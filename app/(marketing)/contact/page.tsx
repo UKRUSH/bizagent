@@ -41,7 +41,7 @@ const doNotSend = ["Passwords", "Payment details", "Sensitive customer data"];
 
 const beforeYouGetInTouch: { href: string; label: string; Icon: IconComponent }[] = [
   { href: "/platform", label: "How the platform works", Icon: SparkIcon },
-  { href: "/pricing", label: "Plans and what is confirmed in a quote", Icon: BarChartIcon },
+  { href: "/whatsapp-ai#plans", label: "WhatsApp plans and what is confirmed in a quote", Icon: BarChartIcon },
   { href: "/security", label: "Security and human control", Icon: ShieldIcon },
   { href: "/integrations", label: "Integrations and their status", Icon: PlugIcon },
 ];

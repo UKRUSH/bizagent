@@ -55,7 +55,7 @@ async function RoleContent({ params }: { params: PageProps<"/solutions/[slug]">[
   return (
     <>
       <PageHero
-        breadcrumbs={[{ label: "Home", href: "/" }, { label: "Solutions" }, { label: role.title }]}
+        breadcrumbs={[{ label: "Home", href: "/" }, { label: "Call Agent" }, { label: role.title }]}
         eyebrow={role.title}
         title={role.headline}
         actions={

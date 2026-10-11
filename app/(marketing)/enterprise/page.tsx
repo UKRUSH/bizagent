@@ -62,7 +62,7 @@ export default function EnterprisePage() {
   return (
     <>
       <PageHero
-        breadcrumbs={[{ label: "Home", href: "/" }, { label: "Solutions" }, { label: "Enterprise" }]}
+        breadcrumbs={[{ label: "Home", href: "/" }, { label: "Company" }, { label: "Enterprise" }]}
         eyebrow="Enterprise and white-label"
         title="Built around your organisation's requirements."
         actions={
@@ -110,7 +110,7 @@ export default function EnterprisePage() {
           <SectionHeading id="packages-title" title="Packages for every stage.">
             <p>
               These packages are quoted for your requirements. For WhatsApp chat and voice plans,{" "}
-              <Link href="/pricing">see pricing</Link>.
+              <Link href="/whatsapp-ai#plans">see the WhatsApp plans</Link>.
             </p>
           </SectionHeading>
           <div className={styles.tierGrid}>

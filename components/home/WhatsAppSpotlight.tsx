@@ -62,7 +62,7 @@ export function WhatsAppSpotlight() {
             <Link href="/whatsapp-ai" className="button">
               Explore {siteConfig.whatsappOfferingName}
             </Link>
-            <Link href="/pricing" className="button button--secondary">
+            <Link href="/whatsapp-ai#plans" className="button button--secondary">
               See WhatsApp plans
             </Link>
           </div>

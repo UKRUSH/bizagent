@@ -1,5 +1,6 @@
 import { siteConfig } from "@/config/site";
 import { legalLabels, publishedLegalSlugs } from "./legal";
+import { products } from "./products";
 
 /** Global navigation (specification section 5.2). */
 
@@ -18,29 +19,10 @@ export type NavItem =
   | { kind: "menu"; id: string; label: string; links: NavLink[] };
 
 export const primaryNavigation: NavItem[] = [
-  { kind: "link", label: "Platform", href: "/platform" },
   {
     kind: "menu",
-    id: "features",
-    label: "Features",
-    links: [
-      {
-        label: "Agent BIZ MASTER — WhatsApp AI",
-        href: "/whatsapp-ai",
-        description: "Chat, voice notes, templates and team handoff on WhatsApp.",
-        featured: true,
-      },
-      {
-        label: "All features",
-        href: "/features",
-        description: "Explore all 13 call and messaging modules.",
-      },
-    ],
-  },
-  {
-    kind: "menu",
-    id: "solutions",
-    label: "Solutions",
+    id: "call-agent",
+    label: "Call Agent",
     links: [
       {
         label: "Call Center Agent",
@@ -53,25 +35,44 @@ export const primaryNavigation: NavItem[] = [
         description: "Qualification, follow-ups and pipeline updates.",
       },
       {
-        label: "Personal Call Assistant",
+        label: "Personal Call Agent",
         href: "/solutions/personal-assistant",
         description: "Screening, messages, calendar and reminders.",
       },
+    ],
+  },
+  ...products.map((product): NavItem => ({ kind: "link", label: product.navLabel, href: product.href })),
+  {
+    kind: "menu",
+    id: "features",
+    label: "Features",
+    links: [
       {
-        label: "Enterprise",
-        href: "/enterprise",
-        description: "Custom deployments and white-label options.",
+        label: "Agent BIZ MASTER — WhatsApp AI",
+        href: "/whatsapp-ai",
+        description: "Chat, voice notes, templates and team handoff on WhatsApp.",
+        featured: true,
+      },
+      {
+        label: "Platform",
+        href: "/platform",
+        description: "One shared brain, CRM and admin console.",
+      },
+      {
+        label: "All features",
+        href: "/features",
+        description: "Explore all 13 call and messaging modules.",
       },
     ],
   },
   { kind: "link", label: "Industries", href: "/industries" },
-  { kind: "link", label: "Pricing", href: "/pricing" },
   {
     kind: "menu",
     id: "company",
     label: "Company",
     links: [
       { label: "About", href: "/about" },
+      { label: "Enterprise", href: "/enterprise" },
       { label: "Security", href: "/security" },
       { label: "Integrations", href: "/integrations" },
       { label: "Contact", href: "/contact" },
@@ -94,16 +95,16 @@ export const footerNavigation: FooterGroup[] = [
       { label: "Platform", href: "/platform" },
       { label: "Features", href: "/features" },
       { label: "WhatsApp AI", href: "/whatsapp-ai" },
-      { label: "Pricing", href: "/pricing" },
+      ...products.map((product) => ({ label: product.navLabel, href: product.href })),
       { label: "Integrations", href: "/integrations" },
     ],
   },
   {
-    heading: "Solutions",
+    heading: "Call Agent",
     links: [
       { label: "Call Center Agent", href: "/solutions/call-center" },
       { label: "Sales Agent", href: "/solutions/sales-agent" },
-      { label: "Personal Call Assistant", href: "/solutions/personal-assistant" },
+      { label: "Personal Call Agent", href: "/solutions/personal-assistant" },
       { label: "Industries", href: "/industries" },
       { label: "Enterprise", href: "/enterprise" },
     ],

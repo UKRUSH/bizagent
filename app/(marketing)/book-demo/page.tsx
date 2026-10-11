@@ -44,7 +44,7 @@ const nextSteps: { title: string; text: string; Icon: IconComponent }[] = [
 
 const beforeYourDemo: { href: string; label: string; Icon: IconComponent }[] = [
   { href: "/platform", label: "How the platform works", Icon: SparkIcon },
-  { href: "/pricing", label: "Plans and pricing", Icon: BarChartIcon },
+  { href: "/whatsapp-ai#plans", label: "WhatsApp plans", Icon: BarChartIcon },
   { href: "/integrations", label: "Integrations and their status", Icon: PlugIcon },
 ];
 

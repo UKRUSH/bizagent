@@ -158,14 +158,14 @@ await section("Interactive components (parts 3–9)", async () => {
   await evaluate(`${faq}.querySelector('summary').click()`);
   check("FAQ answers open", await evaluate(`${faq}.open === true`));
 
-  await goto("/pricing");
+  await goto("/whatsapp-ai");
   await evaluate(`document.querySelector('[role=tab][aria-selected="true"]').focus()`);
   await key("ArrowRight", "ArrowRight", 39);
   await sleep(150);
   const tabs = await evaluate(`({ selected: document.querySelector('[role=tab][aria-selected="true"]')?.textContent,
     focused: document.activeElement?.getAttribute('role'),
     voiceVisible: [...document.querySelectorAll('[role=tabpanel]')].some((p) => !p.hidden && p.textContent.includes('Pro Voice')) })`);
-  check("pricing tabs move with the arrow keys and show the Voice plans", tabs.selected === "Voice + Chat AI" && tabs.focused === "tab" && tabs.voiceVisible, JSON.stringify(tabs));
+  check("plan tabs move with the arrow keys and show the Voice plans", tabs.selected === "Voice + Chat AI" && tabs.focused === "tab" && tabs.voiceVisible, JSON.stringify(tabs));
 
   await goto("/features");
   // Filter buttons carry a count badge ("Grow 2"), so match on the label's start.
@@ -204,18 +204,18 @@ await section("Interactive components (parts 3–9)", async () => {
   check("integration status filter narrows the directory", /Showing \d+ of/.test(integrations.status) && integrations.crmVisible && integrations.telephonyHidden, JSON.stringify(integrations));
 
   await goto("/");
-  await evaluate(`document.getElementById('nav-trigger-solutions').click()`);
+  await evaluate(`document.getElementById('nav-trigger-call-agent').click()`);
   await sleep(150);
   await evaluate(`document.querySelector('h1').dispatchEvent(new PointerEvent('pointerdown', { bubbles: true }))`);
   await sleep(150);
-  check("a desktop menu closes on an outside click", (await evaluate(`document.getElementById('nav-trigger-solutions').getAttribute('aria-expanded')`)) === "false");
+  check("a desktop menu closes on an outside click", (await evaluate(`document.getElementById('nav-trigger-call-agent').getAttribute('aria-expanded')`)) === "false");
 
   await viewport(390);
   await goto("/");
   await evaluate(`document.querySelector('.menu-button').click()`);
   await sleep(150);
-  await evaluate(`[...document.querySelectorAll('#mobile-navigation a')].find((a) => a.getAttribute('href') === '/pricing').click()`);
-  await waitFor(`location.pathname === '/pricing'`);
+  await evaluate(`[...document.querySelectorAll('#mobile-navigation a')].find((a) => a.getAttribute('href') === '/industries').click()`);
+  await waitFor(`location.pathname === '/industries'`);
   await sleep(500);
   check("the mobile menu closes after following a link", await evaluate(`document.getElementById('mobile-navigation').hidden`));
   await viewport(1280);
@@ -273,10 +273,10 @@ await section("Theme (spec 4.3)", async () => {
   await sleep(150);
   check("the header toggle switches to dark", (await evaluate(theme)) === "dark");
   check("the footer selector reflects the header toggle", (await evaluate(`document.querySelector('.theme-selector [aria-pressed="true"]')?.textContent`)) === "Dark");
-  await goto("/pricing", 0);
+  await goto("/whatsapp-ai", 0);
   check("the choice persists before hydration (no flash)", (await evaluate(theme)) === "dark");
   await sleep(900);
-  await screenshot("pricing-dark");
+  await screenshot("whatsapp-ai-dark");
   await evaluate(`document.querySelector('.theme-toggle').click()`);
   await sleep(150);
   check("the header toggle switches back to light", (await evaluate(theme)) === "light");
@@ -323,7 +323,7 @@ await section("Keyboard navigation (spec 5.2)", async () => {
 await section("No horizontal page overflow (spec 18)", async () => {
   const routes = [
     "/", "/platform", "/features", "/features/recording-transcription", "/solutions/personal-assistant", "/enterprise",
-    "/whatsapp-ai", "/pricing", "/industries", "/industries/finance-professional-services", "/integrations",
+    "/whatsapp-ai", "/whatsapp-orders", "/ai-to-ai-hub", "/industries", "/industries/finance-professional-services", "/integrations",
     "/security", "/about", "/contact", "/book-demo", "/thank-you", "/demo", "/does-not-exist",
   ];
   const widths = [320, 375, 390, 768, 1024, 1440];

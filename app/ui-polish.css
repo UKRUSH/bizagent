@@ -385,9 +385,15 @@ tbody tr:hover { background: color-mix(in srgb, var(--brand-soft) 45%, transpare
 
 /* Responsive and preference adjustments ---------------------------------- */
 
-@media (max-width: 1199px) {
-  .desktop-nav { gap: 0.125rem; }
-  .desktop-nav__list > li > a, .nav-trigger { padding-inline: 0.5rem; }
+/* Header labels stay on one line; narrow desktops tighten spacing instead of wrapping. */
+.desktop-nav__list > li > a, .nav-trigger, .header-demo { white-space: nowrap; }
+@media (max-width: 1279px) {
+  .desktop-nav { gap: 0; }
+  .desktop-nav__list > li > a, .nav-trigger { padding-inline: 0.4375rem; font-size: 0.8125rem; }
+  .nav-trigger { gap: 0.25rem; }
+  .header-inner { gap: var(--space-3); }
+  .header-demo { padding-inline: 1rem; }
+  .brand-logo__image { width: 9rem; }
 }
 @media (max-width: 767px) {
   .page-hero::after { inset: 0 0 0 20%; opacity: 0.6; }

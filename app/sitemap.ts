@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { industries } from "@/content/industries";
 import { publishedLegalSlugs } from "@/content/legal";
 import { modules } from "@/content/modules";
+import { products } from "@/content/products";
 import { roles } from "@/content/roles";
 import { absoluteUrl } from "@/lib/seo";
 
@@ -18,7 +19,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...roles.map((role) => role.href),
     "/enterprise",
     "/whatsapp-ai",
-    "/pricing",
+    ...products.map((product) => product.href),
     "/industries",
     ...industries.map((industry) => `/industries/${industry.slug}`),
     "/integrations",

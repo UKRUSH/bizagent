@@ -76,7 +76,9 @@ const checks = [
   ["/terms", 404, "We couldn’t find that page."],
   ["/cookies", 404, "We couldn’t find that page."],
   // Draft prices must never reach public HTML unless SHOW_DRAFT_PRICES=true (spec 6.10, 14.3).
-  ["/pricing", 200, "Request current pricing", "LKR"],
+  ["/whatsapp-ai", 200, "Request current pricing", "LKR"],
+  // The pricing page was removed; plans live on /whatsapp-ai#plans.
+  ["/pricing", 404, "We couldn’t find that page."],
   ["/", 200, "Request current pricing", "LKR"],
   ["/does-not-exist", 404, "We couldn’t find that page."],
 ];

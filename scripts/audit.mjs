@@ -160,8 +160,8 @@ check("contrast checker detects a known failure (self-test)", selfTest.some((fai
 // before the click: Next.js keeps the scroll position when the new page's top is in view,
 // so a smooth scroll still animating at click time would leave a misleading offset.
 const softNavigation = [];
-const hubs = ["/", "/features", "/industries", "/pricing"];
-const softTargets = ["/platform", "/features", "/features/whatsapp-voice", "/solutions/call-center", "/whatsapp-ai", "/pricing", "/industries", "/industries/hotels", "/integrations", "/security", "/about", "/contact", "/book-demo", "/demo", "/enterprise"];
+const hubs = ["/", "/features", "/industries", "/whatsapp-ai"];
+const softTargets = ["/platform", "/features", "/features/whatsapp-voice", "/solutions/call-center", "/whatsapp-ai", "/whatsapp-orders", "/ai-to-ai-hub", "/industries", "/industries/hotels", "/integrations", "/security", "/about", "/contact", "/book-demo", "/demo", "/enterprise"];
 await browser.goto(`${BASE}/`, 800);
 for (const target of softTargets) {
   current = `client navigation to ${target}`;

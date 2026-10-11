@@ -3,7 +3,7 @@ import { HeadsetIcon, LayersIcon, SparkIcon, TrendingUpIcon, UsersIcon } from "@
 
 type IconComponent = ComponentType<SVGProps<SVGSVGElement>>;
 
-/** Decorative icon per quoted package tier (content/plans.ts), shared by /enterprise and /pricing. */
+/** Decorative icon per quoted package tier (content/plans.ts), used by /enterprise. */
 export const packageTierIcons: Record<string, IconComponent> = {
   starter: SparkIcon,
   growth: TrendingUpIcon,

@@ -37,7 +37,7 @@ export function PricingPreview() {
           How chats are counted, taxes and other terms are confirmed in your quote.
         </p>
         <div className="button-row">
-          <Link href="/pricing#voice-plans" className="button button--secondary">
+          <Link href="/whatsapp-ai#plans" className="button button--secondary">
             Compare Voice + Chat AI plans
             <ArrowRightIcon width="18" height="18" />
           </Link>

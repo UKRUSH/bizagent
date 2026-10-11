@@ -111,6 +111,71 @@ export interface OperatingRole {
   ctaLabel: string;
 }
 
+/* ----------------------------------------------------------------- Products */
+
+/** Standalone products with their own page, outside the 13 modules. */
+export const productSlugs = ["whatsapp-orders", "ai-to-ai-hub"] as const;
+
+export type ProductSlug = (typeof productSlugs)[number];
+
+/** Decorative icon names; the product page maps each to an icon component. */
+export type ProductIcon =
+  | "message"
+  | "box"
+  | "bag"
+  | "trending"
+  | "refresh"
+  | "chart"
+  | "plug"
+  | "users"
+  | "workflow"
+  | "shield"
+  | "search"
+  | "sliders"
+  | "globe"
+  | "spark";
+
+export interface ProductCapability {
+  title: string;
+  description: string;
+  icon: ProductIcon;
+}
+
+/** A labelled, fictional exchange for the product hero. */
+export interface ProductPreview {
+  context: string;
+  /** Speaker labels: `left` is the incoming party, `right` the BizMaster side. */
+  speakers: { left: string; right: string };
+  messages: { side: "left" | "right"; text: string }[];
+  outcome: { title: string; details: string };
+}
+
+export interface Product {
+  slug: ProductSlug;
+  title: string;
+  /** Shorter label for the header navigation. */
+  navLabel: string;
+  /** One sentence for navigation menus and cards. */
+  summary: string;
+  headline: string;
+  description: string;
+  highlights: string[];
+  capabilities: ProductCapability[];
+  /** Five ordered steps. */
+  workflow: { title: string; description: string }[];
+  /** Work that stays with people. */
+  humanControls: string[];
+  /** Exactly three. */
+  useCases: UseCase[];
+  faqs: Question[];
+  preview: ProductPreview;
+  relatedIndustries: string[];
+  availability: Availability;
+  /** Matching value of the demo form's "Main role" field (spec 12.1). */
+  formRole: "whatsapp" | "not-sure";
+  href: string;
+}
+
 /* --------------------------------------------------------------- Industries */
 
 /** Lightweight slug list for proxy.ts; a test keeps it in sync with content/industries.ts. */

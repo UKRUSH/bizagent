@@ -10,10 +10,10 @@ describe("SEO (spec 16)", () => {
   it("lists published routes only in the sitemap", () => {
     const urls = sitemap().map((entry) => new URL(entry.url).pathname);
     assert.equal(new Set(urls).size, urls.length, "no duplicate URLs");
-    for (const path of ["/", "/pricing", "/features/inbound-calls", "/industries/hotels", "/solutions/sales-agent", "/demo"]) {
+    for (const path of ["/", "/whatsapp-orders", "/ai-to-ai-hub", "/features/inbound-calls", "/industries/hotels", "/solutions/sales-agent", "/demo"]) {
       assert.ok(urls.includes(path), path);
     }
-    for (const path of ["/thank-you", "/privacy", "/terms", "/cookies"]) {
+    for (const path of ["/thank-you", "/pricing", "/privacy", "/terms", "/cookies"]) {
       assert.ok(!urls.includes(path), `${path} must not be listed`);
     }
     assert.ok(!urls.some((path) => path.startsWith("/api")));

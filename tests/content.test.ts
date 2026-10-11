@@ -21,10 +21,11 @@ import {
 import { moduleIllustrations } from "@/content/module-illustrations";
 import { architectureDescription, platformChannels, platformInterfaces, sharedLayer } from "@/content/platform";
 import { rolePreviews } from "@/content/previews";
+import { products } from "@/content/products";
 import { roles } from "@/content/roles";
 import { companyPurpose, contactRoutes, operatingApproach, positioning } from "@/content/company";
 import { publishedLegalSlugs } from "@/content/legal";
-import { legalNavigation } from "@/content/navigation";
+import { legalNavigation, primaryNavigation } from "@/content/navigation";
 import {
   complianceResponsibilities,
   proofPackDocuments,
@@ -249,6 +250,21 @@ describe("roles, FAQs, trust and forms", () => {
     });
   }
 
+  for (const product of products) {
+    it(`${product.slug} product page content is complete and linked from the header`, () => {
+      assert.equal(product.useCases.length, 3);
+      assert.equal(product.workflow.length, 5);
+      assert.ok(product.faqs.length > 0);
+      assert.ok(product.humanControls.length > 0, "the team's responsibilities must be stated");
+      for (const slug of product.relatedIndustries) {
+        assert.ok(industries.some((industry) => industry.slug === slug), slug);
+      }
+      assert.ok(roleOptions.some((option) => option.value === product.formRole), product.formRole);
+      assert.equal(product.href, `/${product.slug}`);
+      assert.ok(primaryNavigation.some((item) => item.kind === "link" && item.href === product.href));
+    });
+  }
+
   it("has the eight homepage questions from spec 6.11", () => {
     assert.equal(homepageFaqs.length, 8);
   });
@@ -285,6 +301,7 @@ describe("publication guardrails (spec 1.2)", () => {
     modules,
     moduleCategories,
     roles,
+    products,
     industries,
     integrationCategories,
     plans,

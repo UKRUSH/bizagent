@@ -113,9 +113,9 @@ export default function WhatsAppAiPage() {
         title="AI for your WhatsApp Business number."
         actions={
           <>
-            <Link href="/pricing" className="button">
+            <a href="#plans" className="button">
               Explore WhatsApp Plans
-            </Link>
+            </a>
             <Link href="/book-demo?role=whatsapp" className="button button--secondary">
               Book a Demo
             </Link>
@@ -233,11 +233,11 @@ export default function WhatsAppAiPage() {
         </div>
       </section>
 
-      <section className="section section--muted" aria-labelledby="plans-title">
+      <section id="plans" className="section section--muted" aria-labelledby="plans-title">
         <div className="container">
           <SectionHeading id="plans-title" eyebrow={`${offering} plans`} title="Chat plans, or voice and chat together.">
             <p>
-              <Link href="/pricing">Compare every plan</Link> and see what is confirmed in your quote.
+              <Link href="/book-demo?role=whatsapp">Request a quote</Link> to see what is confirmed for your number.
             </p>
           </SectionHeading>
           <PlanFamilyTabs previewDrafts={shouldPreviewDraftPrices()} idBase="whatsapp-plans" />
@@ -304,7 +304,7 @@ export default function WhatsAppAiPage() {
         id="whatsapp-cta-title"
         title="Put AI on your WhatsApp number."
         text="Tell us about your number, your customers and what your team answers most often. We’ll check eligibility and shape the demo around it."
-        action={{ href: "/pricing", label: "Explore WhatsApp Plans" }}
+        action={{ href: "/book-demo?role=whatsapp", label: "Book a Demo" }}
         showWhatsApp
       />
     </>
