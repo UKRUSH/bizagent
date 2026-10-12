@@ -35,7 +35,7 @@ import p from "@/components/platform/platform.module.css";
 export const metadata: Metadata = {
   title: "Platform",
   description:
-    "How BizMaster AI Agent connects phone and WhatsApp channels, business knowledge, workflows, your CRM and human handoff on one shared platform.",
+    "How BIZny connects phone and WhatsApp channels, business knowledge, workflows, your CRM and human handoff on one shared platform.",
   alternates: { canonical: "/platform" },
 };
 

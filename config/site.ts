@@ -44,12 +44,12 @@ export interface SiteConfig {
 }
 
 export const siteConfig: SiteConfig = {
-  productName: "BizMaster AI Agent",
+  productName: "BIZny",
   whatsappOfferingName: "Agent BIZ MASTER",
   companyName: "BizMaster Solutions",
   divisionName: "Tech Hub Division",
   shortDescription:
-    "BizMaster AI Agent brings calls, WhatsApp messages, bookings and follow-ups into one AI-assisted workflow, with your team in control of every handoff.",
+    "BIZny brings calls, WhatsApp messages, bookings and follow-ups into one AI-assisted workflow, with your team in control of every handoff.",
   corporateWebsiteUrl: "https://bizmastersolutions.lk/",
   contact: {
     // Observed on the corporate homepage during brand inspection (spec 12.3).

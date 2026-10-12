@@ -4,10 +4,10 @@
   min-width: 0;
 }
 
-/* --------------------------------------------------- Hero background video */
+/* ---------------------------------------------------- Hero background image */
 
-/* The video sits under the hero's own decoration (z -1) and content. The hero's dark
-   gradient stays as the fallback while the poster loads. */
+/* The image sits under the hero's own decoration (z -1) and content. The hero's dark
+   gradient stays as the fallback while it loads. */
 .heroMedia {
   position: absolute;
   inset: 0;
@@ -16,10 +16,9 @@
   pointer-events: none;
 }
 
-/* No zoom: the frame keeps its own 16:9 ratio and is never enlarged beyond the file's
-   1280 px width. On desktop it is centred at 68% of the hero so the subject sits on the
-   right, beside the copy (only the dark left edge of the clip can pass the viewport edge).
-   Its edges fade into a blurred copy of the poster that fills the rest of the hero. */
+/* No zoom: the frame keeps the image's own ratio and is capped at 1440 px wide. On
+   desktop it is centred at 68% of the hero so the face sits on the right, beside the copy.
+   Its edges fade into a blurred copy of the image that fills the rest of the hero. */
 .heroMedia::before {
   content: "";
   position: absolute;
@@ -29,15 +28,13 @@
   opacity: 0.4;
 }
 
-.heroMedia video {
+.heroImage {
   position: absolute;
   top: 50%;
   left: 68%;
   display: block;
-  width: min(100%, 1280px);
+  width: min(100%, 1440px);
   height: auto;
-  aspect-ratio: 16 / 9;
-  object-fit: contain;
   translate: -50% -50%;
   -webkit-mask-image:
     linear-gradient(180deg, transparent 0%, #000 16%, #000 84%, transparent 100%),
@@ -50,8 +47,8 @@
 }
 
 /* Readability overlay: darkest behind the copy, a brand-purple tint to sit the cyan
-   footage in the site palette, and a fade into the next section. Text contrast is
-   computed against the brightest footage (cyan highlights) under this overlay. */
+   image in the site palette, and a fade into the next section. Text contrast is
+   computed against the brightest areas (cyan highlights) under this overlay. */
 .heroMedia::after {
   content: "";
   position: absolute;
@@ -62,36 +59,8 @@
     linear-gradient(135deg, rgb(93 14 139 / 0.28), rgb(93 14 139 / 0.12));
 }
 
-.heroWithVideo::before {
+.heroWithMedia::before {
   opacity: 0.55;
-}
-
-.videoToggle {
-  position: absolute;
-  right: max(1rem, calc((100% - var(--container)) / 2));
-  bottom: 1.25rem;
-  z-index: 2;
-  display: inline-grid;
-  place-items: center;
-  width: 2.75rem;
-  height: 2.75rem;
-  padding: 0;
-  border: 1px solid rgb(255 255 255 / 0.4);
-  border-radius: 50%;
-  background: rgb(0 0 0 / 0.45);
-  color: #ffffff;
-  -webkit-backdrop-filter: blur(8px);
-  backdrop-filter: blur(8px);
-  transition: background-color 160ms ease, border-color 160ms ease;
-}
-
-.videoToggle:hover {
-  border-color: #ffffff;
-  background: rgb(0 0 0 / 0.65);
-}
-
-.videoToggle:focus-visible {
-  outline-color: var(--brand-on-dark);
 }
 
 @media (max-width: 1023px) {
@@ -103,7 +72,7 @@
   }
 
   /* Stacked layout: the full frame sits at the top, behind the badge and headline. */
-  .heroMedia video {
+  .heroImage {
     top: 0;
     left: 50%;
     translate: -50% 0;
@@ -116,7 +85,7 @@
   }
 }
 
-/* Slow glow behind the video's subject on the right (decorative, below the content). */
+/* Slow glow behind the image's subject on the right (decorative, below the content). */
 .heroGrid {
   position: relative;
 }

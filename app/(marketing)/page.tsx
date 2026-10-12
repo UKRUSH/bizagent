@@ -16,7 +16,7 @@ import { homepageFaqs } from "@/content/faqs";
 import { homepageStructuredData } from "@/lib/structured-data";
 
 export const metadata: Metadata = {
-  title: { absolute: "BizMaster AI Agent | Calls, WhatsApp and Follow-Ups" },
+  title: { absolute: "BIZny | Calls, WhatsApp and Follow-Ups" },
   description:
     "An AI assistant for calls, WhatsApp, bookings and follow-ups, with human handoff built in. From BizMaster Solutions Tech Hub Division.",
   alternates: { canonical: "/" },

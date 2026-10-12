@@ -7,7 +7,7 @@ import type { Question } from "./types";
  */
 export const homepageFaqs: Question[] = [
   {
-    question: "What does BizMaster AI Agent do?",
+    question: "What does BIZny do?",
     answer:
       "It answers routine calls and WhatsApp messages, books appointments, takes messages, follows up, and passes conversations to your team with context. You choose which modules and rules apply to your business.",
   },

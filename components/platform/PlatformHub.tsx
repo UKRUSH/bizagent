@@ -28,14 +28,14 @@ export function PlatformHub() {
     <figure className={styles.hub}>
       <figcaption className="sr-only">
         Calls, WhatsApp, SMS and email, your CRM and calendar, and your team all connect to
-        the same BizMaster AI Agent.
+        BIZny.
       </figcaption>
       <div className={styles.hubStage} aria-hidden="true">
         <span className={styles.ring} />
         <span className={`${styles.ring} ${styles.ringInner}`} />
         <div className={styles.core}>
           <SparkIcon width={28} height={28} />
-          <strong>BizMaster AI Agent</strong>
+          <strong>BIZny</strong>
           <span>One knowledge base, one history</span>
         </div>
         <ul className={styles.satellites}>

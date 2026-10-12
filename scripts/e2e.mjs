@@ -221,31 +221,17 @@ await section("Interactive components (parts 3–9)", async () => {
   await viewport(1280);
 });
 
-await section("Hero background video", async () => {
+await section("Hero background image", async () => {
   await viewport(1280);
   await goto("/");
-  const video = `document.querySelector('.hero video')`;
-  const toggleLabel = `document.querySelector('.hero button[aria-label$="background video"]').getAttribute('aria-label')`;
-  const canPlay = await evaluate(`${video}.canPlayType('video/mp4') !== ''`);
-  check("the video is muted, decorative and has a poster", await evaluate(`${video}.muted && ${video}.closest('[aria-hidden="true"]') !== null && Boolean(${video}.poster)`));
-  if (canPlay) {
-    await waitFor(`!${video}.paused`, 20000);
-    check("autoplays and offers a pause button", (await evaluate(toggleLabel)) === "Pause background video");
-    await evaluate(`document.querySelector('.hero button[aria-label$="background video"]').click()`);
-    await sleep(200);
-    check("the button pauses it", (await evaluate(`${video}.paused`)) && (await evaluate(toggleLabel)) === "Play background video");
-    await evaluate(`document.querySelector('.hero button[aria-label$="background video"]').click()`);
-    await waitFor(`!${video}.paused`);
-    await evaluate(`window.scrollTo({ top: document.documentElement.scrollHeight, behavior: 'instant' })`);
-    await waitFor(`${video}.paused`);
-    await evaluate(`window.scrollTo({ top: 0, behavior: 'instant' })`);
-    await waitFor(`!${video}.paused`);
-    check("stops while scrolled out of view and resumes on return", true);
-  }
-  await send("Emulation.setEmulatedMedia", { features: [{ name: "prefers-reduced-motion", value: "reduce" }] });
-  await goto("/", 1500);
-  check("does not play when reduced motion is preferred", (await evaluate(`${video}.paused`)) && (await evaluate(toggleLabel)) === "Play background video");
-  await send("Emulation.setEmulatedMedia", { features: [] });
+  const image = `document.querySelector('.hero img[src*="hero-ai-agent"]')`;
+  await waitFor(`${image}?.complete && ${image}.naturalWidth > 0`, 20000);
+  check("the image loads and is decorative", await evaluate(`${image}.alt === '' && ${image}.closest('[aria-hidden="true"]') !== null`));
+  await screenshot("hero-desktop");
+  await viewport(390);
+  await goto("/");
+  await screenshot("hero-mobile");
+  await viewport(1280);
 });
 
 await section("Illustrative demo (spec 13)", async () => {

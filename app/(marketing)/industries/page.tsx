@@ -10,7 +10,7 @@ import { PageHero } from "@/components/ui/PageHero";
 export const metadata: Metadata = {
   title: "Industries",
   description:
-    "How BizMaster AI Agent supports bookings, enquiries, reminders and follow-ups in 17 industries, with regulated decisions kept with your team.",
+    "How BIZny supports bookings, enquiries, reminders and follow-ups in 17 industries, with regulated decisions kept with your team.",
   alternates: { canonical: "/industries" },
 };
 

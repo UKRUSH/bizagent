@@ -34,7 +34,7 @@ import styles from "@/components/trust/trust.module.css";
 export const metadata: Metadata = {
   title: "Security and Human Control",
   description:
-    "How BizMaster AI Agent keeps people in control: handoff rules, approvals, consent, and the security questions we answer for your deployment.",
+    "How BIZny keeps people in control: handoff rules, approvals, consent, and the security questions we answer for your deployment.",
   alternates: { canonical: "/security" },
 };
 

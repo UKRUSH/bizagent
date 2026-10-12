@@ -150,7 +150,7 @@ p { margin-bottom: var(--space-6); }
 }
 .site-header :focus-visible, .site-footer :focus-visible { outline-color: #ffffff; }
 .brand-logo { display: inline-flex; flex: 0 0 auto; align-items: center; }
-.brand-logo__image { display: block; width: 12rem; height: auto; }
+.brand-logo__image { display: block; width: 10.5rem; height: auto; }
 .desktop-nav { display: flex; align-items: center; gap: 1.125rem; }
 .desktop-nav a, .nav-trigger {
   color: #ffffff;
@@ -355,7 +355,7 @@ main:focus { outline: none; }
 /* Footer. */
 .footer-heading { margin: 0 0 1rem; font-size: 0.875rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
 .footer-links { margin: 0; padding: 0; list-style: none; }
-.footer-brand .brand-logo__image { width: 11rem; }
+.footer-brand .brand-logo__image { width: 9.5rem; }
 .footer-brand p { margin-top: 1.5rem; color: #ffffff; }
 .footer-contact { display: grid; gap: 0.5rem; margin-top: 1rem; }
 .footer-bottom p { margin: 0; max-width: none; }
@@ -440,7 +440,7 @@ ul.capability-row { padding: 0; list-style: none; }
 
 @media (max-width: 1199px) {
   .desktop-nav { gap: 0.75rem; }
-  .brand-logo__image { width: 10.5rem; }
+  .brand-logo__image { width: 9.25rem; }
 }
 @media (max-width: 1023px) {
   .hero-grid { grid-template-columns: 1fr; }
@@ -458,7 +458,7 @@ ul.capability-row { padding: 0; list-style: none; }
 @media (max-width: 767px) {
   :root { --header-height: 4.25rem; }
   .container { width: calc(100% - 2rem); }
-  .brand-logo__image { width: 9.75rem; }
+  .brand-logo__image { width: 8.5rem; }
   .hero p { font-size: 1rem; }
   .hero-grid { gap: 2rem; }
   .hero .button-row { align-items: stretch; }
@@ -475,7 +475,7 @@ ul.capability-row { padding: 0; list-style: none; }
   /* Logo, theme toggle and menu button share one row on the smallest phones. */
   .header-inner { gap: 0.75rem; }
   .header-actions { gap: 0.5rem; }
-  .brand-logo__image { width: 8.5rem; }
+  .brand-logo__image { width: 7.5rem; }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }

@@ -11,7 +11,7 @@ import styles from "@/components/features/features.module.css";
 export const metadata: Metadata = {
   title: "Features",
   description:
-    "All 13 BizMaster AI Agent modules for calls, WhatsApp, follow-ups, reminders, recording, campaigns, sales and call center operations.",
+    "All 13 BIZny modules for calls, WhatsApp, follow-ups, reminders, recording, campaigns, sales and call center operations.",
   alternates: { canonical: "/features" },
 };
 

@@ -2,12 +2,12 @@ import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { ImageResponse } from "next/og";
 
-/** Shared Open Graph image (spec 16): the original white logo on the brand purple. */
-export const alt = "BizMaster AI Agent: calls, WhatsApp and follow-ups, with your team in control";
+/** Shared Open Graph image (spec 16): the white BIZny logo on the brand purple. */
+export const alt = "BIZny: calls, WhatsApp and follow-ups, with your team in control";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-const logo = await readFile(join(process.cwd(), "public/brand/bizmaster-logo-white.png"));
+const logo = await readFile(join(process.cwd(), "public/brand/bizny-logo-white.png"));
 const logoSrc = `data:image/png;base64,${logo.toString("base64")}`;
 
 export default function OpenGraphImage() {
@@ -26,9 +26,9 @@ export default function OpenGraphImage() {
         }}
       >
         {/* eslint-disable-next-line @next/next/no-img-element -- ImageResponse renders plain img */}
-        <img src={logoSrc} width={399} height={138} alt="" />
+        <img src={logoSrc} width={348} height={138} alt="" />
         <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
-          <div style={{ fontSize: 76, fontWeight: 700, letterSpacing: -2 }}>BizMaster AI Agent</div>
+          <div style={{ fontSize: 68, fontWeight: 700, letterSpacing: -2 }}>AI Agentic Solutions for Business Automation</div>
           <div style={{ fontSize: 36, color: "#e6c6ff" }}>Calls, WhatsApp and follow-ups, with your team in control.</div>
         </div>
       </div>

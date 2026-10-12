@@ -62,7 +62,7 @@ export default function ContactPage() {
       <PageHero
         breadcrumbs={[{ label: "Home", href: "/" }, { label: "Contact" }]}
         eyebrow="Contact"
-        title="Talk to the BizMaster AI Agent team."
+        title="Talk to the BIZny team."
         actions={
           <>
             <a href="#enquiry" className="button">

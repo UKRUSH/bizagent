@@ -4,7 +4,7 @@
  */
 
 export const companyPurpose =
-  "BizMaster AI Agent is built by the BizMaster Solutions Tech Hub Division to help businesses keep every customer conversation moving, across phone calls, WhatsApp and follow-ups, without losing the human relationships that matter.";
+  "BIZny is built by the BizMaster Solutions Tech Hub Division to help businesses keep every customer conversation moving, across phone calls, WhatsApp and follow-ups, without losing the human relationships that matter.";
 
 /** Positioning guidance from source section 2. */
 export const positioning = {

@@ -43,8 +43,8 @@ const industrySlugs = [
 
 /** [path, expected status, text that must appear, optional text that must NOT appear] */
 const checks = [
-  // "moving." is wrapped in an accent span, so match the start of the headline.
-  ["/", 200, "Keep every customer conversation"],
+  // "Business Automation." is wrapped in an accent span, so match the start of the headline.
+  ["/", 200, "AI Agentic Solutions for"],
   ["/platform", 200, "One shared platform behind every conversation."],
   ["/features", 200, "Thirteen modules for every call and message."],
   ...moduleSlugs.map((slug) => [`/features/${slug}`, 200, "Illustrative demo"]),
@@ -62,7 +62,7 @@ const checks = [
   ["/integrations", 200, 'id="crm"'],
   ["/security", 200, "Your team stays in control of every conversation."],
   ["/about", 200, "AI that supports your team, not replaces it."],
-  ["/contact", 200, "Talk to the BizMaster AI Agent team."],
+  ["/contact", 200, "Talk to the BIZny team."],
   ["/book-demo", 200, "Request Demo"],
   ["/book-demo?plan=pro-voice&module=inbound-calls", 200, "asking about:"],
   ["/thank-you", 200, "noindex"],

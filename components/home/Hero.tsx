@@ -1,11 +1,11 @@
 import Link from "next/link";
 import { ArrowRightIcon } from "@/components/ui/icons";
-import { HeroVideo } from "./HeroVideo";
+import { HeroImage } from "./HeroImage";
 import styles from "./home.module.css";
 
 /**
- * Homepage hero (spec 6.1): copy on the left over a decorative background video
- * (HeroVideo) whose subject shows on the right. The language chip reflects the intended
+ * Homepage hero (spec 6.1): copy on the left over a decorative background image
+ * (HeroImage) whose subject shows on the right. The language chip reflects the intended
  * product languages; it must match the tested configuration before launch (BUILD_PLAN
  * open confirmation 6).
  */
@@ -13,17 +13,17 @@ const capabilities = ["Calls and WhatsApp", "Sinhala, Tamil and English workflow
 
 export function Hero() {
   return (
-    <section className={`hero ${styles.heroWithVideo}`} aria-labelledby="hero-title">
-      <HeroVideo />
+    <section className={`hero ${styles.heroWithMedia}`} aria-labelledby="hero-title">
+      <HeroImage />
       <div className={`container hero-grid ${styles.heroGrid}`}>
         <div className={styles.heroCopy}>
           <span className={`eyebrow ${styles.heroEyebrow}`}>BizMaster Solutions · Tech Hub Division</span>
           <h1 id="hero-title">
-            Keep every customer conversation <span className={styles.accent}>moving.</span>
+            AI Agentic Solutions for <span className={styles.accent}>Business Automation.</span>
           </h1>
           <p>
-            Bring calls, WhatsApp messages, bookings, and follow-ups into one AI-assisted workflow.
-            Give customers timely help and give your team the context they need to take over.
+            Deploy AI agents that answer calls, reply on WhatsApp, book appointments, and follow up
+            on leads — automating routine work while your team stays in control of every handoff.
           </p>
           <div className="button-row">
             <Link href="/book-demo" className="button button--white">

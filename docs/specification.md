@@ -28,7 +28,7 @@ The recommended launch is a public marketing website with a working demo-request
 
 | Source issue | What the file says | Required website treatment |
 | --- | --- | --- |
-| Product names | Agent BIZ MASTER, Agent BIZ Master, and Agent Dilu are interchanged | Public product: **BizMaster AI Agent**. WhatsApp offering: **Agent BIZ MASTER**. Explain Agent Dilu only as a verified underlying integration |
+| Product names | Agent BIZ MASTER, Agent BIZ Master, and Agent Dilu are interchanged | Public product: **BIZny** (renamed from BizMaster AI Agent, 12 October 2026). WhatsApp offering: **Agent BIZ MASTER**. Explain Agent Dilu only as a verified underlying integration |
 | Provider attribution | Agent Dilu is attributed to Dilexus, described as a Meta Tech Provider | Obtain approved attribution and provider evidence before publishing partner status; do not imply BizMaster itself is a Meta partner |
 | Pricing range | Section 22 lists Rs. 8,000–70,000; section 18.7 lists Pro Voice at Rs. 100,000 | Use the explicit plan table as the draft data; flag pricing for commercial confirmation; discard the conflicting range from public copy |
 | Setup charges | WhatsApp copy says zero setup fees; general pricing includes setup and integration fees | Define no-setup terms only for eligible WhatsApp plans if confirmed; quote custom deployments separately |
@@ -205,9 +205,9 @@ Footer: original white logo, a short product description, grouped links, verifie
 
 Eyebrow: **BIZMASTER SOLUTIONS · TECH HUB DIVISION**.
 
-Title: **Keep every customer conversation moving.**
+Title: **AI Agentic Solutions for Business Automation.**
 
-Description: **Bring calls, WhatsApp messages, bookings, and follow-ups into one AI-assisted workflow. Give customers timely help and give your team the context they need to take over.**
+Description: **Deploy AI agents that answer calls, reply on WhatsApp, book appointments, and follow up on leads — automating routine work while your team stays in control of every handoff.**
 
 Primary button: **Book a Demo** → `/book-demo`. Secondary button: **Explore the Platform** → `/platform`. Supporting links: **See WhatsApp Plans** and **View Illustrative Demo**.
 
@@ -702,7 +702,7 @@ The code is a foundation. Add component-specific styles for breadcrumbs, filters
 
 ## 16. SEO and content publication
 
-Use unique page titles, useful descriptions, canonical URLs, Open Graph images, and descriptive headings. Keep metadata in Server Components as required by the framework [S3]. A proposed homepage title is **BizMaster AI Agent | Calls, WhatsApp and Follow-Ups**.
+Use unique page titles, useful descriptions, canonical URLs, Open Graph images, and descriptive headings. Keep metadata in Server Components as required by the framework [S3]. A proposed homepage title is **BIZny | Calls, WhatsApp and Follow-Ups**.
 
 Use the configured production domain for `metadataBase`, canonicals, sitemap and robots. Do not hard-code the existing company domain unless this product actually launches there. A separate product domain and a corporate `/ai-agent` replacement have different migration needs.
 
