@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   },
   description: siteConfig.shortDescription,
   applicationName: siteConfig.productName,
-  robots: indexingAllowed() ? undefined : { index: false, follow: false },
+  robots: indexingAllowed() ? { index: true, follow: true } : { index: false, follow: false },
   openGraph: {
     type: "website",
     siteName: siteConfig.productName,
