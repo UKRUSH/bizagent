@@ -9,7 +9,9 @@ export function getSiteUrl(): string {
 }
 
 export function indexingAllowed(): boolean {
-  return process.env.SITE_INDEXING === "true";
+  if (process.env.SITE_INDEXING === "true") return true;
+  if (process.env.SITE_INDEXING === "false") return false;
+  return process.env.NODE_ENV === "production" && getSiteUrl() === "https://agentbizny.com";
 }
 
 export function absoluteUrl(path: string): string {
