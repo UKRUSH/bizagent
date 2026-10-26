@@ -19,6 +19,14 @@ describe("SEO (spec 16)", () => {
     assert.ok(!urls.some((path) => path.startsWith("/api")));
   });
 
+  it("uses the public production origin for generated sitemap URLs", () => {
+    const previous = process.env.SITE_URL;
+    process.env.SITE_URL = "https://agentbizny.com";
+    assert.ok(sitemap().every((entry) => entry.url.startsWith("https://agentbizny.com/")));
+    if (previous === undefined) delete process.env.SITE_URL;
+    else process.env.SITE_URL = previous;
+  });
+
   it("blocks crawling until indexing is switched on", () => {
     const previous = process.env.SITE_INDEXING;
     delete process.env.SITE_INDEXING;

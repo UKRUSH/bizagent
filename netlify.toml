@@ -27,6 +27,8 @@
 [build.environment]
   NODE_VERSION = "24"
   NEXT_TELEMETRY_DISABLED = "1"
+  SITE_URL = "https://agentbizny.com"
+  SITE_INDEXING = "true"
 
 # Hero video and poster in public/media are not content-hashed, so cache them for a day
 # and refresh in the background rather than marking them immutable.
