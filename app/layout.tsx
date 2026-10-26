@@ -23,10 +23,21 @@ export const metadata: Metadata = {
   description: siteConfig.shortDescription,
   applicationName: siteConfig.productName,
   robots: indexingAllowed() ? undefined : { index: false, follow: false },
-  // No shared og:title/description: pages would inherit them. Platforms fall back to each
-  // page's <title> and description; the image comes from app/opengraph-image.tsx.
-  openGraph: { type: "website", siteName: siteConfig.productName, locale: "en" },
-  twitter: { card: "summary_large_image" },
+  openGraph: {
+    type: "website",
+    siteName: siteConfig.productName,
+    locale: "en",
+    title: `${siteConfig.productName} | Calls, WhatsApp and Follow-Ups`,
+    description: siteConfig.shortDescription,
+    url: "/",
+    images: [{ url: "/opengraph-image", alt: `${siteConfig.productName} brand mark` }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${siteConfig.productName} | Calls, WhatsApp and Follow-Ups`,
+    description: siteConfig.shortDescription,
+    images: ["/opengraph-image"],
+  },
 };
 
 export const viewport: Viewport = {

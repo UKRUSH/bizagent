@@ -4,6 +4,7 @@ import { SiteShell } from "@/components/layout/SiteShell";
 
 export const metadata: Metadata = {
   title: "Page not found",
+  robots: { index: false, follow: false },
 };
 
 /** Real not-found UI for unmatched routes and unknown slugs (spec 14.1, 23.2). */
