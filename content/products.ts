@@ -9,7 +9,7 @@ export const products: Product[] = [
   {
     slug: "whatsapp-orders",
     title: "WhatsApp Order & Sales Management System",
-    navLabel: "WhatsApp Orders",
+    navLabel: "WhatsApp OrderFlow",
     summary: "Take orders, answer product questions and track sales on WhatsApp.",
     headline: "Take orders and manage sales where your customers already chat.",
     description:

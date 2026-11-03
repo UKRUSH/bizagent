@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { getProduct } from "@/content/products";
-import { ProductPage } from "@/components/products/ProductPage";
+import { WhatsAppOrdersPage as OrdersLayout } from "@/components/products/WhatsAppOrdersPage";
 
 const product = getProduct("whatsapp-orders");
 
@@ -11,5 +11,5 @@ export const metadata: Metadata = {
 };
 
 export default function WhatsAppOrdersPage() {
-  return <ProductPage product={product} />;
+  return <OrdersLayout product={product} />;
 }
