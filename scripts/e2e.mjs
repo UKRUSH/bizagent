@@ -308,7 +308,7 @@ await section("Keyboard navigation (spec 5.2)", async () => {
 
 await section("No horizontal page overflow (spec 18)", async () => {
   const routes = [
-    "/", "/platform", "/features", "/features/recording-transcription", "/solutions/personal-assistant/whatsapp", "/solutions/personal-assistant/voice", "/enterprise",
+    "/", "/agentic-solutions", "/platform", "/features", "/features/recording-transcription", "/solutions/personal-assistant/whatsapp", "/solutions/personal-assistant/voice", "/enterprise",
     "/whatsapp-ai", "/whatsapp-orders", "/ai-to-ai-hub", "/industries", "/industries/finance-professional-services", "/integrations",
     "/security", "/about", "/contact", "/book-demo", "/thank-you", "/demo", "/does-not-exist",
   ];

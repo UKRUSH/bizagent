@@ -1,3 +1,77 @@
+/* --------------------------------------------------------- Sinhala text */
+
+/* The site font has no Sinhala glyphs: keep it first for the English words, then fall
+   back to sans-serif Sinhala fonts (Iskoola Pota last, as its Latin letters are serif). */
+.si {
+  font-family: var(--font-body), "Noto Sans Sinhala", "Nirmala UI", "Sinhala Sangam MN", "Iskoola Pota", sans-serif;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.kicker {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin: 0 0 1.25rem;
+  padding: 0.625rem 1rem;
+  border: 1px solid color-mix(in srgb, var(--link) 25%, transparent);
+  border-left: 4px solid var(--link);
+  border-radius: var(--radius-sm);
+  background: var(--brand-soft);
+}
+
+.kicker .si {
+  color: var(--text);
+  font-size: 0.9375rem;
+  font-weight: 700;
+}
+
+.kickerEn {
+  color: var(--link);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.heroLocal {
+  color: var(--link);
+  font-size: 1.125rem;
+  font-weight: 700;
+}
+
+.sectionLocal {
+  margin: 0 0 0.25rem;
+  color: var(--link);
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.cardLocal {
+  display: block;
+  margin: -0.25rem 0 0.625rem;
+  color: var(--link);
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.panelLocal {
+  margin: 0.75rem 0 0;
+  font-size: 1.0625rem;
+  font-weight: 700;
+}
+
+.customPanel .panelLocal {
+  margin: 0.75rem 0 0;
+  color: #ffffff;
+}
+
+.customPanel .ctaLocal {
+  margin: 0.75rem 0 0;
+  color: rgb(255 255 255 / 0.85);
+  font-size: 0.875rem;
+}
+
 /* ------------------------------------------------- Hero: live agent board */
 
 .board {
@@ -389,6 +463,18 @@
   font-size: 0.9375rem;
 }
 
+.assistant {
+  align-self: flex-start;
+  margin-bottom: 0.625rem;
+  padding: 0.2rem 0.625rem;
+  border-radius: 999px;
+  background: var(--gradient-brand);
+  color: #ffffff;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
 .benefit {
   margin: 0;
   padding: 0.75rem;
@@ -460,11 +546,40 @@
   color: var(--link);
 }
 
+/* ------------------------------------------------------ Closing statement */
+
+.closing {
+  background:
+    radial-gradient(circle at 50% 0%, color-mix(in srgb, var(--link) 18%, transparent), transparent 60%),
+    var(--brand-deep);
+  color: #ffffff;
+  text-align: center;
+}
+
+.closing h2 {
+  max-width: 30ch;
+  margin: 0 auto 1rem;
+  color: #ffffff;
+}
+
+.closing p {
+  max-width: 62ch;
+  margin: 0 auto;
+  color: rgb(255 255 255 / 0.85);
+}
+
+.closing .closingLocal {
+  margin-bottom: 1rem;
+  color: #e9d5ff;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
 /* ---------------------------------------------------------- Integrations */
 
 .integrationGrid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: var(--space-4);
 }
 
@@ -500,7 +615,8 @@
 /* ------------------------------------------------------------ Responsive */
 
 @media (max-width: 1199px) {
-  .industryGrid {
+  .industryGrid,
+  .integrationGrid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }

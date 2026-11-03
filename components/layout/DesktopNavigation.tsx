@@ -134,29 +134,40 @@ export function DesktopNavigationView({ pathname }: { pathname: string | null })
                 {item.label}
                 <ChevronDownIcon className="nav-trigger__chevron" />
               </button>
-              <div id={`nav-panel-${item.id}`} className="nav-panel" hidden={!isOpen}>
-                {item.heading && (
-                  <p className="nav-panel__heading" id={`nav-heading-${item.id}`}>
-                    {item.heading}
-                  </p>
-                )}
-                <ul aria-labelledby={item.heading ? `nav-heading-${item.id}` : undefined}>
-                  {item.links.map((link) => (
-                    <li key={link.href}>
-                      <SmartLink
-                        href={link.href}
-                        external={link.external}
-                        current={isCurrent(link.activeHref ?? link.href)}
-                        className={link.featured ? "nav-panel__featured" : undefined}
-                      >
-                        <span className="nav-panel__label">{link.label}</span>
-                        {link.description && (
-                          <span className="nav-panel__description">{link.description}</span>
-                        )}
-                      </SmartLink>
-                    </li>
-                  ))}
-                </ul>
+              <div
+                id={`nav-panel-${item.id}`}
+                className={item.groups.length > 1 ? "nav-panel nav-panel--columns" : "nav-panel"}
+                hidden={!isOpen}
+              >
+                {item.groups.map((group) => {
+                  const headingId = `nav-heading-${item.id}-${group.id}`;
+                  return (
+                    <div key={group.id} className="nav-panel__group">
+                      {group.heading && (
+                        <p className="nav-panel__heading" id={headingId}>
+                          {group.heading}
+                        </p>
+                      )}
+                      <ul aria-labelledby={group.heading ? headingId : undefined}>
+                        {group.links.map((link) => (
+                          <li key={link.href}>
+                            <SmartLink
+                              href={link.href}
+                              external={link.external}
+                              current={isCurrent(link.href)}
+                              className={link.featured ? "nav-panel__featured" : undefined}
+                            >
+                              <span className="nav-panel__label">{link.label}</span>
+                              {link.description && (
+                                <span className="nav-panel__description">{link.description}</span>
+                              )}
+                            </SmartLink>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  );
+                })}
               </div>
             </li>
           );

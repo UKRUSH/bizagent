@@ -10,111 +10,135 @@ export const products: Product[] = [
     slug: "whatsapp-orders",
     title: "WhatsApp Order & Sales Management System",
     navLabel: "WhatsApp OrderFlow",
-    summary: "Take orders, answer product questions and track sales on WhatsApp.",
-    headline: "Take orders and manage sales where your customers already chat.",
+    summary: "Take orders on WhatsApp and phone calls, in Sinhala and English, around the clock.",
+    headline: "Take orders on WhatsApp and phone calls, 24/7.",
     description:
-      "Customers browse your catalogue, ask questions and place orders in a WhatsApp chat. The AI assistant confirms each order, keeps stock and delivery status in view, and passes anything unusual to your team, so every order is recorded in one place.",
-    highlights: ["Catalogue in chat", "Order capture", "Payment links", "Delivery updates", "Sales dashboard"],
+      "Customers order the way they prefer: a WhatsApp chat, a voice note or a phone call, in Sinhala or English. The AI order agent collects the name, contact number, products, quantities and delivery details, confirms the order back and saves it to your order workflow, then follows up with confirmation calls, payment reminders and delivery updates. Anything unusual goes to your team.",
+    highlights: ["WhatsApp chat orders", "Phone call orders", "Sinhala + English", "Confirmation and follow-up calls", "Order dashboard"],
     capabilities: [
       {
-        title: "Catalogue browsing",
+        title: "Incoming order calls",
+        localTitle: "Calls වලින් Orders ලබාගන්න",
         description:
-          "Customers ask for a product by name, photo or category and get matching items, prices and options from your approved catalogue.",
-        icon: "bag",
+          "Answers order calls in Sinhala or English, shares product, price and offer information, and takes the order on the call.",
+        icon: "phone",
       },
       {
-        title: "Order capture",
+        title: "WhatsApp chat and voice-note orders",
+        localTitle: "WhatsApp Chat එකෙන් Orders",
         description:
-          "Items, quantities, variants and delivery details are collected in the chat and confirmed back to the customer before the order is saved.",
+          "Customers order by message, photo or voice note on WhatsApp and get matching items and prices from your approved catalogue.",
+        icon: "message",
+      },
+      {
+        title: "AI order taking",
+        localTitle: "Order එක Confirm කරලා Save කරන්න",
+        description:
+          "Collects the customer's name, contact number, products, quantities and delivery details, reads the order back, then saves it to your order workflow.",
         icon: "box",
       },
       {
-        title: "Payment links and receipts",
+        title: "Confirmation and follow-up calls",
+        localTitle: "AI මගින් Automatic Calls",
         description:
-          "A payment link is sent for approved amounts, and the order moves forward once your payment provider confirms it.",
+          "Calls or messages customers to confirm orders, check cash-on-delivery and follow up on unfinished orders, inside the hours you set.",
+        icon: "outgoing",
+      },
+      {
+        title: "Payment links and reminders",
+        localTitle: "Payment මතක් කිරීම්",
+        description:
+          "Sends a payment link for approved amounts, and reminds customers of unpaid orders by WhatsApp or a short voice call.",
         icon: "shield",
       },
       {
-        title: "Order and delivery updates",
+        title: "Delivery updates and notifications",
+        localTitle: "Delivery තොරතුරු දැනුම් දීම",
         description:
-          "Customers are told when an order is confirmed, packed, dispatched and delivered, using approved message templates.",
+          "Tells customers when an order is confirmed, dispatched, delayed or delivered, using approved message templates or a call.",
         icon: "refresh",
       },
       {
-        title: "Upsell and repeat orders",
+        title: "Offers, promotions and reorders",
+        localTitle: "Offers සහ Promotions",
         description:
-          "Related items are suggested from your rules, and repeat customers can reorder a previous basket in a few messages.",
-        icon: "trending",
+          "Lets opted-in customers know about offers and new stock, and lets repeat customers reorder a previous basket in a few messages.",
+        icon: "megaphone",
       },
       {
-        title: "Sales and order dashboard",
+        title: "Order dashboard and team handoff",
+        localTitle: "සියලු Orders එකම තැනක",
         description:
-          "See orders by status, revenue by product and period, abandoned chats and follow-ups in one view for your team.",
+          "Every order, call and chat lands in one dashboard. Custom, bulk and complaint cases move to a team member with the full history.",
         icon: "chart",
-      },
-      {
-        title: "Stock and system sync",
-        description:
-          "Stock, prices and orders can sync with your POS, ERP or e-commerce platform. Connections are assessed for each setup.",
-        icon: "plug",
-      },
-      {
-        title: "Team inbox and handoff",
-        description:
-          "Custom requests, complaints and bulk orders move to a team member with the full chat and order details attached.",
-        icon: "users",
       },
     ],
     workflow: [
       {
-        title: "Customer messages",
-        description: "A customer asks about a product or sends a photo on WhatsApp.",
+        title: "Customer calls or messages",
+        description: "A customer calls your number or sends a WhatsApp message, photo or voice note.",
       },
       {
-        title: "Products matched",
-        description: "The assistant shares matching items, prices and options from your catalogue.",
+        title: "Agent answers in their language",
+        description: "The agent replies in Sinhala or English with products, prices and offers from your catalogue.",
       },
       {
-        title: "Order confirmed",
-        description: "Items, quantities and delivery details are confirmed back to the customer.",
+        title: "Order details collected",
+        description: "Name, contact number, products, quantities and delivery details are collected and read back.",
       },
       {
-        title: "Payment and fulfilment",
-        description: "A payment link is sent and the order goes to your team or system to fulfil.",
+        title: "Order confirmed and saved",
+        description: "The confirmed order is saved to your order workflow, with a payment link if one is needed.",
       },
       {
-        title: "Updates and follow-up",
-        description: "Status updates are sent, and the sale is recorded on your dashboard.",
+        title: "Follow-ups and delivery updates",
+        description: "Confirmation calls, payment reminders and delivery updates go out on schedule.",
       },
     ],
     humanControls: [
-      "Catalogue, prices and discount rules",
+      "Catalogue, prices, offers and discount rules",
       "Custom, bulk and wholesale orders",
       "Refunds, returns and complaints",
+      "Calling hours and who may be contacted",
       "Approval of any price outside your rules",
     ],
     useCases: [
       {
-        title: "Retail and online shops",
+        title: "Shops and online stores",
         description:
-          "Customers who message about a product can see options and order in the same chat, without moving to a website.",
+          "Phone and WhatsApp orders are taken even when staff are busy, with product questions answered and every order confirmed.",
       },
       {
         title: "Restaurants and food delivery",
         description:
-          "Menu questions, orders and delivery details are handled in chat, with the kitchen or delivery team notified of each confirmed order.",
+          "Menu questions, orders, reservations and delivery details are handled during peak hours, and the kitchen is notified of each confirmed order.",
       },
       {
         title: "Distributors and repeat buyers",
         description:
-          "Regular buyers reorder from their previous orders, and larger or custom orders are passed to a salesperson.",
+          "Regular buyers reorder by call or message, and larger or custom orders are passed to a salesperson.",
       },
     ],
     faqs: [
       {
+        question: "Can customers order by phone call as well as WhatsApp?",
+        answer:
+          "Yes. Orders can come in through a WhatsApp chat, a voice note, a WhatsApp call where supported, or a call to your business number. Phone line and SIP options are assessed during onboarding.",
+      },
+      {
+        question: "Does it speak Sinhala?",
+        answer:
+          "Conversations can run in Sinhala and English, and the agent replies in the customer's language. Language support for your products and customers is confirmed during the demo.",
+      },
+      {
         question: "Do customers need to install anything?",
         answer:
-          "No. Customers order in the WhatsApp app they already use. Your business needs an eligible WhatsApp Business number, which we check during onboarding.",
+          "No. Customers order in the WhatsApp app they already use, or simply call. For WhatsApp, your business needs an eligible WhatsApp Business number, which we check during onboarding.",
+      },
+      {
+        question: "Will it call customers who haven't agreed to it?",
+        answer:
+          "No. Outbound calls and messages go only to customers with an open order or who have opted in, inside the calling hours you set.",
       },
       {
         question: "Can it work with our existing POS or online store?",
@@ -124,7 +148,7 @@ export const products: Product[] = [
       {
         question: "Who decides prices and discounts?",
         answer:
-          "Your team does. The assistant only quotes prices and discounts from your approved catalogue and rules, and passes any exception to a person.",
+          "Your team does. The agent only quotes prices and discounts from your approved catalogue and rules, and passes any exception to a person.",
       },
       {
         question: "Can it take payments?",
@@ -139,17 +163,17 @@ export const products: Product[] = [
         { side: "left", text: "Hi, do you have the chocolate cake for Saturday? We need it for 12 people." },
         {
           side: "right",
-          text: "I'm the bakery's AI assistant. Yes, the large chocolate cake serves 12. Would you like pickup or delivery on Saturday?",
+          text: "I'm the bakery's AI assistant. Yes, the large chocolate cake serves 12. May I have a name for the order?",
         },
-        { side: "left", text: "Delivery please, to the same address as last time." },
+        { side: "left", text: "It's N. P. Delivery please, to the same address as last time." },
         {
           side: "right",
-          text: "Done: 1 large chocolate cake, delivered Saturday morning to your saved address. Here is your payment link to confirm the order.",
+          text: "Thanks, N. P.: 1 large chocolate cake, delivered Saturday morning to your saved address. Here is your payment link to confirm.",
         },
       ],
       outcome: {
-        title: "Order confirmed",
-        details: "Added to Saturday's orders · delivery team notified",
+        title: "Order confirmed and saved",
+        details: "Added to Saturday's orders · reminder call scheduled for Friday",
       },
     },
     relatedIndustries: ["retail-ecommerce", "restaurants", "d2c-brands", "sales-teams-smes"],

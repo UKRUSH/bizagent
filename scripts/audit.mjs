@@ -161,7 +161,7 @@ check("contrast checker detects a known failure (self-test)", selfTest.some((fai
 // so a smooth scroll still animating at click time would leave a misleading offset.
 const softNavigation = [];
 const hubs = ["/", "/features", "/industries", "/whatsapp-ai"];
-const softTargets = ["/platform", "/features", "/features/whatsapp-voice", "/solutions/call-center/whatsapp", "/whatsapp-ai", "/whatsapp-orders", "/ai-to-ai-hub", "/industries", "/industries/hotels", "/integrations", "/security", "/about", "/contact", "/book-demo", "/demo", "/enterprise"];
+const softTargets = ["/agentic-solutions", "/platform", "/features", "/features/whatsapp-voice", "/solutions/call-center/whatsapp", "/whatsapp-ai", "/whatsapp-orders", "/ai-to-ai-hub", "/industries", "/industries/hotels", "/integrations", "/security", "/about", "/contact", "/book-demo", "/demo", "/enterprise"];
 await browser.goto(`${BASE}/`, 800);
 for (const target of softTargets) {
   current = `client navigation to ${target}`;

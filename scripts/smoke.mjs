@@ -45,6 +45,7 @@ const industrySlugs = [
 const checks = [
   // "Business Automation." is wrapped in an accent span, so match the start of the headline.
   ["/", 200, "AI Agentic Solutions for"],
+  ["/agentic-solutions", 200, "Your Business. Powered by AI Agents."],
   ["/platform", 200, "One shared platform behind every conversation."],
   ["/features", 200, "Thirteen modules for every call and message."],
   ...moduleSlugs.map((slug) => [`/features/${slug}`, 200, "Illustrative demo"]),

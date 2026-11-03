@@ -1,9 +1,11 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
+import * as agenticSolutions from "@/content/agenticSolutions";
+import { agentDepartments, automationCapabilities, customAgents } from "@/content/agenticSolutions";
 import { deploymentOptions, enterpriseArchitectures, channelEmbedding } from "@/content/deployment";
 import { approvedProviderAttribution, siteConfig } from "@/config/site";
-import { getRoleChannel } from "@/content/roleChannels";
-import { roleChannels } from "@/content/types";
+import { getRoleChannel, roleChannelHref } from "@/content/roleChannels";
+import { roleChannels, type RoleChannel } from "@/content/types";
 import { demoScenarios } from "@/content/demo-scenarios";
 import { homepageFaqs, pricingFaqs, whatsappFaqs } from "@/content/faqs";
 import { engagementSteps, enterpriseRequirements, serviceLevelStatement, whiteLabelPoints } from "@/content/enterprise";
@@ -271,6 +273,34 @@ describe("roles, FAQs, trust and forms", () => {
     }
   }
 
+  it("gives every Agentic Solutions department its tasks, systems and a human approval rule", () => {
+    assert.equal(agentDepartments.length, 8);
+    assert.equal(new Set(agentDepartments.map((entry) => entry.id)).size, agentDepartments.length);
+    for (const department of agentDepartments) {
+      assert.ok(department.tasks.length >= 4, department.id);
+      assert.ok(department.connects.length > 0, department.id);
+      assert.ok(department.approval.length > 0, `${department.id} must say what waits for a person`);
+    }
+    assert.equal(automationCapabilities.length, 12);
+    assert.ok(customAgents.examples.length >= 7);
+    assert.ok(primaryNavigation.some((item) => item.kind === "link" && item.href === "/agentic-solutions"));
+  });
+
+  it("lists every role under both channel groups of the Voice Agent menu", () => {
+    const menu = primaryNavigation.find((item) => item.kind === "menu" && item.id === "voice-agent");
+    assert.ok(menu?.kind === "menu");
+    assert.deepEqual(
+      menu.groups.map((group) => group.id),
+      [...roleChannels],
+    );
+    for (const group of menu.groups) {
+      assert.deepEqual(
+        group.links.map((link) => link.href),
+        roles.map((role) => roleChannelHref(role.slug, group.id as RoleChannel)),
+      );
+    }
+  });
+
   for (const product of products) {
     it(`${product.slug} product page content is complete and linked from the header`, () => {
       assert.equal(product.useCases.length, 3);
@@ -368,6 +398,7 @@ describe("publication guardrails (spec 1.2)", () => {
     securityReviewTopics,
     complianceResponsibilities,
     demoScenarios,
+    agenticSolutions,
   };
 
   function collectStrings(value: unknown, path: string, out: { path: string; text: string }[]) {

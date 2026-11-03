@@ -34,7 +34,7 @@ export function MobileNavigationView({ pathname }: { pathname: string | null }) 
       setOpen(false);
       buttonRef.current?.focus();
     }
-    const desktop = window.matchMedia("(min-width: 1024px)");
+    const desktop = window.matchMedia("(min-width: 1200px)");
     function handleViewportChange(event: MediaQueryListEvent) {
       if (event.matches) setOpen(false);
     }
@@ -83,16 +83,27 @@ export function MobileNavigationView({ pathname }: { pathname: string | null }) 
             <p className="mobile-nav__heading" id={`mobile-nav-${menu.id}`}>
               {menu.label}
             </p>
-            {menu.heading && <p className="mobile-nav__subheading">{menu.heading}</p>}
-            <ul aria-labelledby={`mobile-nav-${menu.id}`}>
-              {menu.links.map((link) => (
-                <li key={link.href}>
-                  <SmartLink href={link.href} external={link.external} current={isCurrent(link.activeHref ?? link.href)}>
-                    {link.label}
-                  </SmartLink>
-                </li>
-              ))}
-            </ul>
+            {menu.groups.map((group) => {
+              const headingId = `mobile-nav-${menu.id}-${group.id}`;
+              return (
+                <div key={group.id}>
+                  {group.heading && (
+                    <p className="mobile-nav__subheading" id={headingId}>
+                      {group.heading}
+                    </p>
+                  )}
+                  <ul aria-labelledby={group.heading ? `mobile-nav-${menu.id} ${headingId}` : `mobile-nav-${menu.id}`}>
+                    {group.links.map((link) => (
+                      <li key={link.href}>
+                        <SmartLink href={link.href} external={link.external} current={isCurrent(link.href)}>
+                          {link.label}
+                        </SmartLink>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              );
+            })}
           </div>
         ))}
 

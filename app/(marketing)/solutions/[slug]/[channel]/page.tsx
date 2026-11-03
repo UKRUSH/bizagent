@@ -11,7 +11,6 @@ import type { RoleChannel } from "@/content/types";
 import { moduleIcons } from "@/components/features/moduleIcons";
 import { ChannelConversation } from "@/components/solutions/ChannelConversation";
 import { ChannelSwitch } from "@/components/solutions/ChannelSwitch";
-import { ProviderBadge } from "@/components/solutions/ProviderBadge";
 import { CtaBand } from "@/components/ui/CtaBand";
 import { FaqList } from "@/components/ui/FaqList";
 import { PageHero } from "@/components/ui/PageHero";
@@ -151,7 +150,6 @@ async function RoleChannelContent({ params }: { params: Params }) {
             </li>
           ))}
         </ul>
-        <ProviderBadge />
       </PageHero>
 
       {attribution && (

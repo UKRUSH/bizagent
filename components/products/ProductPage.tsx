@@ -15,7 +15,11 @@ import {
   BoxIcon,
   CheckIcon,
   GlobeIcon,
+  ClockIcon,
+  MegaphoneIcon,
   MessageIcon,
+  PhoneIcon,
+  PhoneOutgoingIcon,
   PlugIcon,
   RefreshIcon,
   SearchIcon,
@@ -46,6 +50,10 @@ const icons: Record<ProductIcon, ComponentType<SVGProps<SVGSVGElement>>> = {
   sliders: SlidersIcon,
   globe: GlobeIcon,
   spark: SparkIcon,
+  phone: PhoneIcon,
+  outgoing: PhoneOutgoingIcon,
+  megaphone: MegaphoneIcon,
+  clock: ClockIcon,
 };
 
 /** Static, labelled fictional exchange for the product hero (spec 4.2, 13). */

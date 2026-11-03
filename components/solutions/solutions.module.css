@@ -140,20 +140,7 @@
   box-shadow: var(--shadow-brand);
 }
 
-/* Highlighted Meta Tech Provider badge (hero) and panel (below the hero). */
-.providerBadge {
-  display: inline-flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.5rem 0.75rem;
-  margin: 0 0 var(--space-6);
-  padding: 0.5rem 1rem 0.5rem 0.5rem;
-  border: 1px solid color-mix(in srgb, #0866ff 35%, transparent);
-  border-radius: 1rem;
-  background: color-mix(in srgb, #0866ff 8%, var(--surface-raised));
-  font-size: 0.875rem;
-}
-
+/* Highlighted Meta Tech Provider panel below the role page hero. */
 .providerMark {
   display: inline-flex;
   align-items: center;
@@ -166,11 +153,6 @@
   font-weight: 800;
   letter-spacing: 0.02em;
   white-space: nowrap;
-}
-
-.providerText {
-  color: var(--text);
-  font-weight: 600;
 }
 
 .providerSection {

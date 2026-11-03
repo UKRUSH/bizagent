@@ -13,6 +13,7 @@ import { absoluteUrl } from "@/lib/seo";
 export default function sitemap(): MetadataRoute.Sitemap {
   const paths = [
     "/",
+    "/agentic-solutions",
     "/platform",
     "/features",
     ...modules.map((entry) => `/features/${entry.slug}`),

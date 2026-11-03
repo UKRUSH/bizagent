@@ -4,19 +4,21 @@ import { moduleAvailabilityLabels } from "@/content/modules";
 import { previewDisclosure } from "@/content/previews";
 import type { Product, ProductIcon } from "@/content/types";
 import {
-  alwaysOnTags,
+  alwaysOn,
   audienceLine,
-  customAgentPoints,
+  closingStatement,
+  customAgent,
   extraConnections,
   heroAgents,
   heroBoardTags,
+  heroKicker,
+  heroLocalLine,
   heroStats,
   manualVersusAgent,
-  notAMenuBot,
+  notAnIvr,
   orderIndustries,
   orderIntegrations,
 } from "@/content/whatsappOrders";
-import { ProviderBadge } from "@/components/solutions/ProviderBadge";
 import { CtaBand } from "@/components/ui/CtaBand";
 import { FaqList } from "@/components/ui/FaqList";
 import { PageHero } from "@/components/ui/PageHero";
@@ -30,7 +32,10 @@ import {
   ClockIcon,
   CloseIcon,
   GlobeIcon,
+  MegaphoneIcon,
   MessageIcon,
+  PhoneIcon,
+  PhoneOutgoingIcon,
   PlugIcon,
   RefreshIcon,
   SearchIcon,
@@ -39,7 +44,6 @@ import {
   SlidersIcon,
   SparkIcon,
   TrendingUpIcon,
-  UserCheckIcon,
   UsersIcon,
   WorkflowIcon,
 } from "@/components/ui/icons";
@@ -48,7 +52,9 @@ import whatsappStyles from "@/components/whatsapp/whatsapp.module.css";
 import productStyles from "./products.module.css";
 import styles from "./orders.module.css";
 
-const icons: Record<ProductIcon, ComponentType<SVGProps<SVGSVGElement>>> = {
+type Icon = ComponentType<SVGProps<SVGSVGElement>>;
+
+const icons: Record<ProductIcon, Icon> = {
   message: MessageIcon,
   box: BoxIcon,
   bag: ShoppingBagIcon,
@@ -63,9 +69,22 @@ const icons: Record<ProductIcon, ComponentType<SVGProps<SVGSVGElement>>> = {
   sliders: SlidersIcon,
   globe: GlobeIcon,
   spark: SparkIcon,
+  phone: PhoneIcon,
+  outgoing: PhoneOutgoingIcon,
+  megaphone: MegaphoneIcon,
+  clock: ClockIcon,
 };
 
-const notBotIcons = [MessageIcon, ClockIcon, CheckIcon, UserCheckIcon];
+const notAnIvrIcons: Icon[] = [ClockIcon, UsersIcon, PhoneIcon, PhoneOutgoingIcon];
+
+/** Sinhala text; lang lets screen readers and fonts switch correctly. */
+function Si({ children, className }: { children: string; className?: string }) {
+  return (
+    <span lang="si" className={`${styles.si} ${className ?? ""}`}>
+      {children}
+    </span>
+  );
+}
 
 /** Hero mockup: fictional agents at work and a live order board (spec 4.2: labelled demo). */
 function AgentBoard() {
@@ -79,18 +98,21 @@ function AgentBoard() {
         <span className={styles.demoBadge}>Illustrative demo</span>
       </div>
       <ul className={styles.agents}>
-        {heroAgents.map((agent) => (
-          <li key={agent.label}>
-            <span className={styles.agentIcon} aria-hidden="true">
-              <MessageIcon width="18" height="18" />
-            </span>
-            <span>
-              <span className={styles.agentLabel}>{agent.label}</span>
-              <strong>{agent.status}</strong>
-              <span className={styles.agentDetail}>{agent.detail}</span>
-            </span>
-          </li>
-        ))}
+        {heroAgents.map((agent) => {
+          const AgentIcon = icons[agent.icon];
+          return (
+            <li key={agent.label}>
+              <span className={styles.agentIcon} aria-hidden="true">
+                <AgentIcon width="18" height="18" />
+              </span>
+              <span>
+                <span className={styles.agentLabel}>{agent.label}</span>
+                <strong>{agent.status}</strong>
+                <span className={styles.agentDetail}>{agent.detail}</span>
+              </span>
+            </li>
+          );
+        })}
       </ul>
       <ul className={styles.boardTags} aria-label="Order board">
         {heroBoardTags.map((tag) => (
@@ -143,8 +165,8 @@ function OrderChat({ preview }: { preview: Product["preview"] }) {
 }
 
 /**
- * /whatsapp-orders. Layout modelled on an agent-platform landing page (live agents, an
- * "always on" band, industry cards, manual vs AI, integrations). Claims follow spec 1.2.
+ * /whatsapp-orders. Orders by WhatsApp and phone call, structured like a Sinhala + English
+ * AI call-agent landing page (content/whatsappOrders.ts). Claims follow spec 1.2.
  */
 export function WhatsAppOrdersPage({ product }: { product: Product }) {
   const demoHref = `/book-demo?role=${product.formRole}`;
@@ -153,20 +175,28 @@ export function WhatsAppOrdersPage({ product }: { product: Product }) {
     <>
       <PageHero
         breadcrumbs={[{ label: "Home", href: "/" }, { label: product.navLabel }]}
-        eyebrow={product.title}
+        beforeTitle={
+          <p className={styles.kicker}>
+            <Si>{heroKicker.si}</Si>
+            <span className={styles.kickerEn}>{heroKicker.en}</span>
+          </p>
+        }
         title={product.headline}
         actions={
           <>
             <Link href={demoHref} className="button">
-              Start an Order Agent
+              Start an AI Order Agent
             </Link>
             <a href="#features" className="button button--secondary">
-              View features
+              View services
             </a>
           </>
         }
         aside={<AgentBoard />}
       >
+        <p className={styles.heroLocal}>
+          <Si>{heroLocalLine}</Si>
+        </p>
         <p>{product.description}</p>
         <dl className={styles.stats}>
           {heroStats.map((stat) => (
@@ -179,19 +209,18 @@ export function WhatsAppOrdersPage({ product }: { product: Product }) {
         <p className={styles.audience}>
           <span>Built for</span> {audienceLine.join(" • ")}
         </p>
-        <ProviderBadge />
       </PageHero>
 
       <section className={`section ${styles.alwaysOn}`} aria-labelledby="always-on-title">
         <div className="container">
-          <span className="eyebrow section-eyebrow">01 · Always on</span>
-          <h2 id="always-on-title">Your customers order on WhatsApp. Your agent is awake 24 hours.</h2>
-          <p>
-            Take orders, answer product questions, send payment links and keep customers updated
-            from one platform, while your team focuses on packing, cooking and delivering.
+          <span className="eyebrow section-eyebrow">{alwaysOn.kicker.en}</span>
+          <p className={styles.sectionLocal}>
+            <Si>{alwaysOn.kicker.si}</Si>
           </p>
+          <h2 id="always-on-title">{alwaysOn.title}</h2>
+          <p>{alwaysOn.text}</p>
           <ul className={styles.tagRow}>
-            {alwaysOnTags.map((tag) => (
+            {alwaysOn.tags.map((tag) => (
               <li key={tag}>{tag}</li>
             ))}
           </ul>
@@ -200,17 +229,18 @@ export function WhatsAppOrdersPage({ product }: { product: Product }) {
 
       <section id="features" className="section" aria-labelledby="capabilities-title">
         <div className="container">
-          <SectionHeading id="capabilities-title" eyebrow="02 · Features" title="Everything an order needs, in one chat." />
+          <SectionHeading id="capabilities-title" eyebrow="02 · Services" title="Every order, by call or chat." />
           <div className={productStyles.fourGrid}>
             {product.capabilities.map((capability) => {
-              const Icon = icons[capability.icon];
+              const CapabilityIcon = icons[capability.icon];
               return (
                 <article key={capability.title} className={`card ${styles.featureCard}`} aria-label={capability.title}>
                   <div className="card-icon" aria-hidden="true">
-                    <Icon />
+                    <CapabilityIcon />
                   </div>
                   <span className={styles.powered}>BIZny AI powered</span>
                   <h3>{capability.title}</h3>
+                  {capability.localTitle && <Si className={styles.cardLocal}>{capability.localTitle}</Si>}
                   <p>{capability.description}</p>
                 </article>
               );
@@ -240,14 +270,20 @@ export function WhatsAppOrdersPage({ product }: { product: Product }) {
         <div className={`container ${styles.customPanel}`}>
           <div>
             <span className="eyebrow section-eyebrow">04 · Custom order agent</span>
-            <h2 id="custom-title">An order agent shaped around your business.</h2>
-            <p>Tell us how you take orders today. We configure the agent to your products, prices and rules.</p>
+            <p className={styles.panelLocal}>
+              <Si>{customAgent.si}</Si>
+            </p>
+            <h2 id="custom-title">{customAgent.title}</h2>
+            <p>{customAgent.text}</p>
             <Link href={demoHref} className="button button--white">
-              Discuss your order flow
+              {customAgent.cta.en}
             </Link>
+            <p className={styles.ctaLocal}>
+              <Si>{customAgent.cta.si}</Si>
+            </p>
           </div>
           <ul className="check-list">
-            {customAgentPoints.map((point) => (
+            {customAgent.points.map((point) => (
               <li key={point}>
                 <CheckIcon width="18" height="18" />
                 {point}
@@ -257,18 +293,18 @@ export function WhatsAppOrdersPage({ product }: { product: Product }) {
         </div>
       </section>
 
-      <section className="section section--muted" aria-labelledby="not-bot-title">
+      <section className="section section--muted" aria-labelledby="not-ivr-title">
         <div className="container">
-          <SectionHeading id="not-bot-title" eyebrow="05 · Conversational AI" title="Not a menu bot. A real order agent.">
-            <p>Customers chat naturally. The agent understands, confirms and records the order for you.</p>
+          <SectionHeading id="not-ivr-title" eyebrow="05 · BIZny AI order agent" title={notAnIvr.title}>
+            <p>{notAnIvr.text}</p>
           </SectionHeading>
           <div className={productStyles.fourGrid}>
-            {notAMenuBot.map((item, index) => {
-              const Icon = notBotIcons[index] ?? SparkIcon;
+            {notAnIvr.points.map((item, index) => {
+              const PointIcon = notAnIvrIcons[index] ?? SparkIcon;
               return (
                 <article key={item.title} className={`card ${styles.notBotCard}`} aria-label={item.title}>
                   <span className={styles.discIcon} aria-hidden="true">
-                    <Icon width="22" height="22" />
+                    <PointIcon width="22" height="22" />
                   </span>
                   <h3>{item.title}</h3>
                   <p>{item.description}</p>
@@ -281,10 +317,11 @@ export function WhatsAppOrdersPage({ product }: { product: Product }) {
 
       <section className="section" aria-labelledby="industries-title">
         <div className="container">
-          <SectionHeading id="industries-title" eyebrow="06 · Use cases" title="Built for every business that sells on WhatsApp." />
+          <SectionHeading id="industries-title" eyebrow="06 · Use cases" title="An order assistant for every kind of business." />
           <div className={styles.industryGrid}>
             {orderIndustries.map((industry, index) => (
               <article key={industry.title} className={`card ${styles.industryCard}`} aria-labelledby={`industry-${index}`}>
+                <span className={styles.assistant}>{industry.assistant}</span>
                 <h3 id={`industry-${index}`}>{industry.title}</h3>
                 <ul className="feature-list">
                   {industry.tasks.map((task) => (
@@ -292,7 +329,7 @@ export function WhatsAppOrdersPage({ product }: { product: Product }) {
                   ))}
                 </ul>
                 <p className={styles.benefit}>
-                  <strong>Benefit:</strong> {industry.benefit}
+                  <strong>BIZny benefit:</strong> {industry.benefit}
                 </p>
                 {industry.slug && (
                   <Link href={`/industries/${industry.slug}`} className={styles.industryLink}>
@@ -309,11 +346,13 @@ export function WhatsAppOrdersPage({ product }: { product: Product }) {
       <section className="section section--muted" aria-labelledby="compare-title">
         <div className="container">
           <SectionHeading id="compare-title" eyebrow="07 · People + AI" title="Routine orders go to AI. Your team keeps the rest.">
-            <p>The agent takes the repetitive work, so your staff can spend time where it matters.</p>
+            <p>
+              <Si>{manualVersusAgent.si}</Si>
+            </p>
           </SectionHeading>
           <div className={styles.compare}>
             <article className={`card ${styles.manual}`} aria-labelledby="manual-title">
-              <h3 id="manual-title">Taking orders by hand</h3>
+              <h3 id="manual-title">{manualVersusAgent.manualTitle}</h3>
               <ul>
                 {manualVersusAgent.manual.map((item) => (
                   <li key={item}>
@@ -324,7 +363,7 @@ export function WhatsAppOrdersPage({ product }: { product: Product }) {
               </ul>
             </article>
             <article className={`card ${styles.agent}`} aria-labelledby="agent-title">
-              <h3 id="agent-title">With the BIZny order agent</h3>
+              <h3 id="agent-title">{manualVersusAgent.agentTitle}</h3>
               <ul>
                 {manualVersusAgent.agent.map((item) => (
                   <li key={item}>
@@ -338,9 +377,19 @@ export function WhatsAppOrdersPage({ product }: { product: Product }) {
         </div>
       </section>
 
+      <section className={`section ${styles.closing}`} aria-labelledby="closing-title">
+        <div className="container">
+          <p className={styles.closingLocal}>
+            <Si>{closingStatement.si}</Si>
+          </p>
+          <h2 id="closing-title">{closingStatement.title}</h2>
+          <p>{closingStatement.text}</p>
+        </div>
+      </section>
+
       <section className="section" aria-labelledby="integrations-title">
         <div className="container">
-          <SectionHeading id="integrations-title" eyebrow="08 · Integrations" title="Connect to the tools you already use.">
+          <SectionHeading id="integrations-title" eyebrow="08 · Integrations" title="Connect BIZny with the tools you already use.">
             <p>Each connection is assessed for your setup before it goes live.</p>
           </SectionHeading>
           <div className={styles.integrationGrid}>
@@ -400,8 +449,8 @@ export function WhatsAppOrdersPage({ product }: { product: Product }) {
 
       <CtaBand
         id="product-cta-title"
-        title="More time for your team. Faster orders for your customers."
-        text="Tell us what you sell and how customers order today. We’ll shape the demo around your products, systems and rules."
+        title="More time for your team. Faster service for your customers."
+        text="Tell us what you sell and how customers order today, by call or on WhatsApp. We’ll shape the demo around your products, systems and rules."
         action={{ href: demoHref, label: "Book a Demo" }}
         showWhatsApp
       />
