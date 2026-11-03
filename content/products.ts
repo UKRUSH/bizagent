@@ -13,61 +13,53 @@ export const products: Product[] = [
     summary: "Take orders on WhatsApp and phone calls, in Sinhala and English, around the clock.",
     headline: "Take orders on WhatsApp and phone calls, 24/7.",
     description:
-      "Customers order the way they prefer: a WhatsApp chat, a voice note or a phone call, in Sinhala or English. The AI order agent collects the name, contact number, products, quantities and delivery details, confirms the order back and saves it to your order workflow, then follows up with confirmation calls, payment reminders and delivery updates. Anything unusual goes to your team.",
+      "Customers can order through WhatsApp chat, voice notes or phone calls in Sinhala or English. Our AI order agent collects order details, confirms orders and helps automate customer follow-ups.",
     highlights: ["WhatsApp chat orders", "Phone call orders", "Sinhala + English", "Confirmation and follow-up calls", "Order dashboard"],
     capabilities: [
       {
         title: "Incoming order calls",
-        localTitle: "Calls වලින් Orders ලබාගන්න",
         description:
           "Answers order calls in Sinhala or English, shares product, price and offer information, and takes the order on the call.",
         icon: "phone",
       },
       {
         title: "WhatsApp chat and voice-note orders",
-        localTitle: "WhatsApp Chat එකෙන් Orders",
         description:
           "Customers order by message, photo or voice note on WhatsApp and get matching items and prices from your approved catalogue.",
         icon: "message",
       },
       {
         title: "AI order taking",
-        localTitle: "Order එක Confirm කරලා Save කරන්න",
         description:
           "Collects the customer's name, contact number, products, quantities and delivery details, reads the order back, then saves it to your order workflow.",
         icon: "box",
       },
       {
         title: "Confirmation and follow-up calls",
-        localTitle: "AI මගින් Automatic Calls",
         description:
           "Calls or messages customers to confirm orders, check cash-on-delivery and follow up on unfinished orders, inside the hours you set.",
         icon: "outgoing",
       },
       {
         title: "Payment links and reminders",
-        localTitle: "Payment මතක් කිරීම්",
         description:
           "Sends a payment link for approved amounts, and reminds customers of unpaid orders by WhatsApp or a short voice call.",
         icon: "shield",
       },
       {
         title: "Delivery updates and notifications",
-        localTitle: "Delivery තොරතුරු දැනුම් දීම",
         description:
           "Tells customers when an order is confirmed, dispatched, delayed or delivered, using approved message templates or a call.",
         icon: "refresh",
       },
       {
         title: "Offers, promotions and reorders",
-        localTitle: "Offers සහ Promotions",
         description:
           "Lets opted-in customers know about offers and new stock, and lets repeat customers reorder a previous basket in a few messages.",
         icon: "megaphone",
       },
       {
         title: "Order dashboard and team handoff",
-        localTitle: "සියලු Orders එකම තැනක",
         description:
           "Every order, call and chat lands in one dashboard. Custom, bulk and complaint cases move to a team member with the full history.",
         icon: "chart",

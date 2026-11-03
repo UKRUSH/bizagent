@@ -1,11 +1,22 @@
-import { networkAgents, networkFeed } from "@/content/agenticSolutions";
+import type { ComponentType, SVGProps } from "react";
 import { previewDisclosure } from "@/content/previews";
-import { agentIcons } from "./agentIcons";
 import styles from "./agentic.module.css";
 
-const ManagerIcon = agentIcons.manager;
+type Icon = ComponentType<SVGProps<SVGSVGElement>>;
 
-/** Node positions on a hexagon around the AI Manager, as percentages of the orbit box. */
+export interface AgentNetworkProps {
+  /** The coordinating agent in the centre. */
+  hub: { label: string; status: string; icon: Icon };
+  /** Up to six agents around the hub. */
+  agents: { label: string; status: string; icon: Icon }[];
+  feed: { agent: string; text: string }[];
+  /** Appended to the shared "Illustrative demo" disclosure. */
+  caption: string;
+  /** Distinguishes figure ids if the visual appears more than once. */
+  id?: string;
+}
+
+/** Node positions on a hexagon around the hub, as percentages of the orbit box. */
 const positions = [
   { x: 50, y: 11 },
   { x: 84, y: 31 },
@@ -15,10 +26,16 @@ const positions = [
   { x: 16, y: 31 },
 ];
 
-/** Hero visual: the AI Manager coordinating specialised agents (spec 4.2: labelled demo). */
-export function AgentNetwork() {
+/**
+ * Hero visual: a central agent coordinating specialised agents, with a live activity feed
+ * (spec 4.2: labelled demo). Used on /agentic-solutions and /whatsapp-orders.
+ */
+export function AgentNetwork({ hub, agents, feed, caption, id = "agent-network" }: AgentNetworkProps) {
+  const HubIcon = hub.icon;
+  const placed = agents.slice(0, positions.length);
+
   return (
-    <figure className={styles.network} aria-labelledby="agent-network-caption">
+    <figure className={styles.network} aria-labelledby={`${id}-caption`}>
       <div className={styles.networkHeader}>
         <span className={styles.online}>
           <span className={styles.pulse} aria-hidden="true" />
@@ -29,13 +46,13 @@ export function AgentNetwork() {
 
       <div className={styles.orbit}>
         <svg className={styles.links} viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
-          {positions.map((point, index) => (
+          {placed.map((agent, index) => (
             <line
-              key={index}
+              key={agent.label}
               x1="50"
               y1="50"
-              x2={point.x}
-              y2={point.y}
+              x2={positions[index].x}
+              y2={positions[index].y}
               style={{ animationDelay: `${index * -0.4}s` }}
             />
           ))}
@@ -43,24 +60,24 @@ export function AgentNetwork() {
 
         <div className={styles.manager}>
           <span className={styles.managerIcon} aria-hidden="true">
-            <ManagerIcon width="22" height="22" />
+            <HubIcon width="22" height="22" />
           </span>
-          <strong>AI Manager</strong>
-          <span>Planning &amp; delegating</span>
+          <strong>{hub.label}</strong>
+          <span>{hub.status}</span>
         </div>
 
         <ul className={styles.nodes} aria-label="Specialised agents">
-          {networkAgents.map((agent, index) => {
-            const Icon = agentIcons[agent.id];
+          {placed.map((agent, index) => {
+            const AgentIcon = agent.icon;
             const point = positions[index];
             return (
               <li
-                key={agent.id}
+                key={agent.label}
                 className={styles.node}
                 style={{ left: `${point.x}%`, top: `${point.y}%`, animationDelay: `${index * 0.12}s` }}
               >
                 <span className={styles.nodeIcon} aria-hidden="true">
-                  <Icon width="16" height="16" />
+                  <AgentIcon width="16" height="16" />
                 </span>
                 <span className={styles.nodeText}>
                   <strong>{agent.label}</strong>
@@ -73,16 +90,16 @@ export function AgentNetwork() {
       </div>
 
       <ol className={styles.feed} aria-label="Recent agent activity">
-        {networkFeed.map((entry) => (
-          <li key={entry.text}>
+        {feed.map((entry) => (
+          <li key={`${entry.agent}-${entry.text}`}>
             <strong>{entry.agent}</strong>
             <span>{entry.text}</span>
           </li>
         ))}
       </ol>
 
-      <figcaption id="agent-network-caption" className={styles.caption}>
-        {previewDisclosure}. Agents, tasks and activity are fictional.
+      <figcaption id={`${id}-caption`} className={styles.caption}>
+        {previewDisclosure}. {caption}
       </figcaption>
     </figure>
   );

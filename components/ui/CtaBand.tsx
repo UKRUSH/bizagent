@@ -6,12 +6,14 @@ interface CtaBandProps {
   title: string;
   text: string;
   action: { href: string; label: string };
+  /** Optional outlined second button, e.g. a contact route beside the demo request. */
+  secondaryAction?: { href: string; label: string };
   /** Adds a WhatsApp button when a verified number exists (spec 6.12, 12.3). */
   showWhatsApp?: boolean;
 }
 
 /** Purple conversion band. No response-time promises (spec 6.12). */
-export function CtaBand({ id, title, text, action, showWhatsApp = false }: CtaBandProps) {
+export function CtaBand({ id, title, text, action, secondaryAction, showWhatsApp = false }: CtaBandProps) {
   const whatsapp = showWhatsApp ? verifiedChannel(siteConfig.contact.whatsapp) : null;
 
   return (
@@ -25,6 +27,11 @@ export function CtaBand({ id, title, text, action, showWhatsApp = false }: CtaBa
           <Link href={action.href} className="button button--white">
             {action.label}
           </Link>
+          {secondaryAction && (
+            <Link href={secondaryAction.href} className="button button--outline-white">
+              {secondaryAction.label}
+            </Link>
+          )}
           {whatsapp && (
             <a
               href={whatsappHref(whatsapp)}

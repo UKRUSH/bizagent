@@ -1,264 +1,9 @@
-/* --------------------------------------------------------- Sinhala text */
+/* ------------------------------------------------------------ Hero copy */
 
-/* The site font has no Sinhala glyphs: keep it first for the English words, then fall
-   back to sans-serif Sinhala fonts (Iskoola Pota last, as its Latin letters are serif). */
-.si {
-  font-family: var(--font-body), "Noto Sans Sinhala", "Nirmala UI", "Sinhala Sangam MN", "Iskoola Pota", sans-serif;
-  letter-spacing: 0;
-  text-transform: none;
-}
-
-.kicker {
-  display: inline-flex;
-  flex-direction: column;
-  gap: 0.25rem;
-  margin: 0 0 1.25rem;
-  padding: 0.625rem 1rem;
-  border: 1px solid color-mix(in srgb, var(--link) 25%, transparent);
-  border-left: 4px solid var(--link);
-  border-radius: var(--radius-sm);
-  background: var(--brand-soft);
-}
-
-.kicker .si {
+.heroLead {
   color: var(--text);
-  font-size: 0.9375rem;
-  font-weight: 700;
-}
-
-.kickerEn {
-  color: var(--link);
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-}
-
-.heroLocal {
-  color: var(--link);
-  font-size: 1.125rem;
-  font-weight: 700;
-}
-
-.sectionLocal {
-  margin: 0 0 0.25rem;
-  color: var(--link);
   font-size: 1.25rem;
   font-weight: 700;
-}
-
-.cardLocal {
-  display: block;
-  margin: -0.25rem 0 0.625rem;
-  color: var(--link);
-  font-size: 0.875rem;
-  font-weight: 600;
-}
-
-.panelLocal {
-  margin: 0.75rem 0 0;
-  font-size: 1.0625rem;
-  font-weight: 700;
-}
-
-.customPanel .panelLocal {
-  margin: 0.75rem 0 0;
-  color: #ffffff;
-}
-
-.customPanel .ctaLocal {
-  margin: 0.75rem 0 0;
-  color: rgb(255 255 255 / 0.85);
-  font-size: 0.875rem;
-}
-
-/* ------------------------------------------------- Hero: live agent board */
-
-.board {
-  justify-self: end;
-  width: 100%;
-  max-width: 28rem;
-  margin: 0;
-  padding: 1.25rem;
-  border-radius: var(--radius-lg);
-  background: linear-gradient(160deg, #2c1739, #100e14 70%);
-  color: #ffffff;
-  box-shadow:
-    inset 0 0 0 1px rgb(255 255 255 / 0.1),
-    0 40px 80px -30px rgb(93 14 139 / 0.6),
-    var(--shadow-strong);
-}
-
-.boardHeader {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.5rem;
-  margin-bottom: 1rem;
-}
-
-.online {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  color: #86efac;
-  font-size: 0.875rem;
-  font-weight: 700;
-}
-
-.pulse {
-  width: 0.625rem;
-  height: 0.625rem;
-  border-radius: 50%;
-  background: #22c55e;
-  box-shadow: 0 0 0 0 rgb(34 197 94 / 0.6);
-  animation: pulse 1.8s ease-out infinite;
-}
-
-@keyframes pulse {
-  to { box-shadow: 0 0 0 10px rgb(34 197 94 / 0); }
-}
-
-.demoBadge {
-  padding: 0.25rem 0.625rem;
-  border: 1px dashed #999999;
-  border-radius: 999px;
-  font-size: 0.6875rem;
-  font-weight: 700;
-}
-
-.agents {
-  display: grid;
-  gap: 0.75rem;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.agents li {
-  display: flex;
-  gap: 0.875rem;
-  align-items: center;
-  padding: 0.875rem 1rem;
-  border: 1px solid rgb(255 255 255 / 0.1);
-  border-radius: var(--radius);
-  background: #1c1922;
-}
-
-/* Stagger the cards slightly, like a stack of live tiles. */
-.agents li:nth-child(2) { margin-left: 1rem; }
-.agents li:nth-child(3) { margin-left: 2rem; }
-
-.agentIcon {
-  position: relative;
-  display: grid;
-  flex: none;
-  place-items: center;
-  width: 2.5rem;
-  height: 2.5rem;
-  border-radius: 50%;
-  background: var(--brand-deep);
-}
-
-.agentIcon::after {
-  content: "";
-  position: absolute;
-  right: -1px;
-  bottom: -1px;
-  width: 0.75rem;
-  height: 0.75rem;
-  border: 2px solid #1c1922;
-  border-radius: 50%;
-  background: #25d366;
-}
-
-.agentLabel {
-  display: block;
-  color: #c4b5fd;
-  font-size: 0.6875rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-}
-
-.agents strong {
-  display: block;
-  font-size: 0.9375rem;
-}
-
-.agentDetail {
-  display: block;
-  color: #cccccc;
-  font-size: 0.8125rem;
-}
-
-.boardTags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.375rem;
-  margin: 1rem 0 0;
-  padding: 1rem 0 0;
-  border-top: 1px solid rgb(255 255 255 / 0.1);
-  list-style: none;
-}
-
-.boardTags li {
-  padding: 0.25rem 0.625rem;
-  border-radius: 999px;
-  background: rgb(255 255 255 / 0.08);
-  font-size: 0.75rem;
-  font-weight: 600;
-}
-
-.boardCaption {
-  margin-top: 0.875rem;
-  color: #cccccc;
-  font-size: 0.6875rem;
-  line-height: 1.5;
-}
-
-/* Hero stats and audience line. */
-.stats {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 0.75rem;
-  margin: 0 0 var(--space-6);
-}
-
-.stats div {
-  display: flex;
-  flex-direction: column-reverse;
-  padding: 0.875rem 1rem;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  background: var(--surface-raised);
-  box-shadow: var(--shadow-sm);
-}
-
-.stats dd {
-  margin: 0;
-  color: var(--link);
-  font-size: 1.125rem;
-  font-weight: 800;
-  line-height: 1.2;
-}
-
-.stats dt {
-  margin-top: 0.25rem;
-  color: var(--muted);
-  font-size: 0.8125rem;
-}
-
-.audience {
-  margin: 0 0 var(--space-6);
-  color: var(--muted);
-  font-size: 0.875rem;
-  font-weight: 600;
-}
-
-.audience span {
-  color: var(--text);
 }
 
 /* ------------------------------------------------------- Always-on band */
@@ -373,6 +118,118 @@
   margin: 0.25rem 0 0;
   color: var(--muted);
 }
+
+.stepLabel {
+  display: block;
+  color: var(--link);
+  font-size: 0.6875rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* ------------------------------------------- 24/7 highlight and notes */
+
+.alwaysOn .highlight {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0 auto var(--space-6);
+  padding: 0.625rem 1.25rem;
+  border-radius: 999px;
+  background: var(--gradient-brand);
+  color: #ffffff;
+  font-size: 1.0625rem;
+  font-weight: 800;
+  box-shadow: var(--shadow-brand);
+}
+
+/* "Built for" line under the 24/7 tags. */
+.alwaysOn .audience {
+  margin: var(--space-6) auto 0;
+  color: var(--muted);
+  font-size: 0.9375rem;
+  font-weight: 600;
+}
+
+.audience span {
+  color: var(--text);
+}
+.industryNote {
+  display: flex;
+  gap: 0.5rem;
+  align-items: flex-start;
+  margin: 0 0 0.75rem;
+  color: var(--text);
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.industryNote svg {
+  flex: none;
+  margin-top: 0.15rem;
+  color: var(--link);
+}
+
+.scopeNote {
+  max-width: 60ch;
+  margin: var(--space-6) auto 0;
+  color: var(--muted);
+  font-size: 0.9375rem;
+  text-align: center;
+}
+
+/* ------------------------------------------------ WhatsApp order demo */
+
+.demoHeading {
+  margin: 0 0 1rem;
+  font-size: 1.125rem;
+  text-align: center;
+}
+
+.chatScenario {
+  margin: 0;
+  padding: 0.5rem 1rem 0;
+  color: #cccccc;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.chatMessage {
+  animation: messageIn 420ms ease-out both;
+}
+
+@keyframes messageIn {
+  from { opacity: 0; translate: 0 8px; }
+}
+
+.replayRow {
+  display: flex;
+  justify-content: center;
+  padding: 0.75rem 1rem 0;
+  background: #1c1922;
+}
+
+.replay {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.375rem;
+  min-height: 2.75rem;
+  padding: 0.375rem 0.875rem;
+  border: 1px solid rgb(255 255 255 / 0.35);
+  border-radius: 999px;
+  background: transparent;
+  color: #ffffff;
+  font: inherit;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.replay:hover { background: rgb(255 255 255 / 0.1); }
+.replay:focus-visible { outline: 3px solid #ffffff; outline-offset: 2px; }
 
 /* ----------------------------------------------------- Custom agent panel */
 
@@ -568,12 +425,6 @@
   color: rgb(255 255 255 / 0.85);
 }
 
-.closing .closingLocal {
-  margin-bottom: 1rem;
-  color: #e9d5ff;
-  font-size: 1.25rem;
-  font-weight: 700;
-}
 
 /* ---------------------------------------------------------- Integrations */
 
@@ -622,10 +473,6 @@
 }
 
 @media (max-width: 1023px) {
-  .board {
-    justify-self: start;
-  }
-
   .liveSplit,
   .customPanel {
     grid-template-columns: 1fr;
@@ -641,24 +488,13 @@
 }
 
 @media (max-width: 767px) {
-  .stats,
   .industryGrid,
   .compare,
   .integrationGrid {
     grid-template-columns: 1fr;
   }
 
-  .agents li:nth-child(n) {
-    margin-left: 0;
-  }
-
   .customPanel {
     padding: var(--space-6);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .pulse {
-    animation: none;
   }
 }

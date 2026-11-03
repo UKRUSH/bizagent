@@ -77,34 +77,6 @@ export const primaryNavigation: NavItem[] = [
     ],
   },
   ...products.map((product): NavItem => ({ kind: "link", label: product.navLabel, href: product.href })),
-  {
-    kind: "menu",
-    id: "features",
-    label: "Features",
-    groups: [
-      {
-        id: "main",
-        links: [
-          {
-            label: "Agent BIZ MASTER — WhatsApp AI",
-            href: "/whatsapp-ai",
-            description: "Chat, voice notes, templates and team handoff on WhatsApp.",
-            featured: true,
-          },
-          {
-            label: "Platform",
-            href: "/platform",
-            description: "One shared brain, CRM and admin console.",
-          },
-          {
-            label: "All features",
-            href: "/features",
-            description: "Explore all 13 call and messaging modules.",
-          },
-        ],
-      },
-    ],
-  },
   { kind: "link", label: "Industries", href: "/industries" },
   {
     kind: "menu",

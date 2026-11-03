@@ -93,8 +93,9 @@ html { scrollbar-color: color-mix(in srgb, var(--brand) 55%, var(--border)) tran
 .button:hover svg { transform: translateX(3px); }
 
 /* Variants keep their flat colours. */
-.button:is(.button--secondary, .button--white, .button--whatsapp),
-.button:is(.button--secondary, .button--white, .button--whatsapp):hover { background-image: none; }
+.button:is(.button--secondary, .button--white, .button--whatsapp, .button--outline-white),
+.button:is(.button--secondary, .button--white, .button--whatsapp, .button--outline-white):hover { background-image: none; }
+.button--outline-white, .button--outline-white:hover { box-shadow: none; }
 .button--secondary { box-shadow: var(--shadow-sm); }
 .button--secondary:hover { border-color: var(--link); box-shadow: var(--shadow-sm); }
 .button--white { box-shadow: 0 8px 20px -8px rgb(0 0 0 / 0.35); }

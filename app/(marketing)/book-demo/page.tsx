@@ -5,7 +5,9 @@ import type { ComponentType, SVGProps } from "react";
 import { siteConfig } from "@/config/site";
 import { parseDemoPreselection } from "@/content/form-options";
 import { DemoRequestForm } from "@/components/forms/DemoRequestForm";
+import { DemoLines, DemoLinesCompact, hasDemoLines } from "@/components/trust/DemoLines";
 import { PageHero } from "@/components/ui/PageHero";
+import { SectionHeading } from "@/components/ui/SectionHeading";
 import { SmartLink } from "@/components/ui/SmartLink";
 import {
   ArrowRightIcon,
@@ -13,6 +15,7 @@ import {
   CalendarIcon,
   MessageIcon,
   MonitorIcon,
+  PhoneIcon,
   PlugIcon,
   SearchIcon,
   SparkIcon,
@@ -55,6 +58,7 @@ async function PreselectedDemoForm({ searchParams }: { searchParams: PageProps<"
 
 /** Qualified conversion (spec 5 /book-demo, 12). */
 export default function BookDemoPage({ searchParams }: PageProps<"/book-demo">) {
+  const showDemoLines = hasDemoLines();
   return (
     <>
       <PageHero
@@ -66,6 +70,12 @@ export default function BookDemoPage({ searchParams }: PageProps<"/book-demo">) 
             <a href="#demo-request" className="button">
               Start Your Request
             </a>
+            {showDemoLines && (
+              <a href="#try-demo" className="button button--secondary">
+                <PhoneIcon width="18" height="18" />
+                Try a Live Demo Call
+              </a>
+            )}
             <Link href="/contact" className="button button--secondary">
               Contact the Team
             </Link>
@@ -97,6 +107,20 @@ export default function BookDemoPage({ searchParams }: PageProps<"/book-demo">) 
         </p>
       </PageHero>
 
+      {showDemoLines && (
+        <section id="try-demo" className="section" aria-labelledby="try-demo-title">
+          <div className="container">
+            <SectionHeading id="try-demo-title" eyebrow="Live demo" title="Try the AI agent now, before you book.">
+              <p>
+                Call our demo lines to hear how the agent answers your customers: by phone, or with a
+                WhatsApp call.
+              </p>
+            </SectionHeading>
+            <DemoLines />
+          </div>
+        </section>
+      )}
+
       <section id="demo-request" className="section section--muted" aria-label="Demo request">
         <div className={`container ${styles.split} ${styles.demoLayout}`}>
           <div className={styles.demoForm}>
@@ -115,6 +139,7 @@ export default function BookDemoPage({ searchParams }: PageProps<"/book-demo">) 
             </Suspense>
           </div>
           <aside className={styles.demoAside} aria-labelledby="next-steps-title">
+            <DemoLinesCompact />
             <div className="card">
               <h2 id="next-steps-title" className={styles.asideHeading}>
                 What happens next

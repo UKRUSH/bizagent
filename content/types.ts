@@ -168,8 +168,6 @@ export type ProductIcon =
 
 export interface ProductCapability {
   title: string;
-  /** Optional Sinhala sub-line shown above the title (rendered with lang="si"). */
-  localTitle?: string;
   description: string;
   icon: ProductIcon;
 }

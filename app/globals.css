@@ -188,6 +188,8 @@ p { margin-bottom: var(--space-6); }
 .button--secondary:hover { background: var(--surface); }
 .button--white { background: #ffffff; color: var(--brand); }
 .button--white:hover { background: #f3e8ff; }
+.button--outline-white { background: transparent; color: #ffffff; border-color: rgb(255 255 255 / 0.75); }
+.button--outline-white:hover { background: rgb(255 255 255 / 0.12); }
 .button--whatsapp { background: #075e54; color: #ffffff; }
 .button--whatsapp:hover { background: #05473f; }
 .button:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }

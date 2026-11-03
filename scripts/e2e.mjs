@@ -284,14 +284,14 @@ await section("Theme (spec 4.3)", async () => {
 await section("Keyboard navigation (spec 5.2)", async () => {
   await viewport(1280);
   await goto("/");
-  await evaluate(`document.getElementById('nav-trigger-features').focus()`);
+  await evaluate(`document.getElementById('nav-trigger-company').focus()`);
   await key("Enter", "Enter", 13);
   await sleep(150);
-  check("Enter opens a desktop menu", (await evaluate(`document.getElementById('nav-trigger-features').getAttribute('aria-expanded')`)) === "true");
+  check("Enter opens a desktop menu", (await evaluate(`document.getElementById('nav-trigger-company').getAttribute('aria-expanded')`)) === "true");
   await key("Escape", "Escape", 27);
   await sleep(150);
-  const desktop = await evaluate(`({ expanded: document.getElementById('nav-trigger-features').getAttribute('aria-expanded'), focused: document.activeElement?.id })`);
-  check("Escape closes it and returns focus to the trigger", desktop.expanded === "false" && desktop.focused === "nav-trigger-features", JSON.stringify(desktop));
+  const desktop = await evaluate(`({ expanded: document.getElementById('nav-trigger-company').getAttribute('aria-expanded'), focused: document.activeElement?.id })`);
+  check("Escape closes it and returns focus to the trigger", desktop.expanded === "false" && desktop.focused === "nav-trigger-company", JSON.stringify(desktop));
 
   await viewport(390);
   await goto("/");

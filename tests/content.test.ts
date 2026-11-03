@@ -1,9 +1,10 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
 import * as agenticSolutions from "@/content/agenticSolutions";
+import * as whatsappOrders from "@/content/whatsappOrders";
 import { agentDepartments, automationCapabilities, customAgents } from "@/content/agenticSolutions";
 import { deploymentOptions, enterpriseArchitectures, channelEmbedding } from "@/content/deployment";
-import { approvedProviderAttribution, siteConfig } from "@/config/site";
+import { approvedProviderAttribution, internationalDisplay, siteConfig, telHref, whatsappHref } from "@/config/site";
 import { getRoleChannel, roleChannelHref } from "@/content/roleChannels";
 import { roleChannels, type RoleChannel } from "@/content/types";
 import { demoScenarios } from "@/content/demo-scenarios";
@@ -284,6 +285,30 @@ describe("roles, FAQs, trust and forms", () => {
     assert.equal(automationCapabilities.length, 12);
     assert.ok(customAgents.examples.length >= 7);
     assert.ok(primaryNavigation.some((item) => item.kind === "link" && item.href === "/agentic-solutions"));
+  });
+
+  it("publishes the two verified demo lines with working call and WhatsApp links", () => {
+    const { voice, whatsapp } = siteConfig.demoLines;
+    assert.ok(voice?.verified && whatsapp?.verified);
+    assert.equal(telHref(voice), "tel:+94117228351");
+    assert.equal(internationalDisplay(voice), "+94 11 722 8351");
+    assert.equal(voice.display, "011 722 8351");
+    assert.equal(whatsappHref(whatsapp), "https://wa.me/94770197994");
+    assert.equal(internationalDisplay(whatsapp), "+94 77 019 7994");
+    assert.equal(whatsapp.display, "077 019 7994");
+  });
+
+  it("keeps the Agentic Solutions and WhatsApp OrderFlow pages English only", () => {
+    const sinhala = /[඀-෿]/;
+    const pages = {
+      agenticSolutions,
+      whatsappOrders: { ...whatsappOrders, product: products.find((entry) => entry.slug === "whatsapp-orders") },
+    };
+    for (const [name, content] of Object.entries(pages)) {
+      const text = JSON.stringify(content);
+      assert.ok(text.length > 5000, `the ${name} scan must cover the page copy`);
+      assert.doesNotMatch(text, sinhala, name);
+    }
   });
 
   it("lists every role under both channel groups of the Voice Agent menu", () => {

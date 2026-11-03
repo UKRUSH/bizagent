@@ -29,6 +29,14 @@ export interface SiteConfig {
     address: string | null;
     schedulingUrl: string | null;
   };
+  /**
+   * Live demo lines answered by the AI agent, so visitors can try it before booking:
+   * `voice` is a phone number to call, `whatsapp` a WhatsApp number to call or message.
+   */
+  demoLines: {
+    voice: ContactChannel | null;
+    whatsapp: ContactChannel | null;
+  };
   socialProfiles: { label: string; url: string }[];
   /**
    * Approved public wording for the underlying WhatsApp platform provider (spec 1.2).
@@ -60,6 +68,11 @@ export const siteConfig: SiteConfig = {
     address: null,
     schedulingUrl: null,
   },
+  // Demo lines supplied by the business for /book-demo.
+  demoLines: {
+    voice: { value: "+94117228351", display: "011 722 8351", verified: true },
+    whatsapp: { value: "+94770197994", display: "077 019 7994", verified: true },
+  },
   socialProfiles: [],
   // Wording from the spec's "Powered by" block: the Meta Tech Provider is Dilexus, not BIZny.
   providerAttribution:
@@ -78,6 +91,16 @@ export function verifiedChannel(channel: ContactChannel | null): ContactChannel 
 /** Approved provider attribution text, or null while unapproved. */
 export function approvedProviderAttribution(): string | null {
   return siteConfig.flags.providerAttributionApproved ? siteConfig.providerAttribution : null;
+}
+
+export function telHref(channel: ContactChannel): string {
+  return `tel:${channel.value.replace(/[^\d+]/g, "")}`;
+}
+
+/** "+94117228351" → "+94 11 722 8351" (Sri Lankan numbers: 2-digit area or mobile code). */
+export function internationalDisplay(channel: ContactChannel): string {
+  const match = channel.value.match(/^\+94(\d{2})(\d{3})(\d{4})$/);
+  return match ? `+94 ${match[1]} ${match[2]} ${match[3]}` : channel.value;
 }
 
 export function whatsappHref(channel: ContactChannel): string {

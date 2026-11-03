@@ -8,10 +8,13 @@ import {
   agenticSteps,
   automationCapabilities,
   customAgents,
+  networkAgents,
+  networkFeed,
   systemFlow,
   systemPrinciples,
   whatIsAgentic,
 } from "@/content/agenticSolutions";
+import { agentIcons } from "@/components/agentic/agentIcons";
 import { AgentDashboard } from "@/components/agentic/AgentDashboard";
 import { AgentDepartments } from "@/components/agentic/AgentDepartments";
 import { AgentNetwork } from "@/components/agentic/AgentNetwork";
@@ -83,7 +86,14 @@ export default function AgenticSolutionsPage() {
             </Link>
           </>
         }
-        aside={<AgentNetwork />}
+        aside={
+          <AgentNetwork
+            hub={{ label: "AI Manager", status: "Planning & delegating", icon: agentIcons.manager }}
+            agents={networkAgents.map((agent) => ({ ...agent, icon: agentIcons[agent.id] }))}
+            feed={networkFeed}
+            caption="Agents, tasks and activity are fictional."
+          />
+        }
       >
         <p>{agenticHero.text}</p>
         <ul className={styles.heroPoints}>
