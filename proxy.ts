@@ -1,5 +1,5 @@
 import { NextResponse, type NextRequest } from "next/server";
-import { industrySlugs, moduleSlugs, roleSlugs } from "@/content/types";
+import { industrySlugs, moduleSlugs, roleChannels, roleSlugs } from "@/content/types";
 
 /**
  * Unknown slugs must return a real 404 (spec 14.1, 23.2). With Cache Components the
@@ -16,10 +16,15 @@ const knownSlugs: Record<string, ReadonlySet<string>> = {
 /** Unmatched path; rewriting here renders app/not-found.tsx with a 404 status. */
 const NOT_FOUND_PATH = "/_unknown-slug";
 
+/** Role pages have one extra segment: the channel (/solutions/[slug]/[channel]). */
+const knownChannels = new Set<string>(roleChannels);
+
 export function proxy(request: NextRequest) {
-  const [, section, slug] = request.nextUrl.pathname.split("/");
+  const [, section, slug, channel] = request.nextUrl.pathname.split("/");
   const allowed = knownSlugs[section];
-  if (allowed && slug && !allowed.has(safeDecode(slug))) {
+  const unknownSlug = allowed && slug && !allowed.has(safeDecode(slug));
+  const unknownChannel = section === "solutions" && channel && !knownChannels.has(safeDecode(channel));
+  if (unknownSlug || unknownChannel) {
     return NextResponse.rewrite(new URL(NOT_FOUND_PATH, request.url));
   }
   return NextResponse.next();
@@ -34,5 +39,5 @@ function safeDecode(value: string): string {
 }
 
 export const config = {
-  matcher: ["/features/:slug", "/solutions/:slug", "/industries/:slug"],
+  matcher: ["/features/:slug", "/solutions/:slug", "/solutions/:slug/:channel", "/industries/:slug"],
 };

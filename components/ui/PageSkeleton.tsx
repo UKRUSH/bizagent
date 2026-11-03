@@ -1,6 +1,6 @@
 /**
  * Loading placeholder for pages that read route params (`/features/[slug]`,
- * `/solutions/[slug]`, `/industries/[slug]`). Params need a Suspense boundary even with
+ * `/solutions/[slug]/[channel]`, `/industries/[slug]`). Params need a Suspense boundary even with
  * generateStaticParams: direct visits are fully prerendered and never show this, while a
  * client navigation between two slugs shows it instantly as the content streams in.
  */

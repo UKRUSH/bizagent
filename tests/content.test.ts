@@ -1,7 +1,9 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
 import { deploymentOptions, enterpriseArchitectures, channelEmbedding } from "@/content/deployment";
-import { approvedProviderAttribution } from "@/config/site";
+import { approvedProviderAttribution, siteConfig } from "@/config/site";
+import { getRoleChannel } from "@/content/roleChannels";
+import { roleChannels } from "@/content/types";
 import { demoScenarios } from "@/content/demo-scenarios";
 import { homepageFaqs, pricingFaqs, whatsappFaqs } from "@/content/faqs";
 import { engagementSteps, enterpriseRequirements, serviceLevelStatement, whiteLabelPoints } from "@/content/enterprise";
@@ -190,8 +192,15 @@ describe("WhatsApp page and pricing content (spec 8)", () => {
     assert.ok(pricingFaqs.length >= 3);
   });
 
-  it("keeps the provider attribution hidden until approved", () => {
-    assert.equal(approvedProviderAttribution(), null);
+  it("shows the provider attribution only when approved, crediting Dilexus rather than BIZny", () => {
+    const attribution = approvedProviderAttribution();
+    if (!siteConfig.flags.providerAttributionApproved) {
+      assert.equal(attribution, null);
+      return;
+    }
+    assert.ok(attribution);
+    assert.match(attribution, /Dilexus, an official Meta Tech Provider/);
+    assert.doesNotMatch(attribution, new RegExp(`${siteConfig.productName}[^.]*Meta Tech Provider`));
   });
 });
 
@@ -246,8 +255,20 @@ describe("roles, FAQs, trust and forms", () => {
         assert.ok(industries.some((industry) => industry.slug === slug), slug);
       }
       assert.ok(roleOptions.some((option) => option.value === role.formRole), role.formRole);
-      assert.equal(role.href, `/solutions/${role.slug}`);
+      assert.equal(role.href, `/solutions/${role.slug}/whatsapp`);
     });
+
+    for (const channel of roleChannels) {
+      it(`${role.slug} has a complete ${channel} page with a labelled AI in the preview`, () => {
+        const page = getRoleChannel(role.slug, channel);
+        assert.ok(page, `${role.slug}/${channel}`);
+        assert.equal(page.capabilities.length, 4);
+        assert.equal(page.steps.length, 3);
+        assert.ok(page.faqs.length > 0);
+        const assistantLines = page.preview.messages.filter((message) => message.speaker === "assistant");
+        assert.match(assistantLines[0]?.text ?? "", /AI assistant/, "the AI identifies itself first");
+      });
+    }
   }
 
   for (const product of products) {

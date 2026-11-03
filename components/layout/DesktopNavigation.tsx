@@ -2,7 +2,14 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useRef, useState, type FocusEvent } from "react";
+import {
+  useEffect,
+  useRef,
+  useState,
+  type FocusEvent,
+  type MouseEvent,
+  type PointerEvent as ReactPointerEvent,
+} from "react";
 import { isActivePath, primaryNavigation } from "@/content/navigation";
 import { ChevronDownIcon } from "@/components/ui/icons";
 import { SmartLink } from "@/components/ui/SmartLink";
@@ -13,13 +20,16 @@ export function DesktopNavigation() {
 
 /**
  * Disclosure-pattern dropdowns (spec 5.2): buttons with aria-expanded control plain link
- * lists. Menus close on Escape, outside click, focus leaving the menu, and route change.
+ * lists. Mouse hover also opens a menu. Menus close on Escape, outside click, the mouse
+ * leaving, focus leaving the menu, and route change.
  * `pathname` is null in the Suspense fallback, where no link is marked current.
  */
 export function DesktopNavigationView({ pathname }: { pathname: string | null }) {
   const [openMenu, setOpenMenu] = useState<string | null>(null);
   const [lastPathname, setLastPathname] = useState(pathname);
   const navRef = useRef<HTMLElement>(null);
+  const closeTimer = useRef<number | undefined>(undefined);
+  const hoveredMenu = useRef<string | null>(null);
 
   if (pathname !== lastPathname) {
     setLastPathname(pathname);
@@ -45,6 +55,40 @@ export function DesktopNavigationView({ pathname }: { pathname: string | null })
       document.removeEventListener("keydown", handleKeyDown);
     };
   }, [openMenu]);
+
+  useEffect(() => () => window.clearTimeout(closeTimer.current), []);
+
+  /** Mouse pointers open menus on hover; touch and keyboard keep the click toggle. */
+  function openOnHover(menuId: string) {
+    return (event: ReactPointerEvent<HTMLLIElement>) => {
+      if (event.pointerType !== "mouse") return;
+      window.clearTimeout(closeTimer.current);
+      hoveredMenu.current = menuId;
+      setOpenMenu(menuId);
+    };
+  }
+
+  function closeOnLeave(menuId: string) {
+    return (event: ReactPointerEvent<HTMLLIElement>) => {
+      if (event.pointerType !== "mouse") return;
+      hoveredMenu.current = null;
+      window.clearTimeout(closeTimer.current);
+      closeTimer.current = window.setTimeout(() => {
+        setOpenMenu((current) => (current === menuId ? null : current));
+      }, 150);
+    };
+  }
+
+  function toggleMenu(menuId: string, isOpen: boolean) {
+    return (event: MouseEvent<HTMLButtonElement>) => {
+      // A mouse click on a hover-opened menu keeps it open; keyboard (detail 0) still toggles.
+      if (event.detail !== 0 && hoveredMenu.current === menuId) {
+        setOpenMenu(menuId);
+        return;
+      }
+      setOpenMenu(isOpen ? null : menuId);
+    };
+  }
 
   function closeWhenFocusLeaves(menuId: string) {
     return (event: FocusEvent<HTMLLIElement>) => {
@@ -72,26 +116,37 @@ export function DesktopNavigationView({ pathname }: { pathname: string | null })
 
           const isOpen = openMenu === item.id;
           return (
-            <li key={item.id} className="desktop-nav__item" onBlur={closeWhenFocusLeaves(item.id)}>
+            <li
+              key={item.id}
+              className="desktop-nav__item"
+              onBlur={closeWhenFocusLeaves(item.id)}
+              onPointerEnter={openOnHover(item.id)}
+              onPointerLeave={closeOnLeave(item.id)}
+            >
               <button
                 type="button"
                 id={`nav-trigger-${item.id}`}
                 className="nav-trigger"
                 aria-expanded={isOpen}
                 aria-controls={`nav-panel-${item.id}`}
-                onClick={() => setOpenMenu(isOpen ? null : item.id)}
+                onClick={toggleMenu(item.id, isOpen)}
               >
                 {item.label}
                 <ChevronDownIcon className="nav-trigger__chevron" />
               </button>
               <div id={`nav-panel-${item.id}`} className="nav-panel" hidden={!isOpen}>
-                <ul>
+                {item.heading && (
+                  <p className="nav-panel__heading" id={`nav-heading-${item.id}`}>
+                    {item.heading}
+                  </p>
+                )}
+                <ul aria-labelledby={item.heading ? `nav-heading-${item.id}` : undefined}>
                   {item.links.map((link) => (
                     <li key={link.href}>
                       <SmartLink
                         href={link.href}
                         external={link.external}
-                        current={isCurrent(link.href)}
+                        current={isCurrent(link.activeHref ?? link.href)}
                         className={link.featured ? "nav-panel__featured" : undefined}
                       >
                         <span className="nav-panel__label">{link.label}</span>

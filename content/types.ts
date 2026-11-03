@@ -86,6 +86,11 @@ export const roleSlugs = ["call-center", "sales-agent", "personal-assistant"] as
 
 export type RoleSlug = (typeof roleSlugs)[number];
 
+/** Each role has a page per channel: /solutions/[slug]/[channel]. */
+export const roleChannels = ["whatsapp", "voice"] as const;
+
+export type RoleChannel = (typeof roleChannels)[number];
+
 export interface OperatingRole {
   slug: RoleSlug;
   title: string;
@@ -107,8 +112,30 @@ export interface OperatingRole {
   relatedIndustries: string[];
   /** Matching value of the demo form's "Main role" field (spec 12.1). */
   formRole: "call-center" | "sales" | "personal-assistant";
+  /** The role's default (WhatsApp) channel page. */
   href: string;
   ctaLabel: string;
+}
+
+/** Channel-specific copy for one role page (/solutions/[slug]/[channel]). */
+export interface RoleChannelContent {
+  role: RoleSlug;
+  channel: RoleChannel;
+  headline: string;
+  description: string;
+  /** Short chips under the hero introduction. */
+  highlights: string[];
+  /** Four capability cards; `icon` keys into the page's icon map. */
+  capabilities: { icon: string; title: string; description: string }[];
+  /** Three setup steps. */
+  steps: { title: string; description: string }[];
+  /** Fictional, labelled conversation for the hero. */
+  preview: {
+    context: string;
+    messages: ScenarioMessage[];
+    handoff: { to: string; reason: string };
+  };
+  faqs: Question[];
 }
 
 /* ----------------------------------------------------------------- Products */

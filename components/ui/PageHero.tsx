@@ -4,6 +4,8 @@ import { Breadcrumbs, type Crumb } from "./Breadcrumbs";
 interface PageHeroProps {
   breadcrumbs: Crumb[];
   eyebrow?: string;
+  /** Optional control above the title, e.g. a channel switch. */
+  beforeTitle?: ReactNode;
   title: string;
   /** Introductory copy, rendered as paragraphs by the caller. */
   children?: ReactNode;
@@ -14,12 +16,13 @@ interface PageHeroProps {
 }
 
 /** Light hero for interior pages, with breadcrumbs and the page's single h1. */
-export function PageHero({ breadcrumbs, eyebrow, title, children, actions, aside }: PageHeroProps) {
+export function PageHero({ breadcrumbs, eyebrow, beforeTitle, title, children, actions, aside }: PageHeroProps) {
   return (
     <section className="page-hero" aria-labelledby="page-title">
       <div className={`container ${aside ? "page-hero__grid" : ""}`}>
         <div className="page-hero__copy">
           <Breadcrumbs items={breadcrumbs} />
+          {beforeTitle}
           {eyebrow && <span className="eyebrow section-eyebrow">{eyebrow}</span>}
           <h1 id="page-title">{title}</h1>
           {children && <div className="page-hero__intro">{children}</div>}

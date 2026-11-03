@@ -10,7 +10,7 @@ describe("SEO (spec 16)", () => {
   it("lists published routes only in the sitemap", () => {
     const urls = sitemap().map((entry) => new URL(entry.url).pathname);
     assert.equal(new Set(urls).size, urls.length, "no duplicate URLs");
-    for (const path of ["/", "/whatsapp-orders", "/ai-to-ai-hub", "/features/inbound-calls", "/industries/hotels", "/solutions/sales-agent", "/demo"]) {
+    for (const path of ["/", "/whatsapp-orders", "/ai-to-ai-hub", "/features/inbound-calls", "/industries/hotels", "/solutions/sales-agent/whatsapp", "/solutions/sales-agent/voice", "/demo"]) {
       assert.ok(urls.includes(path), path);
     }
     for (const path of ["/thank-you", "/pricing", "/privacy", "/terms", "/cookies"]) {

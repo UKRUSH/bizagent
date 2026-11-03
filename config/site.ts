@@ -61,10 +61,12 @@ export const siteConfig: SiteConfig = {
     schedulingUrl: null,
   },
   socialProfiles: [],
-  providerAttribution: null,
+  // Wording from the spec's "Powered by" block: the Meta Tech Provider is Dilexus, not BIZny.
+  providerAttribution:
+    "Powered by Agent Dilu, developed by Dilexus, an official Meta Tech Provider.",
   flags: {
     pricingPublished: false,
-    providerAttributionApproved: false,
+    providerAttributionApproved: true,
   },
 };
 

@@ -3,7 +3,7 @@ import { industries } from "@/content/industries";
 import { publishedLegalSlugs } from "@/content/legal";
 import { modules } from "@/content/modules";
 import { products } from "@/content/products";
-import { roles } from "@/content/roles";
+import { roleChannelContent, roleChannelHref } from "@/content/roleChannels";
 import { absoluteUrl } from "@/lib/seo";
 
 /**
@@ -16,7 +16,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/platform",
     "/features",
     ...modules.map((entry) => `/features/${entry.slug}`),
-    ...roles.map((role) => role.href),
+    ...roleChannelContent.map((entry) => roleChannelHref(entry.role, entry.channel)),
     "/enterprise",
     "/whatsapp-ai",
     ...products.map((product) => product.href),

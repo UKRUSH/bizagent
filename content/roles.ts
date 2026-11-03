@@ -72,7 +72,7 @@ export const roles: OperatingRole[] = [
     ],
     relatedIndustries: ["support-teams", "bpos-call-centres", "clinics-hospitals", "service-companies"],
     formRole: "call-center",
-    href: "/solutions/call-center",
+    href: "/solutions/call-center/whatsapp",
     ctaLabel: "Book a Demo",
   },
   {
@@ -140,7 +140,7 @@ export const roles: OperatingRole[] = [
     ],
     relatedIndustries: ["real-estate", "insurance", "education", "sales-teams-smes"],
     formRole: "sales",
-    href: "/solutions/sales-agent",
+    href: "/solutions/sales-agent/whatsapp",
     ctaLabel: "Book a Demo",
   },
   {
@@ -207,7 +207,7 @@ export const roles: OperatingRole[] = [
     ],
     relatedIndustries: ["executives-professionals", "finance-professional-services", "sales-teams-smes"],
     formRole: "personal-assistant",
-    href: "/solutions/personal-assistant",
+    href: "/solutions/personal-assistant/whatsapp",
     ctaLabel: "Discuss My Setup",
   },
 ];

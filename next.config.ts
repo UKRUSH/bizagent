@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import { roleSlugs } from "./content/types";
 
 /**
  * Baseline security headers (spec 21). A Content Security Policy is a deployment decision:
@@ -23,6 +24,16 @@ const nextConfig: NextConfig = {
   poweredByHeader: false,
   async headers() {
     return [{ source: "/:path*", headers: securityHeaders }];
+  },
+  // Role pages split into WhatsApp and Voice channel pages; WhatsApp is the default.
+  async redirects() {
+    return [
+      {
+        source: `/solutions/:slug(${roleSlugs.join("|")})`,
+        destination: "/solutions/:slug/whatsapp",
+        permanent: true,
+      },
+    ];
   },
 };
 

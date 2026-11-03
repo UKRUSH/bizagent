@@ -204,11 +204,11 @@ await section("Interactive components (parts 3–9)", async () => {
   check("integration status filter narrows the directory", /Showing \d+ of/.test(integrations.status) && integrations.crmVisible && integrations.telephonyHidden, JSON.stringify(integrations));
 
   await goto("/");
-  await evaluate(`document.getElementById('nav-trigger-call-agent').click()`);
+  await evaluate(`document.getElementById('nav-trigger-voice-agent').click()`);
   await sleep(150);
   await evaluate(`document.querySelector('h1').dispatchEvent(new PointerEvent('pointerdown', { bubbles: true }))`);
   await sleep(150);
-  check("a desktop menu closes on an outside click", (await evaluate(`document.getElementById('nav-trigger-call-agent').getAttribute('aria-expanded')`)) === "false");
+  check("a desktop menu closes on an outside click", (await evaluate(`document.getElementById('nav-trigger-voice-agent').getAttribute('aria-expanded')`)) === "false");
 
   await viewport(390);
   await goto("/");
@@ -308,7 +308,7 @@ await section("Keyboard navigation (spec 5.2)", async () => {
 
 await section("No horizontal page overflow (spec 18)", async () => {
   const routes = [
-    "/", "/platform", "/features", "/features/recording-transcription", "/solutions/personal-assistant", "/enterprise",
+    "/", "/platform", "/features", "/features/recording-transcription", "/solutions/personal-assistant/whatsapp", "/solutions/personal-assistant/voice", "/enterprise",
     "/whatsapp-ai", "/whatsapp-orders", "/ai-to-ai-hub", "/industries", "/industries/finance-professional-services", "/integrations",
     "/security", "/about", "/contact", "/book-demo", "/thank-you", "/demo", "/does-not-exist",
   ];

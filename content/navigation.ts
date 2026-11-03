@@ -12,31 +12,44 @@ export interface NavLink {
   external?: boolean;
   /** Rendered as a highlighted card inside its menu. */
   featured?: boolean;
+  /** Marks the link current on every page under this path (defaults to href). */
+  activeHref?: string;
 }
 
 export type NavItem =
   | { kind: "link"; label: string; href: string }
-  | { kind: "menu"; id: string; label: string; links: NavLink[] };
+  | {
+      kind: "menu";
+      id: string;
+      label: string;
+      /** Optional sub-heading shown above the menu's links. */
+      heading?: string;
+      links: NavLink[];
+    };
 
 export const primaryNavigation: NavItem[] = [
   {
     kind: "menu",
-    id: "call-agent",
-    label: "Call Agent",
+    id: "voice-agent",
+    label: "Voice Agent",
+    heading: "Call Agent",
     links: [
       {
         label: "Call Center Agent",
-        href: "/solutions/call-center",
+        href: "/solutions/call-center/whatsapp",
+        activeHref: "/solutions/call-center",
         description: "Routine enquiries, routing and handoff.",
       },
       {
         label: "Sales Agent",
-        href: "/solutions/sales-agent",
+        href: "/solutions/sales-agent/whatsapp",
+        activeHref: "/solutions/sales-agent",
         description: "Qualification, follow-ups and pipeline updates.",
       },
       {
         label: "Personal Call Agent",
-        href: "/solutions/personal-assistant",
+        href: "/solutions/personal-assistant/whatsapp",
+        activeHref: "/solutions/personal-assistant",
         description: "Screening, messages, calendar and reminders.",
       },
     ],
@@ -102,9 +115,9 @@ export const footerNavigation: FooterGroup[] = [
   {
     heading: "Call Agent",
     links: [
-      { label: "Call Center Agent", href: "/solutions/call-center" },
-      { label: "Sales Agent", href: "/solutions/sales-agent" },
-      { label: "Personal Call Agent", href: "/solutions/personal-assistant" },
+      { label: "Call Center Agent", href: "/solutions/call-center/whatsapp" },
+      { label: "Sales Agent", href: "/solutions/sales-agent/whatsapp" },
+      { label: "Personal Call Agent", href: "/solutions/personal-assistant/whatsapp" },
       { label: "Industries", href: "/industries" },
       { label: "Enterprise", href: "/enterprise" },
     ],

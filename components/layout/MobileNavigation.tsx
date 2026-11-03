@@ -83,10 +83,11 @@ export function MobileNavigationView({ pathname }: { pathname: string | null }) 
             <p className="mobile-nav__heading" id={`mobile-nav-${menu.id}`}>
               {menu.label}
             </p>
+            {menu.heading && <p className="mobile-nav__subheading">{menu.heading}</p>}
             <ul aria-labelledby={`mobile-nav-${menu.id}`}>
               {menu.links.map((link) => (
                 <li key={link.href}>
-                  <SmartLink href={link.href} external={link.external} current={isCurrent(link.href)}>
+                  <SmartLink href={link.href} external={link.external} current={isCurrent(link.activeHref ?? link.href)}>
                     {link.label}
                   </SmartLink>
                 </li>
